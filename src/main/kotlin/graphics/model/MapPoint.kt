@@ -1,4 +1,4 @@
-package graphics
+package graphics.model
 
 import java.awt.Color
 

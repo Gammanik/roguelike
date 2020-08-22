@@ -1,5 +1,7 @@
 package graphics
 
+import graphics.model.MapPoint
+import graphics.model.MapRectangle
 import java.awt.Color
 
 class Map {
@@ -13,8 +15,8 @@ class Map {
     var wallSet = mutableSetOf<Pair<Int, Int>>()
     val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
     val wallList = arrayListOf(MapRectangle(10, 20, 10, 15), MapRectangle(50, 60, 60, 70),
-        MapRectangle(30, 40, 10, 20), MapRectangle(50, 60, 20, 30),
-        MapRectangle(70, 80, 10, 15), MapRectangle(90, 95, 5, 15)
+            MapRectangle(30, 40, 10, 20), MapRectangle(50, 60, 20, 30),
+            MapRectangle(70, 80, 10, 15), MapRectangle(90, 95, 5, 15)
     )
 
     fun changeColor(x: Int, y: Int, col: Color) {
