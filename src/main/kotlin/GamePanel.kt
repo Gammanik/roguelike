@@ -36,7 +36,7 @@ class GamePanel: JPanel(), KeyListener {
 
         g1.color = Color.BLACK;
 
-        val circle =  Person(x1, y1, 20.0, 20.0)
+        val circle =  Person(x1, y1, characterDiameter.toDouble(), characterDiameter.toDouble())
         g1.fill(circle)
     }
 

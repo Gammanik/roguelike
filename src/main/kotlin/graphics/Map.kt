@@ -14,9 +14,10 @@ class Map {
 
     var wallSet = mutableSetOf<Pair<Int, Int>>()
     val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
-    val wallList = arrayListOf(MapRectangle(10, 20, 10, 15), MapRectangle(50, 60, 60, 70),
-            MapRectangle(30, 40, 10, 20), MapRectangle(50, 60, 20, 30),
-            MapRectangle(70, 80, 10, 15), MapRectangle(90, 95, 5, 15)
+    val wallList = arrayListOf(rectGen(3, 2, 4, 2), rectGen(2, 7, 2, 4),
+        rectGen(10, 10, 3, 3), rectGen(15, 7, 2, 4),
+        rectGen(31, 20, 3, 5), rectGen(2, 7, 2, 4),
+        rectGen(5, 33, 5, 3), rectGen(27, 5, 2, 4)
     )
 
     fun changeColor(x: Int, y: Int, col: Color) {
@@ -48,5 +49,9 @@ class Map {
             }
         }
         return false
+    }
+
+    fun rectGen(x: Int, y: Int, w: Int, h: Int): MapRectangle {
+        return MapRectangle(x, x + w, y , y + h)
     }
 }
