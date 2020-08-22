@@ -6,8 +6,8 @@ import java.awt.Color
 
 class Map {
 
-    val xSize = 100
-    val ySize = 100
+    val xSize = 80
+    val ySize = 60
     val squareSize = 10;
     val backgroundColor = Color.LIGHT_GRAY
     val wallColor = Color.DARK_GRAY
@@ -33,10 +33,20 @@ class Map {
             }
         }
 
-        for (y in 0..xSize) {
-            for (x in 0..ySize) {
+        for (x in 0 until xSize) {
+            for (y in 0 until ySize) {
                 rectMap[Pair(x, y)] = MapPoint(x, y, if (wallSet.contains(Pair(x, y))) wallColor else backgroundColor)
             }
         }
+    }
+
+    fun isWall(x: Int, y: Int): Boolean {
+        val point = rectMap[Pair(x, y)]
+        if (point != null) {
+            if (point.col == wallColor) {
+                return true
+            }
+        }
+        return false
     }
 }

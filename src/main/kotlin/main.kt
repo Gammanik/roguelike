@@ -8,8 +8,9 @@ fun main() {
     val frame = JFrame()
     s.isFocusable = true
 
+    s.size = Dimension(800, 600)
     frame.add(s)
     frame.isVisible = true
-    frame.size = Dimension(600, 400)
+    frame.size = Dimension(1000, 800)
     frame.defaultCloseOperation = EXIT_ON_CLOSE
 }

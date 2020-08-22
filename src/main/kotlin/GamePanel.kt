@@ -13,11 +13,13 @@ import java.awt.Color
 class GamePanel: JPanel(), KeyListener {
     private val map = Map()
 
-    private var x1 = 0.0
-    private var y1 = 0.0
+    private var x1 = 0
+    private var y1 = 0
 
-    var velX = 20
-    var velY = 20
+    private val characterDiameter = 20
+
+    var velX = 10
+    var velY = 10
 
     init { this.addKeyListener(this) }
 
@@ -26,6 +28,7 @@ class GamePanel: JPanel(), KeyListener {
 
         val g1 = g as Graphics2D
         g1.color = Color.BLACK;
+
         for (point in map.rectMap.values) {
             g1.color = point.col
             g1.fill3DRect(point.x * 10, point.y * 10, 10, 10, true);
@@ -44,22 +47,27 @@ class GamePanel: JPanel(), KeyListener {
             return
 
         when (p0.keyCode) {
+
             Keys.KEY_UP->  {
-                if (y1 > 0) {
+                if (y1 > 0 && !map.isWall(x1 / 10, y1 / 10 - 1) && !map.isWall(x1 / 10 + 1, y1 / 10 - 1)) {
                     y1 -= velY
                 }
             }
             Keys.KEY_DOWN -> {
-                if (y < 600) {
+                if (y1 + characterDiameter < 600 && !map.isWall(x1 / 10, y1 / 10 + 2) && !map.isWall(x1 / 10 + 1, y1 / 10 + 2)) {
                     y1 += velY
                 }
             }
             Keys.KEY_RIGHT -> {
-//                if (x < ) {
+                if (x1 + characterDiameter < 800 && !map.isWall(x1 / 10 + 2, y1 / 10) && !map.isWall(x1 / 10 + 2, y1 / 10 + 1)) {
                     x1 += velX
-//                }
+                }
             }
-            Keys.KEY_LEFT -> x1 -= velX
+            Keys.KEY_LEFT -> {
+                if (x1 > 0 && !map.isWall(x1 / 10 - 1, y1 / 10) && !map.isWall(x1 / 10 - 1, y1 / 10 + 1)) {
+                    x1 -= velX
+                }
+            }
         }
         repaint()
     }
