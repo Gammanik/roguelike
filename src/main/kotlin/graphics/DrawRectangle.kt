@@ -29,7 +29,7 @@ class DrawRectangle() : JPanel() {
 
 
 
-        for (point in map.rectList) {
+        for (point in map.rectMap.values) {
             g1.color = point.col;
             g1.fill3DRect(point.x * 10, point.y * 10, 10, 10, true);
         }
