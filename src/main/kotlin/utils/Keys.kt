@@ -1,3 +1,5 @@
+package utils
+
 object Keys {
     const val KEY_UP = 87
     const val KEY_DOWN = 83

@@ -1,5 +1,4 @@
 package graphics
 
-import java.awt.Color
 
-data class MapRectangle(val x1: Int, val x2:Int, val y1: Int, val y2: Int) {}
+data class MapRectangle(var x1: Int, var x2:Int, var y1: Int, var y2: Int) {}
