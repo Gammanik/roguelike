@@ -1,25 +1,22 @@
 import java.awt.Graphics
 import java.awt.Graphics2D
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
-import java.awt.geom.Ellipse2D
 import javax.swing.JPanel
 import graphics.*
 import utils.Keys
+import utils.Settings as set
 import java.awt.Color
+import utils.Settings
 
 class GamePanel: JPanel(), KeyListener {
     private val map = Map()
 
-    private var x1 = 0
-    private var y1 = 0
+    private var x1 = Settings.X_START_POINT
+    private var y1 = Settings.Y_START_POINT
 
-    private val characterDiameter = 20
-
-    var velX = 10
-    var velY = 10
+    private var velX = set.VELOCITY
+    private var velY = set.VELOCITY
 
     init { this.addKeyListener(this) }
 
@@ -27,16 +24,15 @@ class GamePanel: JPanel(), KeyListener {
         super.paintComponent(g)
 
         val g1 = g as Graphics2D
-        g1.color = Color.BLACK;
 
         for (point in map.rectMap.values) {
             g1.color = point.col
             g1.fill3DRect(point.x * 10, point.y * 10, 10, 10, true);
         }
 
-        g1.color = Color.BLACK;
+        g1.color = Settings.CHARACTER_COLOR
 
-        val circle =  Person(x1, y1, characterDiameter.toDouble(), characterDiameter.toDouble())
+        val circle =  Person(x1, y1, set.CHARACTER_DIAMETER.toDouble(), set.CHARACTER_DIAMETER.toDouble())
         g1.fill(circle)
     }
 
@@ -54,12 +50,12 @@ class GamePanel: JPanel(), KeyListener {
                 }
             }
             Keys.KEY_DOWN -> {
-                if (y1 + characterDiameter < 600 && !map.isWall(x1 / 10, y1 / 10 + 2) && !map.isWall(x1 / 10 + 1, y1 / 10 + 2)) {
+                if (y1 + set.CHARACTER_DIAMETER < 600 && !map.isWall(x1 / 10, y1 / 10 + 2) && !map.isWall(x1 / 10 + 1, y1 / 10 + 2)) {
                     y1 += velY
                 }
             }
             Keys.KEY_RIGHT -> {
-                if (x1 + characterDiameter < 800 && !map.isWall(x1 / 10 + 2, y1 / 10) && !map.isWall(x1 / 10 + 2, y1 / 10 + 1)) {
+                if (x1 + set.CHARACTER_DIAMETER < 800 && !map.isWall(x1 / 10 + 2, y1 / 10) && !map.isWall(x1 / 10 + 2, y1 / 10 + 1)) {
                     x1 += velX
                 }
             }

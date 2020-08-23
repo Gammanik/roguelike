@@ -2,18 +2,17 @@ package graphics
 
 import graphics.model.MapPoint
 import graphics.model.MapRectangle
+import utils.Settings
 import java.awt.Color
 
 class Map {
 
-    val xSize = 80
-    val ySize = 60
-    val squareSize = 10;
-    val backgroundColor = Color.LIGHT_GRAY
-    val wallColor = Color.DARK_GRAY
+    val xSize = Settings.X_POINTS_COUNTS
+    val ySize = Settings.Y_POINTS_COUNTS
 
     var wallSet = mutableSetOf<Pair<Int, Int>>()
     val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
+
     val wallList = arrayListOf(rectGen(3, 2, 4, 2), rectGen(2, 7, 2, 4),
         rectGen(10, 10, 3, 3), rectGen(15, 7, 2, 4),
         rectGen(31, 20, 3, 5), rectGen(2, 7, 2, 4),
@@ -36,7 +35,8 @@ class Map {
 
         for (x in 0 until xSize) {
             for (y in 0 until ySize) {
-                rectMap[Pair(x, y)] = MapPoint(x, y, if (wallSet.contains(Pair(x, y))) wallColor else backgroundColor)
+                val pointColor = if (wallSet.contains(Pair(x, y))) Settings.WALL_COLOR else Settings.BACKGROUND_COLOR
+                rectMap[Pair(x, y)] = MapPoint(x, y, pointColor)
             }
         }
     }
@@ -44,7 +44,7 @@ class Map {
     fun isWall(x: Int, y: Int): Boolean {
         val point = rectMap[Pair(x, y)]
         if (point != null) {
-            if (point.col == wallColor) {
+            if (point.col == Settings.WALL_COLOR) {
                 return true
             }
         }
