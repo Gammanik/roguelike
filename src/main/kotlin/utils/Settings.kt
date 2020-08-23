@@ -7,7 +7,8 @@ object Settings {
     const val HEIGHT = 600
     const val FRAME_WIDTH = 800
     const val FRAME_HEIGHT = 700
-    const val VELOCITY = 10
+    const val SQUARE_SIZE = 10
+    const val VELOCITY = 1
     const val CHARACTER_DIAMETER = 20
     const val X_POINTS_COUNTS = 80
     const val Y_POINTS_COUNTS = 60

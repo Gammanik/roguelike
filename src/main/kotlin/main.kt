@@ -9,7 +9,7 @@ fun main() {
     val frame = JFrame()
     s.isFocusable = true
 
-    s.size = Dimension(Settings.WIDTH, Settings.WIDTH)
+    s.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
     frame.add(s)
     frame.isVisible = true
     frame.size = Dimension(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)
