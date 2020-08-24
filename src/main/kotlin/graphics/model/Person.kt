@@ -1,4 +1,4 @@
-package graphics
+package graphics.model
 
 import utils.Settings
 import java.awt.geom.Ellipse2D

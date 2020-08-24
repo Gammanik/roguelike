@@ -3,8 +3,8 @@ import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.JPanel
-import graphics.*
 import graphics.Map
+import graphics.model.Person
 import utils.Keys
 import utils.Settings as set
 

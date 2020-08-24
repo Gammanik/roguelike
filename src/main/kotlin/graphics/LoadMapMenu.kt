@@ -1,5 +1,6 @@
 package graphics
 
+import graphics.model.BadMapFileException
 import java.awt.FlowLayout
 import java.awt.event.ActionEvent
 import java.io.File

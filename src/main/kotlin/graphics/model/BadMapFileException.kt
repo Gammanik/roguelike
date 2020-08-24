@@ -1,3 +1,3 @@
-package graphics
+package graphics.model
 
 class BadMapFileException : Exception()

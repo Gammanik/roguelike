@@ -4,6 +4,7 @@ import graphics.model.MapPoint
 import graphics.model.MapRectangle
 import utils.Settings
 import java.io.File
+import graphics.model.BadMapFileException
 
 class Map {
 
