@@ -6,12 +6,6 @@ import org.junit.Test
 import java.io.File
 
 class GameTest {
-
-    @Test
-    fun testTests() {
-        assertEquals(2, 2)
-    }
-
     @Test
     fun testCreateMap() {
         val m = GameMap()

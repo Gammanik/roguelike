@@ -13,7 +13,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
     var isMapLoaded = false
     private val fileChooser = JFileChooser()
 
-    // create map or generate from file
+    /** create map or generate from file */
     fun createMap(file: File?): GameMap {
         return if (file == null) {
             GameMap()
@@ -22,6 +22,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
         }
     }
 
+    /** get map or create if yet not created */
     fun getMap(): GameMap {
         return if (gameMap == null) {
             GameMap()
@@ -30,6 +31,8 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
         }
     }
 
+    /** inner class for handling start menu button click
+     * load class from file of load random map */
     inner class SimpleAction : AbstractAction() {
         override fun actionPerformed(e: ActionEvent) {
             val btn = e.source as JButton
