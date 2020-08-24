@@ -15,7 +15,6 @@ class LoadMapMenu() : JFrame("[RGlove 1.0] Please choose map mode! ") {
 
     fun createMap(file: File?): Map {
         return if (file == null) {
-            println(1111)
             Map()
         } else {
             Map(file)

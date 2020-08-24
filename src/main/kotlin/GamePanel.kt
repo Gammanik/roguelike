@@ -6,18 +6,19 @@ import javax.swing.JPanel
 import graphics.*
 import graphics.Map
 import utils.Keys
+import java.awt.geom.Ellipse2D
 import utils.Settings as set
 
 class GamePanel(private val map : Map): JPanel(), KeyListener {
 
-    private var x1 = set.X_START_POINT
-    private var y1 = set.Y_START_POINT
+    private val person = Person(set.X_START_POINT, set.X_START_POINT)
 
     init { this.addKeyListener(this) }
 
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
         val g1 = g as Graphics2D
+
 
         for (point in map.rectMap.values) {
             g1.color = point.col
@@ -26,10 +27,7 @@ class GamePanel(private val map : Map): JPanel(), KeyListener {
         }
 
         g1.color = set.CHARACTER_COLOR
-
-        val circle =  Person(x1 * set.SQUARE_SIZE, y1 * set.SQUARE_SIZE,
-            set.CHARACTER_DIAMETER.toDouble(), set.CHARACTER_DIAMETER.toDouble())
-        g1.fill(circle)
+        g.fill(person)
     }
 
     override fun keyTyped(p0: KeyEvent?) { }
@@ -42,30 +40,35 @@ class GamePanel(private val map : Map): JPanel(), KeyListener {
         when (p0.keyCode) {
 
             Keys.KEY_UP->  {
-                if (y1 > 0 && !map.isWall(x1 , y1 - 1) && !map.isWall(x1 + 1, y1 - 1)) {
-                    y1 -= set.VELOCITY
+                if (person.yCoordinate > 0 && !map.isWall(person.xCoordinate , person.yCoordinate - 1)
+                        && !map.isWall(person.xCoordinate + 1, person.yCoordinate - 1)) {
+                    person.xCoordinate -= set.VELOCITY
                 }
             }
 
             Keys.KEY_DOWN -> {
-                if (y1 + 2 < set.Y_POINTS_COUNTS && !map.isWall(x1, y1 + 2) && !map.isWall(x1 + 1, y1 + 2)) {
-                    y1 += set.VELOCITY
+                if (person.yCoordinate + 2 < set.Y_POINTS_COUNTS && !map.isWall(person.xCoordinate, person.yCoordinate + 2)
+                        && !map.isWall(person.xCoordinate + 1, person.yCoordinate + 2)) {
+                    person.yCoordinate += set.VELOCITY
                 }
             }
 
             Keys.KEY_RIGHT -> {
-                if (x1 + 2 < set.X_POINTS_COUNTS && !map.isWall(x1 + 2, y1) && !map.isWall(x1 + 2, y1 + 1)) {
-                    x1 += set.VELOCITY
+                if (person.xCoordinate + 2 < set.X_POINTS_COUNTS && !map.isWall(person.xCoordinate + 2, person.yCoordinate)
+                        && !map.isWall(  person.xCoordinate+ 2,  person.yCoordinate + 1)) {
+                    person.xCoordinate += set.VELOCITY
                 }
             }
 
             Keys.KEY_LEFT -> {
-                if (x1 > 0 && !map.isWall(x1 - 1, y1) && !map.isWall(x1 - 1, y1 + 1)) {
-                    x1 -= set.VELOCITY
+                if (person.xCoordinate > 0 && !map.isWall(person.xCoordinate - 1, person.yCoordinate)
+                        && !map.isWall(person.xCoordinate - 1, person.yCoordinate + 1)) {
+                    person.xCoordinate -= set.VELOCITY
                 }
             }
 
         }
+        person.updatePosition()
         repaint()
 
     }
