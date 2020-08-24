@@ -1,17 +1,15 @@
 package graphics
 
+import graphics.model.BadMapFileException
 import graphics.model.MapPoint
-import graphics.model.MapRectangle
 import utils.Settings
 import java.io.File
-import graphics.model.BadMapFileException
 
+
+/** Class representing the game field
+ * each element on map characterized by it's x,y coordinates*/
 class Map {
-
-    private val xSize = Settings.X_POINTS_COUNTS
-    private val ySize = Settings.Y_POINTS_COUNTS
-
-    var wallSet = mutableSetOf<Pair<Int, Int>>()
+    private var wallSet = mutableSetOf<Pair<Int, Int>>()
     val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 
     private var wallList = Settings.WALL_LIST
@@ -22,7 +20,6 @@ class Map {
     }
 
     constructor() {
-
         generateRandomWalls()
 
         for (rect in wallList) {
@@ -33,8 +30,8 @@ class Map {
             }
         }
 
-        for (x in 0 until xSize) {
-            for (y in 0 until ySize) {
+        for (x in 0 until Settings.X_POINTS_COUNTS) {
+            for (y in 0 until Settings.Y_POINTS_COUNTS) {
                 val pointColor = if (wallSet.contains(Pair(x, y))) Settings.WALL_COLOR else Settings.BACKGROUND_COLOR
                 rectMap[Pair(x, y)] = MapPoint(x, y, pointColor)
             }
@@ -43,29 +40,24 @@ class Map {
     }
 
     constructor(file: File) {
-
-        var charSequence : CharArray
+        var charSequence: CharArray
         var symbol: Char
 
-        for ((lineNumber, line) in file.readLines().withIndex())  {
+        for ((lineNumber, line) in file.readLines().withIndex()) {
             charSequence = line.toCharArray()
 
             for (x in 0 until Settings.X_POINTS_COUNTS) {
-                symbol =  charSequence[x]
+                symbol = charSequence[x]
 
-                if (symbol == Settings.BACKGROUND_SYMBOL) {
-
-                    rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.BACKGROUND_COLOR)
-
-                } else if (symbol == Settings.WALL_SYMBOL) {
-
-                    rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
-                    wallSet.add(Pair(x, lineNumber))
-
-                } else {
-
-                    throw BadMapFileException()
-
+                when (symbol) {
+                    Settings.BACKGROUND_SYMBOL -> {
+                        rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.BACKGROUND_COLOR)
+                    }
+                    Settings.WALL_SYMBOL -> {
+                        rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
+                        wallSet.add(Pair(x, lineNumber))
+                    }
+                    else -> { throw BadMapFileException() }
                 }
 
             }
@@ -73,6 +65,7 @@ class Map {
 
     }
 
+    /** check if current coordinate is a wall*/
     fun isWall(x: Int, y: Int): Boolean {
         val point = rectMap[Pair(x, y)]
         if (point != null) {

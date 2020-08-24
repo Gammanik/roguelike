@@ -3,8 +3,8 @@ package utils
 import graphics.model.MapRectangle
 import java.awt.Color
 
+/** game settings */
 object Settings {
-
     const val WIDTH = 800
     const val HEIGHT = 600
     const val FRAME_WIDTH = 800

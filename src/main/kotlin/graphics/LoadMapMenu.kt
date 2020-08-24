@@ -7,13 +7,14 @@ import java.io.File
 import javax.swing.*
 import utils.Settings as set
 
+/** start menu. Map loading logic */
 class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
 
-    private var map : Map? = null
+    private var map: Map? = null
     var isMapLoaded = false
+    private val fileChooser = JFileChooser()
 
-    val fileChooser = JFileChooser()
-
+    // create map or generate from file
     fun createMap(file: File?): Map {
         return if (file == null) {
             Map()
@@ -31,9 +32,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
     }
 
     inner class SimpleAction : AbstractAction() {
-
         override fun actionPerformed(e: ActionEvent) {
-
             val btn = e.source as JButton
 
             if (btn.name.equals(set.MAP_LOAD_FIRST_BUTTON_NAME, ignoreCase = true)) {
@@ -54,7 +53,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
 
                 try {
                     map = createMap(selectedFile)
-                } catch (e : BadMapFileException) {
+                } catch (e: BadMapFileException) {
                     this@LoadMapMenu.title = "[Bad map file] Try again! "
                     return
                 }
@@ -62,31 +61,30 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
                 isMapLoaded = true
                 this@LoadMapMenu.isVisible = false
             }
-
         }
     }
 
     init {
-
         defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
 
         val container = contentPane
         container.layout = FlowLayout()
 
         val action: Action = SimpleAction()
-        val button1 = JButton(action)
+        val randomMapButton = JButton(action)
 
-        button1.name = set.MAP_LOAD_FIRST_BUTTON_NAME
-        button1.text = set.MAP_LOAD_FIRST_BUTTON_NAME
+        randomMapButton.name = set.MAP_LOAD_FIRST_BUTTON_NAME
+        randomMapButton.text = set.MAP_LOAD_FIRST_BUTTON_NAME
 
-        val button2 = JButton(action)
-        button2.name = set.MAP_LOAD_SECOND_BUTTON_NAME
-        button2.text = set.MAP_LOAD_SECOND_BUTTON_NAME
+        val mapFromFileButton = JButton(action)
+        mapFromFileButton.name = set.MAP_LOAD_SECOND_BUTTON_NAME
+        mapFromFileButton.text = set.MAP_LOAD_SECOND_BUTTON_NAME
 
-        container.add(button1)
-        container.add(button2)
+        container.add(randomMapButton)
+        container.add(mapFromFileButton)
 
         setSize(320, 100)
+        isResizable = false
         isVisible = true
     }
 }

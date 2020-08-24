@@ -1,45 +1,46 @@
+import graphics.Map
+import graphics.model.Person
+import utils.Keys
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.JPanel
-import graphics.Map
-import graphics.model.Person
-import utils.Keys
 import utils.Settings as set
 
-class GamePanel(private val map : Map): JPanel(), KeyListener {
+/** The main game window */
+class GamePanel(private val map: Map) : JPanel(), KeyListener {
 
-    private val person = Person(set.X_START_POINT, set.X_START_POINT)
+    private val person = Person(set.X_START_POINT, set.Y_START_POINT)
 
-    init { this.addKeyListener(this) }
+    init {
+        this.addKeyListener(this)
+    }
 
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
         val g1 = g as Graphics2D
 
-
         for (point in map.rectMap.values) {
             g1.color = point.col
             g1.fill3DRect(point.x * set.SQUARE_SIZE, point.y * set.SQUARE_SIZE,
-                set.SQUARE_SIZE, set.SQUARE_SIZE, true);
+                    set.SQUARE_SIZE, set.SQUARE_SIZE, true)
         }
 
         g1.color = set.CHARACTER_COLOR
         g.fill(person)
     }
 
-    override fun keyTyped(p0: KeyEvent?) { }
+    override fun keyTyped(p0: KeyEvent?) {}
 
     override fun keyPressed(p0: KeyEvent?) {
-
         if (p0 == null)
             return
 
         when (p0.keyCode) {
 
-            Keys.KEY_UP->  {
-                if (person.yCoordinate > 0 && !map.isWall(person.xCoordinate , person.yCoordinate - 1)
+            Keys.KEY_UP -> {
+                if (person.yCoordinate > 0 && !map.isWall(person.xCoordinate, person.yCoordinate - 1)
                         && !map.isWall(person.xCoordinate + 1, person.yCoordinate - 1)) {
                     person.yCoordinate -= set.VELOCITY
                 }
@@ -54,7 +55,7 @@ class GamePanel(private val map : Map): JPanel(), KeyListener {
 
             Keys.KEY_RIGHT -> {
                 if (person.xCoordinate + 2 < set.X_POINTS_COUNTS && !map.isWall(person.xCoordinate + 2, person.yCoordinate)
-                        && !map.isWall(  person.xCoordinate+ 2,  person.yCoordinate + 1)) {
+                        && !map.isWall(person.xCoordinate + 2, person.yCoordinate + 1)) {
                     person.xCoordinate += set.VELOCITY
                 }
             }
@@ -69,7 +70,6 @@ class GamePanel(private val map : Map): JPanel(), KeyListener {
         }
         person.updatePosition()
         repaint()
-
     }
 
     override fun keyReleased(p0: KeyEvent?) {}
