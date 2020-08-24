@@ -8,7 +8,7 @@ import java.io.File
 
 /** Class representing the game field
  * each element on map characterized by it's x,y coordinates*/
-class Map {
+class GameMap {
     private var wallSet = mutableSetOf<Pair<Int, Int>>()
     val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 

@@ -9,25 +9,24 @@ import utils.Settings as set
 
 /** start menu. Map loading logic */
 class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
-
-    private var map: Map? = null
+    private var gameMap: GameMap? = null
     var isMapLoaded = false
     private val fileChooser = JFileChooser()
 
     // create map or generate from file
-    fun createMap(file: File?): Map {
+    fun createMap(file: File?): GameMap {
         return if (file == null) {
-            Map()
+            GameMap()
         } else {
-            Map(file)
+            GameMap(file)
         }
     }
 
-    fun getMap(): Map {
-        return if (map == null) {
-            Map()
+    fun getMap(): GameMap {
+        return if (gameMap == null) {
+            GameMap()
         } else {
-            map as Map
+            gameMap as GameMap
         }
     }
 
@@ -36,14 +35,13 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
             val btn = e.source as JButton
 
             if (btn.name.equals(set.MAP_LOAD_FIRST_BUTTON_NAME, ignoreCase = true)) {
-                map = Map()
+                gameMap = GameMap()
                 isMapLoaded = true
                 this@LoadMapMenu.isVisible = false
             }
 
             if (btn.name.equals(set.MAP_LOAD_SECOND_BUTTON_NAME, ignoreCase = true)) {
                 var selectedFile: File? = null
-
                 fileChooser.currentDirectory = File(System.getProperty("user.home"));
 
                 val result = fileChooser.showOpenDialog(fileChooser)
@@ -52,7 +50,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
                 }
 
                 try {
-                    map = createMap(selectedFile)
+                    gameMap = createMap(selectedFile)
                 } catch (e: BadMapFileException) {
                     this@LoadMapMenu.title = "[Bad map file] Try again! "
                     return
