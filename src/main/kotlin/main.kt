@@ -1,8 +1,11 @@
 import graphics.LoadMapMenu
 import utils.Settings
+import java.awt.BorderLayout
+import java.awt.Container
 import java.awt.Dimension
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE
+
 
 /** starting the game */
 fun main() {
@@ -14,13 +17,13 @@ fun main() {
 
     val gameFrame = JFrame()
     gameFrame.isResizable = false
-    gameFrame.size = Dimension(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)
     gameFrame.defaultCloseOperation = EXIT_ON_CLOSE
 
     val gamePanel = GamePanel(loadMapMenu.getMap())
     gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
     gameFrame.add(gamePanel)
 
+    gameFrame.pack()
     gameFrame.isVisible = true
     gamePanel.isFocusable = true
 }

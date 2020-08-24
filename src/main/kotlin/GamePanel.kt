@@ -1,6 +1,7 @@
 import graphics.GameMap
 import graphics.model.Player
 import utils.Keys
+import java.awt.Dimension
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent
@@ -15,6 +16,10 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener {
 
     init {
         this.addKeyListener(this)
+    }
+
+    override fun getPreferredSize() : Dimension {
+        return Dimension(800, 600)
     }
 
     override fun paintComponent(g: Graphics) {
