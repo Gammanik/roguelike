@@ -6,7 +6,6 @@ import javax.swing.JPanel
 import graphics.*
 import graphics.Map
 import utils.Keys
-import java.awt.geom.Ellipse2D
 import utils.Settings as set
 
 class GamePanel(private val map : Map): JPanel(), KeyListener {
@@ -42,7 +41,7 @@ class GamePanel(private val map : Map): JPanel(), KeyListener {
             Keys.KEY_UP->  {
                 if (person.yCoordinate > 0 && !map.isWall(person.xCoordinate , person.yCoordinate - 1)
                         && !map.isWall(person.xCoordinate + 1, person.yCoordinate - 1)) {
-                    person.xCoordinate -= set.VELOCITY
+                    person.yCoordinate -= set.VELOCITY
                 }
             }
 
