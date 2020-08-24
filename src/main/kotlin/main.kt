@@ -1,7 +1,5 @@
 import graphics.LoadMapMenu
 import utils.Settings
-import java.awt.BorderLayout
-import java.awt.Container
 import java.awt.Dimension
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE
