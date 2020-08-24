@@ -14,13 +14,16 @@ class Map {
     var wallSet = mutableSetOf<Pair<Int, Int>>()
     val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 
-    private val wallList = arrayListOf(rectGen(3, 2, 4, 2), rectGen(2, 7, 2, 4),
-        rectGen(10, 10, 3, 3), rectGen(15, 7, 2, 4),
-        rectGen(31, 20, 3, 5), rectGen(2, 7, 2, 4),
-        rectGen(5, 33, 5, 3), rectGen(27, 5, 2, 4)
-    )
+    private var wallList = Settings.WALL_LIST
+
+    private fun generateRandomWalls() {
+        wallList.shuffle()
+        wallList = wallList.subList(0, (wallList.size * Settings.WALL_SUBSET_SIZE).toInt())
+    }
 
     constructor() {
+
+        generateRandomWalls()
 
         for (rect in wallList) {
             for (x in rect.x1..rect.x2) {
@@ -80,7 +83,4 @@ class Map {
         return false
     }
 
-    private fun rectGen(x: Int, y: Int, w: Int, h: Int): MapRectangle {
-        return MapRectangle(x, x + w, y , y + h)
-    }
 }

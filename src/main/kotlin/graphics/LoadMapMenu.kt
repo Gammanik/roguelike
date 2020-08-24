@@ -7,7 +7,7 @@ import java.io.File
 import javax.swing.*
 import utils.Settings as set
 
-class LoadMapMenu() : JFrame("[RGlove 1.0] Please choose map mode! ") {
+class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
 
     private var map : Map? = null
     var isMapLoaded = false
