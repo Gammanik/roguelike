@@ -45,7 +45,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
 
             if (btn.name.equals(set.MAP_LOAD_SECOND_BUTTON_NAME, ignoreCase = true)) {
                 var selectedFile: File? = null
-                fileChooser.currentDirectory = File(System.getProperty("user.home"));
+                fileChooser.currentDirectory = File(System.getProperty("user.home"))
 
                 val result = fileChooser.showOpenDialog(fileChooser)
                 if (result == JFileChooser.APPROVE_OPTION) {
@@ -84,7 +84,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
         container.add(randomMapButton)
         container.add(mapFromFileButton)
 
-        setSize(320, 100)
+        setSize(utils.Settings.MAP_MENU_WIDTH, utils.Settings.MAP_MENU_HEIGHT)
         isResizable = false
         isVisible = true
     }
