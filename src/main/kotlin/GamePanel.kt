@@ -1,5 +1,5 @@
 import graphics.GameMap
-import graphics.model.Person
+import graphics.model.Player
 import utils.Keys
 import java.awt.Graphics
 import java.awt.Graphics2D
@@ -11,7 +11,7 @@ import utils.Settings as set
 /** The main game window */
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener {
 
-    private val person = Person(set.X_START_POINT, set.Y_START_POINT)
+    private val person = Player(set.X_START_POINT, set.Y_START_POINT)
 
     init {
         this.addKeyListener(this)
