@@ -3,12 +3,12 @@ package utils
 import graphics.model.MapRectangle
 import java.awt.Color
 
+/** game settings */
 object Settings {
-
     const val WIDTH = 800
     const val HEIGHT = 600
-    const val FRAME_WIDTH = 800
-    const val FRAME_HEIGHT = 620
+    const val MAP_MENU_WIDTH = 400
+    const val MAP_MENU_HEIGHT = 100
     const val SQUARE_SIZE = 10
     const val VELOCITY = 1
     const val CHARACTER_DIAMETER = 20
@@ -24,11 +24,10 @@ object Settings {
     val BACKGROUND_COLOR: Color = Color.WHITE
     val WALL_COLOR: Color = Color.DARK_GRAY
 
-    const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map button"
+    const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map"
     const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"
 
-
-    val WALL_SUBSET_SIZE = 0.8
+    const val WALL_SUBSET_SIZE = 0.8
     val WALL_LIST = mutableListOf(
             MapRectangle(3, 6, 7, 11),
             MapRectangle(0, 2, 14, 16),

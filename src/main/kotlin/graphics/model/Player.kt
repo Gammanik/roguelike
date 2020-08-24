@@ -3,8 +3,11 @@ package graphics.model
 import utils.Settings
 import java.awt.geom.Ellipse2D
 
-
-class Person(var xCoordinate: kotlin.Int, var yCoordinate: kotlin.Int)
+/** Player class.
+ * x, y represents the current player coordinates in pixels
+ * xCoordinate, yCoordinate represents the player coordinates in squares
+ * */
+class Player(var xCoordinate: Int, var yCoordinate: Int)
     : Ellipse2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.CHARACTER_DIAMETER.toDouble(), Settings.CHARACTER_DIAMETER.toDouble()) {
 
     fun updatePosition() {

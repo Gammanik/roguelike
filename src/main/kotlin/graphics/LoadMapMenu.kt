@@ -7,45 +7,45 @@ import java.io.File
 import javax.swing.*
 import utils.Settings as set
 
+/** start menu. Map loading logic */
 class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
-
-    private var map : Map? = null
+    private var gameMap: GameMap? = null
     var isMapLoaded = false
+    private val fileChooser = JFileChooser()
 
-    val fileChooser = JFileChooser()
-
-    fun createMap(file: File?): Map {
+    /** create map or generate from file */
+    fun createMap(file: File?): GameMap {
         return if (file == null) {
-            Map()
+            GameMap()
         } else {
-            Map(file)
+            GameMap(file)
         }
     }
 
-    fun getMap(): Map {
-        return if (map == null) {
-            Map()
+    /** get map or create if yet not created */
+    fun getMap(): GameMap {
+        return if (gameMap == null) {
+            GameMap()
         } else {
-            map as Map
+            gameMap as GameMap
         }
     }
 
+    /** inner class for handling start menu button click
+     * load class from file of load random map */
     inner class SimpleAction : AbstractAction() {
-
         override fun actionPerformed(e: ActionEvent) {
-
             val btn = e.source as JButton
 
             if (btn.name.equals(set.MAP_LOAD_FIRST_BUTTON_NAME, ignoreCase = true)) {
-                map = Map()
+                gameMap = GameMap()
                 isMapLoaded = true
                 this@LoadMapMenu.isVisible = false
             }
 
             if (btn.name.equals(set.MAP_LOAD_SECOND_BUTTON_NAME, ignoreCase = true)) {
                 var selectedFile: File? = null
-
-                fileChooser.currentDirectory = File(System.getProperty("user.home"));
+                fileChooser.currentDirectory = File(System.getProperty("user.home"))
 
                 val result = fileChooser.showOpenDialog(fileChooser)
                 if (result == JFileChooser.APPROVE_OPTION) {
@@ -53,8 +53,8 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
                 }
 
                 try {
-                    map = createMap(selectedFile)
-                } catch (e : BadMapFileException) {
+                    gameMap = createMap(selectedFile)
+                } catch (e: BadMapFileException) {
                     this@LoadMapMenu.title = "[Bad map file] Try again! "
                     return
                 }
@@ -62,31 +62,30 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
                 isMapLoaded = true
                 this@LoadMapMenu.isVisible = false
             }
-
         }
     }
 
     init {
-
         defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
 
         val container = contentPane
         container.layout = FlowLayout()
 
         val action: Action = SimpleAction()
-        val button1 = JButton(action)
+        val randomMapButton = JButton(action)
 
-        button1.name = set.MAP_LOAD_FIRST_BUTTON_NAME
-        button1.text = set.MAP_LOAD_FIRST_BUTTON_NAME
+        randomMapButton.name = set.MAP_LOAD_FIRST_BUTTON_NAME
+        randomMapButton.text = set.MAP_LOAD_FIRST_BUTTON_NAME
 
-        val button2 = JButton(action)
-        button2.name = set.MAP_LOAD_SECOND_BUTTON_NAME
-        button2.text = set.MAP_LOAD_SECOND_BUTTON_NAME
+        val mapFromFileButton = JButton(action)
+        mapFromFileButton.name = set.MAP_LOAD_SECOND_BUTTON_NAME
+        mapFromFileButton.text = set.MAP_LOAD_SECOND_BUTTON_NAME
 
-        container.add(button1)
-        container.add(button2)
+        container.add(randomMapButton)
+        container.add(mapFromFileButton)
 
-        setSize(320, 100)
+        setSize(utils.Settings.MAP_MENU_WIDTH, utils.Settings.MAP_MENU_HEIGHT)
+        isResizable = false
         isVisible = true
     }
 }
