@@ -7,8 +7,6 @@ import java.awt.Color
 object Settings {
     const val WIDTH = 800
     const val HEIGHT = 600
-    const val FRAME_WIDTH = 815
-    const val FRAME_HEIGHT = 635
     const val MAP_MENU_WIDTH = 400
     const val MAP_MENU_HEIGHT = 100
     const val SQUARE_SIZE = 10
