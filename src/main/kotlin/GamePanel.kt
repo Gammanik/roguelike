@@ -4,11 +4,11 @@ import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.JPanel
 import graphics.*
+import graphics.Map
 import utils.Keys
 import utils.Settings as set
 
-class GamePanel: JPanel(), KeyListener {
-    private val map = Map()
+class GamePanel(private val map : Map): JPanel(), KeyListener {
 
     private var x1 = set.X_START_POINT
     private var y1 = set.Y_START_POINT
@@ -17,7 +17,6 @@ class GamePanel: JPanel(), KeyListener {
 
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
-
         val g1 = g as Graphics2D
 
         for (point in map.rectMap.values) {
@@ -36,6 +35,7 @@ class GamePanel: JPanel(), KeyListener {
     override fun keyTyped(p0: KeyEvent?) { }
 
     override fun keyPressed(p0: KeyEvent?) {
+
         if (p0 == null)
             return
 
@@ -67,10 +67,8 @@ class GamePanel: JPanel(), KeyListener {
 
         }
         repaint()
+
     }
 
-    override fun keyReleased(p0: KeyEvent?) { }
-
-    // todo: implement for handling multiple keys pressed
-    private fun handleMovement() { }
+    override fun keyReleased(p0: KeyEvent?) {}
 }

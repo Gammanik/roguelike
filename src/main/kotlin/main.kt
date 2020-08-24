@@ -1,17 +1,28 @@
+import graphics.LoadMapMenu
+import utils.Settings
 import java.awt.Dimension
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE
-import utils.Settings
 
 
 fun main() {
-    val s = GamePanel()
-    val frame = JFrame()
-    s.isFocusable = true
 
-    s.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
-    frame.add(s)
-    frame.isVisible = true
-    frame.size = Dimension(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)
-    frame.defaultCloseOperation = EXIT_ON_CLOSE
+    val loadMapMenu = LoadMapMenu()
+
+    while(!loadMapMenu.isMapLoaded) {
+        Thread.sleep(Settings.LOAD_MAP_UPDATE_PERIOD)
+    }
+
+    val gameFrame = JFrame()
+    gameFrame.size = Dimension(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)
+    gameFrame.defaultCloseOperation = EXIT_ON_CLOSE
+
+    val gamePanel = GamePanel(loadMapMenu.getMap())
+    gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
+
+    gameFrame.add(gamePanel)
+
+    gameFrame.isVisible = true
+    gamePanel.isFocusable = true
+
 }

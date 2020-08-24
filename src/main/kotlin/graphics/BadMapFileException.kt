@@ -1,3 +1,3 @@
 package graphics
 
-class BadMapFileException : Throwable() {}
+class BadMapFileException : Exception()

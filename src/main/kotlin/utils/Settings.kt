@@ -16,7 +16,10 @@ object Settings {
     const val Y_START_POINT = 0
     const val BACKGROUND_SYMBOL = '.'
     const val WALL_SYMBOL = '#'
+    const val LOAD_MAP_UPDATE_PERIOD = 250L
     val CHARACTER_COLOR: Color = Color.BLACK
     val BACKGROUND_COLOR: Color = Color.WHITE
     val WALL_COLOR: Color = Color.DARK_GRAY
+    const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map button"
+    const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"
 }

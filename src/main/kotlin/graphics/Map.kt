@@ -3,9 +3,7 @@ package graphics
 import graphics.model.MapPoint
 import graphics.model.MapRectangle
 import utils.Settings
-import java.awt.Color
 import java.io.File
-import java.lang.Exception
 
 class Map {
 
@@ -46,28 +44,29 @@ class Map {
         var symbol: Char
 
         for ((lineNumber, line) in file.readLines().withIndex())  {
-
             charSequence = line.toCharArray()
 
-            for (x in 0 until Settings.Y_POINTS_COUNTS) {
+            for (x in 0 until Settings.X_POINTS_COUNTS) {
                 symbol =  charSequence[x]
 
-                if (symbol.equals(Settings.BACKGROUND_SYMBOL)) {
+                if (symbol == Settings.BACKGROUND_SYMBOL) {
+
                     rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.BACKGROUND_COLOR)
-                } else if (symbol.equals(Settings.WALL_COLOR)) {
+
+                } else if (symbol == Settings.WALL_SYMBOL) {
+
                     rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
                     wallSet.add(Pair(x, lineNumber))
+
                 } else {
+
                     throw BadMapFileException()
+
                 }
 
             }
-
         }
-    }
 
-    fun changeColor(x: Int, y: Int, col: Color) {
-        rectMap[Pair(x, y)]?.col = col
     }
 
     fun isWall(x: Int, y: Int): Boolean {
