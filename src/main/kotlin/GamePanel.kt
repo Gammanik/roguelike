@@ -3,6 +3,7 @@ import ememies.Mob
 import ememies.PassiveBehaviourStrategy
 import graphics.GameMap
 import graphics.model.Character
+import graphics.model.ConfusionSpellDecorator
 import graphics.model.MapChecker
 import graphics.model.Player
 import utils.Keys
@@ -22,7 +23,7 @@ import utils.Settings as set
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
     private val checker = MapChecker(gameMap)
-    private val person : Character = Player(checker)
+    private val person : Character = ConfusionSpellDecorator(Player(checker), checker)
     private val timer = Timer(44, this)
 
     private val mobs = listOf(

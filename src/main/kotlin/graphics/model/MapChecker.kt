@@ -13,10 +13,10 @@ class MapChecker(private val map: GameMap) {
             Pair(Move.NONE, Pair(0, 0))
     )
 
-    fun check(character: Character, move: Move): Boolean {
+    fun check(character: GameUnit, move: Move): Boolean {
         val (deltaX, deltaY) = directionsDeltas[move]!!
         val pointsList = character.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
-        return pointsList.stream().allMatch { x -> !map.isWall(x.first, x.second)}
+        return pointsList.stream().allMatch { (x, y) -> !map.isWall(x, y) && map.isMapPoint(x, y)}
     }
 
 }

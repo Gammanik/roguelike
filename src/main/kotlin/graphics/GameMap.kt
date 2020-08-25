@@ -65,6 +65,11 @@ class GameMap {
 
     }
 
+    fun isMapPoint(x: Int, y: Int) : Boolean {
+        return 0 <= x && x < Settings.X_POINTS_COUNTS
+                && 0 <= y && y < Settings.Y_POINTS_COUNTS
+    }
+
     /** check if current coordinate is a wall*/
     fun isWall(x: Int, y: Int): Boolean {
         val point = rectMap[Pair(x, y)]
