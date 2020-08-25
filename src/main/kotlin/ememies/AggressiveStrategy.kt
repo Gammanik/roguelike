@@ -16,19 +16,28 @@ class AggressiveStrategy: BehaviourStrategy() {
         if (deltaX.absoluteValue < deltaY.absoluteValue) {
             // then move to y direction
             if (deltaY > 0) {
-                // todo: if step is false then try other direction
-//                if (!mob.stepDown()) {
-//                    return
-//                }
+                if ( !mob.stepDown()) {
+                    if (deltaX > 0) mob.stepRight()
+                    if (deltaX < 0) mob.stepLeft()
+                }
             } else {
-                mob.stepUp()
+                if ( !mob.stepUp()) {
+                    if (deltaX > 0) mob.stepRight()
+                    if (deltaX < 0) mob.stepLeft()
+                }
             }
         } else {
             // then move to x direction
             if (deltaX > 0) {
-                mob.stepRight()
+                if ( !mob.stepRight()) {
+                    if (deltaY > 0) mob.stepUp()
+                    if (deltaY < 0) mob.stepDown()
+                }
             } else {
-                mob.stepLeft()
+                if ( !mob.stepLeft()) {
+                    if (deltaY > 0) mob.stepUp()
+                    if (deltaY < 0) mob.stepDown()
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package graphics.model
 
 import utils.Move
+import utils.Settings
 
 /** Player class.
  * x, y represents the current player coordinates in pixels
@@ -8,13 +9,9 @@ import utils.Move
  * */
 open class Player(checker: MapChecker) : Character(checker) {
 
-    override var xCoordinate: Int
-        get() = xCoordinate
-        set(value) {}
+    override var xCoordinate: Int = Settings.X_START_POINT
 
-    override var yCoordinate: Int
-        get() = yCoordinate
-        set(value) {}
+    override var yCoordinate: Int = Settings.Y_START_POINT
 
     override fun stepLeft(): Boolean {
         if (checker.check(this, Move.LEFT)) {
