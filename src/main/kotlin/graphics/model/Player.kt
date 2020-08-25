@@ -7,11 +7,20 @@ import java.awt.geom.Ellipse2D
  * x, y represents the current player coordinates in pixels
  * xCoordinate, yCoordinate represents the player coordinates in squares
  * */
-class Player(var xCoordinate: Int, var yCoordinate: Int)
-    : Ellipse2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.CHARACTER_DIAMETER.toDouble(), Settings.CHARACTER_DIAMETER.toDouble()) {
+open class Player(checker: MapChecker) : Character(checker) {
+    override fun stepLeft() {
+        xCoordinate--
+    }
 
-    fun updatePosition() {
-        x = xCoordinate.toDouble() * Settings.SQUARE_SIZE
-        y = yCoordinate.toDouble() * Settings.SQUARE_SIZE
+    override fun stepRight() {
+        xCoordinate++
+    }
+
+    override fun stepUp() {
+        yCoordinate--
+    }
+
+    override fun stepDown() {
+        yCoordinate++
     }
 }

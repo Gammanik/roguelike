@@ -1,4 +1,6 @@
 import graphics.GameMap
+import graphics.model.Character
+import graphics.model.MapChecker
 import graphics.model.Player
 import utils.Keys
 import java.awt.Dimension
@@ -15,7 +17,8 @@ import utils.Settings as set
 /** The main game window */
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
-    private val person = Player(set.X_START_POINT, set.Y_START_POINT)
+    private val checker = MapChecker(gameMap)
+    private val person : Character = Player(checker)
     private val timer = Timer(44, this)
 
     private var isKeyUp = false
