@@ -23,6 +23,7 @@ object Settings {
     val CHARACTER_COLOR: Color = Color.BLACK
     val BACKGROUND_COLOR: Color = Color.WHITE
     val WALL_COLOR: Color = Color.DARK_GRAY
+    val CONFUSE_POINT_COLOR: Color = Color.PINK
 
     const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map"
     const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"

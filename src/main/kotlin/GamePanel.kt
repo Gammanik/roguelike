@@ -2,10 +2,7 @@ import ememies.AggressiveBehaviourStrategy
 import ememies.Mob
 import ememies.PassiveBehaviourStrategy
 import graphics.GameMap
-import graphics.model.Character
-import graphics.model.ConfusionSpellDecorator
-import graphics.model.MapChecker
-import graphics.model.Player
+import graphics.model.*
 import utils.Keys
 import java.awt.Color
 import java.awt.Dimension
@@ -23,7 +20,7 @@ import utils.Settings as set
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
     private val checker = MapChecker(gameMap)
-    private val person : Character = Player(checker)
+    private var person : Character = Player(checker)
     private val timer = Timer(44, this)
 
     private val mobs = listOf(
@@ -36,6 +33,10 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     init {
         this.addKeyListener(this)
         timer.start()
+    }
+
+    fun endConfusion() {
+        person = (person as ConfusionSpellDecorator).player
     }
 
     override fun getPreferredSize() : Dimension {
@@ -52,6 +53,18 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         for (m in mobs) {
             m.behave(person)
             m.updatePosition()
+        }
+
+        val confusePoint = checker.checkForConfuse(person)
+
+        if (confusePoint.isNotEmpty()) {
+            person = ConfusionSpellDecorator(person, checker)
+            for (point in confusePoint) {
+                point.col = utils.Settings.BACKGROUND_COLOR
+                val timer = Timer(2500, ConfusionListener(this))
+                timer.isRepeats = false
+                timer.start()
+            }
         }
 
         repaint()

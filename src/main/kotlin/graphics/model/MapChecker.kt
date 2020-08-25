@@ -2,6 +2,8 @@ package graphics.model
 
 import graphics.GameMap
 import utils.Move
+import utils.Settings
+import java.util.stream.Collectors
 
 class MapChecker(private val map: GameMap) {
 
@@ -17,6 +19,15 @@ class MapChecker(private val map: GameMap) {
         val (deltaX, deltaY) = directionsDeltas[move]!!
         val pointsList = character.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
         return pointsList.stream().allMatch { (x, y) -> !map.isWall(x, y) && map.isMapPoint(x, y)}
+    }
+
+    fun checkForConfuse(character: GameUnit) : List<MapPoint> {
+        return character
+                .getPointsCoordinates()
+                .stream()
+                .map { pair -> map.rectMap[pair]!! }
+                .filter { x -> x.col == Settings.CONFUSE_POINT_COLOR }
+                .collect(Collectors.toList())
     }
 
 }

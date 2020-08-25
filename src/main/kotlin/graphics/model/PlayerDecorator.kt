@@ -10,4 +10,8 @@ abstract class PlayerDecorator(val player: Character, checker: MapChecker) : Cha
     override var yCoordinate: Int
         get() = player.yCoordinate
         set(value) {}
+
+    init {
+        updatePosition()
+    }
 }

@@ -37,6 +37,8 @@ class GameMap {
             }
         }
 
+        rectMap[Pair(5, 5)] = MapPoint(5, 5, Settings.CONFUSE_POINT_COLOR)
+
     }
 
     constructor(file: File) {
