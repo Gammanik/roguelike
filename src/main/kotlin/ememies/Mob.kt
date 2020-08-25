@@ -51,7 +51,6 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
             yCoordinate++
             return true
         }
-
         return false
     }
 
