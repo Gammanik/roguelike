@@ -1,5 +1,6 @@
 package graphics.model
 
+import utils.Move
 import utils.Settings
 import java.awt.geom.Ellipse2D
 
@@ -9,18 +10,26 @@ import java.awt.geom.Ellipse2D
  * */
 open class Player(checker: MapChecker) : Character(checker) {
     override fun stepLeft() {
-        xCoordinate--
+        if (checker.check(this, Move.LEFT)) {
+            xCoordinate--
+        }
     }
 
     override fun stepRight() {
-        xCoordinate++
+        if (checker.check(this, Move.RIGHT)) {
+            xCoordinate++
+        }
     }
 
     override fun stepUp() {
-        yCoordinate--
+        if (checker.check(this, Move.UP)) {
+            yCoordinate--
+        }
     }
 
     override fun stepDown() {
-        yCoordinate++
+        if (checker.check(this, Move.DOWN)) {
+            yCoordinate++
+        }
     }
 }

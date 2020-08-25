@@ -37,32 +37,19 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
     override fun actionPerformed(p0: ActionEvent?) {
         if (isKeyUp) {
-            if (person.yCoordinate > 0 && !gameMap.isWall(person.xCoordinate, person.yCoordinate - 1)
-                    && !gameMap.isWall(person.xCoordinate + 1, person.yCoordinate - 1)) {
-                person.yCoordinate -= set.VELOCITY
-            }
+            person.stepUp()
         }
 
         if (isKeyDown) {
-            if (person.yCoordinate + 2 < set.Y_POINTS_COUNTS && !gameMap.isWall(person.xCoordinate, person.yCoordinate + 2)
-                    && !gameMap.isWall(person.xCoordinate + 1, person.yCoordinate + 2)) {
-
-                person.yCoordinate += set.VELOCITY
-            }
+            person.stepDown()
         }
 
         if (isKeyRight) {
-            if (person.xCoordinate + 2 < set.X_POINTS_COUNTS && !gameMap.isWall(person.xCoordinate + 2, person.yCoordinate)
-                    && !gameMap.isWall(person.xCoordinate + 2, person.yCoordinate + 1)) {
-                person.xCoordinate += set.VELOCITY
-            }
+            person.stepRight()
         }
 
         if (isKeyLeft) {
-            if (person.xCoordinate > 0 && !gameMap.isWall(person.xCoordinate - 1, person.yCoordinate)
-                    && !gameMap.isWall(person.xCoordinate - 1, person.yCoordinate + 1)) {
-                person.xCoordinate -= set.VELOCITY
-            }
+            person.stepLeft()
         }
 
         person.updatePosition()

@@ -12,7 +12,7 @@ abstract class Character(override val checker: MapChecker) : Ellipse2D.Double(0.
 
     override fun getPointsCoordinates(): ArrayList<Pair<Int, Int>> {
         return arrayListOf(Pair(xCoordinate, yCoordinate), Pair(xCoordinate + 1, yCoordinate),
-                    Pair(xCoordinate, yCoordinate), Pair(xCoordinate + 1, yCoordinate))
+                    Pair(xCoordinate, yCoordinate + 1), Pair(xCoordinate + 1, yCoordinate + 1))
     }
 
     fun updatePosition() {
