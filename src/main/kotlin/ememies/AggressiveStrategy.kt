@@ -17,11 +17,14 @@ class AggressiveStrategy: BehaviourStrategy() {
             // then move to y direction
             if (deltaY > 0) {
                 // todo: if step is false then try other direction
-                mob.stepDown()
+//                if (!mob.stepDown()) {
+//                    return
+//                }
             } else {
                 mob.stepUp()
             }
         } else {
+            // then move to x direction
             if (deltaX > 0) {
                 mob.stepRight()
             } else {

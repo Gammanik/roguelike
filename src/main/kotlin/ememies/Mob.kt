@@ -9,7 +9,7 @@ import utils.Settings
 import java.awt.Color
 import java.awt.geom.Rectangle2D
 
-data class Mob(var xCoordinate: Int, var yCoordinate: Int,
+data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
                val color: Color,
                var currentBehavior: BehaviourStrategy,
                override val checker: MapChecker)
@@ -22,7 +22,7 @@ data class Mob(var xCoordinate: Int, var yCoordinate: Int,
         hp -= dmg
     }
 
-    fun stepLeft(): Boolean {
+    override fun stepLeft(): Boolean {
         if (checker.check(this, Move.LEFT)) {
             xCoordinate--
             return true
@@ -30,7 +30,7 @@ data class Mob(var xCoordinate: Int, var yCoordinate: Int,
         return false
     }
 
-    fun stepRight(): Boolean {
+    override fun stepRight(): Boolean {
         if (checker.check(this, Move.RIGHT)) {
             xCoordinate++
             return true
@@ -38,7 +38,7 @@ data class Mob(var xCoordinate: Int, var yCoordinate: Int,
         return false
     }
 
-    fun stepUp(): Boolean {
+    override fun stepUp(): Boolean {
         if (checker.check(this, Move.UP)) {
             yCoordinate--
             return true
@@ -46,7 +46,7 @@ data class Mob(var xCoordinate: Int, var yCoordinate: Int,
         return false
     }
 
-    fun stepDown(): Boolean {
+    override fun stepDown(): Boolean {
         if (checker.check(this, Move.DOWN)) {
             yCoordinate++
             return true
