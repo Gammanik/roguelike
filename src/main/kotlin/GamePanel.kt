@@ -1,6 +1,4 @@
-import ememies.AggressiveBehaviourStrategy
-import ememies.Mob
-import ememies.PassiveBehaviourStrategy
+import ememies.*
 import graphics.GameMap
 import graphics.model.*
 import utils.Keys
@@ -21,11 +19,12 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
     private val checker = MapChecker(gameMap)
     private var person : Character = Player(checker)
-    private val timer = Timer(44, this)
+    private val timer = Timer(set.DELAY, this)
 
     private val mobs = listOf(
-            Mob(10, 10, 100, Color.red, AggressiveBehaviourStrategy(), checker),
-            Mob(12, 14, 100, Color.CYAN, PassiveBehaviourStrategy(), checker))
+            Mob(10, 10, Color.red, AggressiveStrategy(), checker),
+            Mob(30, 8, Color.CYAN, FunkyStrategy(), checker),
+            Mob(1, 1, Color.red, AggressiveStrategy(), checker))
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false

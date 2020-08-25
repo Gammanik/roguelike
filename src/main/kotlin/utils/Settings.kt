@@ -5,6 +5,8 @@ import java.awt.Color
 
 /** game settings */
 object Settings {
+    const val DELAY = 50
+
     const val WIDTH = 800
     const val HEIGHT = 600
     const val MAP_MENU_WIDTH = 400

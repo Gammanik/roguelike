@@ -2,7 +2,7 @@ package ememies
 
 import graphics.model.Character
 
-class PassiveBehaviourStrategy: BehaviourStrategy() {
+class PassiveStrategy: BehaviourStrategy() {
     override fun behave(player: Character, mob: Mob) {
 
     }
