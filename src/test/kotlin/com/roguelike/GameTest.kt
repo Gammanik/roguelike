@@ -1,10 +1,10 @@
-import graphics.GameMap
-import graphics.model.BadMapFileException
+import com.roguelike.graphics.GameMap
+import com.roguelike.graphics.model.BadMapFileException
 import junit.framework.TestCase.*
 import org.junit.Assert
 import org.junit.Test
-import utils.Keys
-import utils.Settings
+import com.roguelike.utils.Keys
+import com.roguelike.utils.Settings
 import java.awt.event.KeyEvent
 import java.io.File
 
