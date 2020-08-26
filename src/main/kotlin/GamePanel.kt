@@ -57,7 +57,9 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
         player.updatePosition()
         for (m in mobs) {
-            m.behave(player, checker)
+            if (m.behave(player, checker)) {
+//                mobs.remove(m)
+            }
             m.updatePosition()
         }
 
@@ -98,8 +100,8 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         if (p0 == null) return
 
         if (p0.keyCode == Keys.KEY_ATTACK) {
-
-            (player as Player).attackClosestMobs(mobs)
+            // todo: DO THE STUFF without cast
+            (player as Player).attackClosestMobs(checker)
 
             isAttackPressed = true
             val t = Timer(set.ATTACK_DELAY, ActionListener { isAttackPressed = false })

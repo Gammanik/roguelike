@@ -4,7 +4,9 @@ import ememies.Mob
 import graphics.GameMap
 import utils.Move
 import utils.Settings
+import java.util.stream.Collector
 import java.util.stream.Collectors
+import kotlin.math.absoluteValue
 
 class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private val player: Character) {
 
@@ -22,7 +24,14 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
         return pointsList.stream().allMatch { (x, y) -> !map.isWall(x, y) && map.isMapPoint(x, y)}
     }
 
-    fun checkForPlayerMove(player: Player ,move: Move): Boolean {
+    fun getClosestMobs(): List<Mob> {
+        return mobs.stream().filter {
+            ((it.xCoordinate - player.xCoordinate).absoluteValue < Settings.ATTACK_RADIUS) and
+            (((it.yCoordinate - player.yCoordinate).absoluteValue < Settings.ATTACK_RADIUS))
+        }.collect(Collectors.toList())
+    }
+
+    fun checkForPlayerMove(move: Move): Boolean {
         val (deltaX, deltaY) = directionsDeltas[move]!!
         val pointsList = player.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
         return mapCheckHelper(pointsList) && mobCheckHelper(pointsList)

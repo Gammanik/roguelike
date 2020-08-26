@@ -7,6 +7,7 @@ import java.awt.Color
 object Settings {
     const val DELAY = 50
     const val ATTACK_DELAY = 300
+    const val ATTACK_RADIUS = 2
 
     const val WIDTH = 800
     const val HEIGHT = 600

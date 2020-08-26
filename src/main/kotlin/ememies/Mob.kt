@@ -8,10 +8,12 @@ import utils.Move
 import utils.Settings
 import java.awt.Color
 import java.awt.Graphics2D
+import java.awt.event.ActionListener
 import java.awt.geom.Rectangle2D
+import javax.swing.Timer
 
 data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
-               val color: Color,
+               var color: Color, // todo: private set
                var currentBehavior: BehaviourStrategy)
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), MobSettings.MOB_SIZE, MobSettings.MOB_SIZE),
     GameUnit {
@@ -24,7 +26,17 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
     }
 
     fun getDamage(dmg: Int) {
+        color = Color.ORANGE
+        val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.red })
+        t.isRepeats = false
+        t.start()
+
         hp -= dmg
+        println("got dmg: $hp : $this")
+
+        if (hp <= 0) {
+            color = Color.gray
+        }
     }
 
     override fun stepLeft(checker: MapChecker): Boolean {
@@ -60,9 +72,10 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
     }
 
 
-    /** mob behaviour depends on player distance and currentStrategy */
-    fun behave(p: Character, checker: MapChecker) {
+    /** returns true if player is dead for it to be deleted */
+    fun behave(p: Character, checker: MapChecker): Boolean {
         currentBehavior.behave(p, this, checker)
+        return hp <= 0
     }
 
     fun updatePosition() {

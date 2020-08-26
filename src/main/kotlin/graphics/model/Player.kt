@@ -1,6 +1,5 @@
 package graphics.model
 
-import ememies.Mob
 import utils.Move
 import utils.Settings
 import java.awt.Color
@@ -13,7 +12,6 @@ import java.awt.Graphics2D
 open class Player : Character() {
 
     override var xCoordinate: Int = Settings.X_START_POINT
-
     override var yCoordinate: Int = Settings.Y_START_POINT
 
 
@@ -27,22 +25,22 @@ open class Player : Character() {
         val p2 = Double((xCoordinate) * 10.0, (yCoordinate - 1) * 10.0, 10.0, 10.0)
         val p3 = Double((xCoordinate - 1) * 10.0, (yCoordinate) * 10.0, 10.0, 10.0)
 
-        g.color = Color.green
+        g.color = Color(111, 80, 80, 40)
         g.fill(p1)
         g.fill(p2)
         g.fill(p3)
     }
 
-    fun attackClosestMobs(mobs: List<Mob>) {
+    fun attackClosestMobs(checker: MapChecker) {
+        val mobs = checker.getClosestMobs()
 
-    }
-
-    private fun getClosestMobs() {
-
+        for (m in mobs) {
+            m.getDamage(40)
+        }
     }
 
     override fun stepLeft(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(this, Move.LEFT)) {
+        if (checker.checkForPlayerMove(Move.LEFT)) {
             xCoordinate--
             return true
         }
@@ -50,7 +48,7 @@ open class Player : Character() {
     }
 
     override fun stepRight(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(this, Move.RIGHT)) {
+        if (checker.checkForPlayerMove(Move.RIGHT)) {
             xCoordinate++
             return true
         }
@@ -58,7 +56,7 @@ open class Player : Character() {
     }
 
     override fun stepUp(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(this, Move.UP)) {
+        if (checker.checkForPlayerMove(Move.UP)) {
             yCoordinate--
             return true
         }
@@ -66,7 +64,7 @@ open class Player : Character() {
     }
 
     override fun stepDown(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(this, Move.DOWN)) {
+        if (checker.checkForPlayerMove(Move.DOWN)) {
             yCoordinate++
             return true
         }
