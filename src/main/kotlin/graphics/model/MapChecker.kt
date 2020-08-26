@@ -7,6 +7,8 @@ import utils.Settings
 import java.util.stream.Collector
 import java.util.stream.Collectors
 import kotlin.math.absoluteValue
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private val player: Character) {
 
@@ -25,10 +27,15 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
     }
 
     fun getClosestMobs(): List<Mob> {
-        return mobs.stream().filter {
-            ((it.xCoordinate - player.xCoordinate).absoluteValue < Settings.ATTACK_RADIUS) and
-            (((it.yCoordinate - player.yCoordinate).absoluteValue < Settings.ATTACK_RADIUS))
-        }.collect(Collectors.toList())
+        return mobs.stream()
+                .filter { x -> getDistanceToMob(x) <= Settings.ATTACK_RADIUS}
+                .collect(Collectors.toList())
+    }
+
+    private fun getDistanceToMob(mob: Mob): Double {
+        val xDelta = player.xCoordinate + 0.5 - mob.xCoordinate
+        val yDelta = player.yCoordinate + 0.5 - mob.yCoordinate
+        return sqrt(xDelta.pow(2) + yDelta.pow(2))
     }
 
     fun checkForPlayerMove(move: Move): Boolean {
