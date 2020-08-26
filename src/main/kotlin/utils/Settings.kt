@@ -6,6 +6,7 @@ import java.awt.Color
 /** game settings */
 object Settings {
     const val DELAY = 50
+    const val ATTACK_DELAY = 300
 
     const val WIDTH = 800
     const val HEIGHT = 600

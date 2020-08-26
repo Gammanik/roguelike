@@ -1,7 +1,9 @@
 package graphics.model
 
+import ememies.Mob
 import utils.Move
 import utils.Settings
+import java.awt.Color
 import java.awt.Graphics2D
 
 /** Player class.
@@ -18,6 +20,25 @@ open class Player : Character() {
     override fun draw(g: Graphics2D) {
         g.color = Settings.CHARACTER_COLOR
         g.fill(this)
+    }
+
+    fun drawAttacking(g: Graphics2D) {
+        val p1 = Double((xCoordinate - 1) * 10.0, (yCoordinate - 1) * 10.0, 10.0, 10.0)
+        val p2 = Double((xCoordinate) * 10.0, (yCoordinate - 1) * 10.0, 10.0, 10.0)
+        val p3 = Double((xCoordinate - 1) * 10.0, (yCoordinate) * 10.0, 10.0, 10.0)
+
+        g.color = Color.green
+        g.fill(p1)
+        g.fill(p2)
+        g.fill(p3)
+    }
+
+    fun attackClosestMobs(mobs: List<Mob>) {
+
+    }
+
+    private fun getClosestMobs() {
+
     }
 
     override fun stepLeft(checker: MapChecker): Boolean {

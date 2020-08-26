@@ -27,6 +27,8 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
 
+    private var isAttackPressed = false
+
     init {
         mobs.add(Mob(10, 10, Color.RED, AggressiveStrategy()))
         mobs.add(Mob(15, 17, Color.RED, AggressiveStrategy()))
@@ -86,9 +88,25 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
         player.draw(g1)
         for (m in mobs) m.draw(g)
+
+        if (isAttackPressed && player is Player) {
+            (player as Player).drawAttacking(g1)
+        }
     }
 
-    override fun keyPressed(p0: KeyEvent?) { }
+    override fun keyPressed(p0: KeyEvent?) {
+        if (p0 == null) return
+
+        if (p0.keyCode == Keys.KEY_ATTACK) {
+
+            (player as Player).attackClosestMobs(mobs)
+
+            isAttackPressed = true
+            val t = Timer(set.ATTACK_DELAY, ActionListener { isAttackPressed = false })
+            t.isRepeats = false
+            t.start()
+        }
+    }
 
     override fun keyReleased(p0: KeyEvent?) {
         if (p0 == null) return
