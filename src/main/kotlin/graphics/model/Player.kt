@@ -29,23 +29,19 @@ open class Player : Character() {
 
     var ex: Explosion? = null
 
-    fun drawAttacking(g: Graphics2D) {
+    override fun drawAttacking(g: Graphics2D) {
+        ex?.r = ex?.r?.plus(2)!!
         g.color = Color.CYAN
         ex?.draw(g)
     }
 
-    fun update() {
-        ex?.r = ex?.r?.plus(2)!!
-    }
-
-    fun getDamage(dmg: Int) {
+    override fun getDamage(dmg: Int) {
         color = Color.ORANGE
         val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.BLACK })
         t.isRepeats = false
         t.start()
 
         hp -= dmg
-        println("got dmg: $hp : $this")
 
         if (hp <= 0) {
             color = Color.gray
@@ -53,7 +49,7 @@ open class Player : Character() {
         }
     }
 
-    fun attackClosestMobs(checker: MapChecker) {
+    override fun attackClosestMobs(checker: MapChecker) {
         ex = Explosion(xCoordinate, yCoordinate)
         val mobs = checker.getClosestMobs()
 

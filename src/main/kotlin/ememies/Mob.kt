@@ -33,14 +33,12 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         t.start()
 
         hp -= dmg
-        println("got dmg: $hp : $this")
-
         if (hp <= 0) {
             color = Color.gray
         }
     }
 
-    fun attackPlayer(player: Player) {
+    fun attackPlayer(player: Character) {
         player.getDamage(1)
     }
 

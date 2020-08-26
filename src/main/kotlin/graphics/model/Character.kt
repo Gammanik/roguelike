@@ -23,4 +23,8 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
         x = xCoordinate.toDouble() * Settings.SQUARE_SIZE
         y = yCoordinate.toDouble() * Settings.SQUARE_SIZE
     }
+
+    open fun drawAttacking(g: Graphics2D) {}
+    open fun attackClosestMobs(checker: MapChecker) {}
+    open fun getDamage(dmg: Int) {}
 }

@@ -23,7 +23,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     private val checker = MapChecker(gameMap, mobs, player)
 
     private val timer = Timer(set.DELAY, this)
-    private val mobAttackTimer: Timer = Timer(100, MobListener(checker, player as Player))
+    private val mobAttackTimer: Timer = Timer(100, MobListener(checker, player))
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
@@ -94,11 +94,11 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         }
 
         player.draw(g1)
-        for (m in mobs) m.draw(g)
+        for (m in mobs)
+            m.draw(g)
 
-        if (isAttackPressed && player is Player) {
-            (player as Player).drawAttacking(g1)
-            (player as Player).update()
+        if (isAttackPressed) {
+            player.drawAttacking(g1)
         }
     }
 
@@ -106,8 +106,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         if (p0 == null) return
 
         if (p0.keyCode == Keys.KEY_ATTACK) {
-            // todo: DO THE STUFF without cast
-            (player as Player).attackClosestMobs(checker)
+            player.attackClosestMobs(checker)
 
             isAttackPressed = true
             val t = Timer(set.ATTACK_DELAY, ActionListener { isAttackPressed = false })
