@@ -17,14 +17,10 @@ fun main() {
     gameFrame.isResizable = false
     gameFrame.defaultCloseOperation = EXIT_ON_CLOSE
 
-    try {
-        val gamePanel = GamePanel(loadMapMenu.getMap())
-        gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
-        gameFrame.add(gamePanel)
-        gameFrame.pack()
-        gameFrame.isVisible = true
-        gamePanel.isFocusable = true
-    } catch (e: EndGameException) {
-        println("-----------------------------------")
-    }
+    val gamePanel = GamePanel(loadMapMenu.getMap())
+    gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
+    gameFrame.add(gamePanel)
+    gameFrame.pack()
+    gameFrame.isVisible = true
+    gamePanel.isFocusable = true
 }

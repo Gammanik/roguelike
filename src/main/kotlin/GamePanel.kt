@@ -80,10 +80,6 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
             }
         }
 
-        if ((player as Player).hp <= 0) {
-            throw EndGameException()
-        }
-
         repaint()
     }
 

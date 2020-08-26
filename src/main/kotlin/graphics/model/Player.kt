@@ -1,12 +1,12 @@
 package graphics.model
 
-import ememies.DeadException
 import utils.Move
 import utils.Settings
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.ActionListener
 import javax.swing.Timer
+import kotlin.system.exitProcess
 
 /** Player class.
  * x, y represents the current player coordinates in pixels
@@ -48,7 +48,7 @@ open class Player : Character() {
 
         if (hp <= 0) {
             color = Color.gray
-            throw DeadException()
+            exitProcess(0)
         }
     }
 
