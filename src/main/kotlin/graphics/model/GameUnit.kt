@@ -4,17 +4,16 @@ import utils.Settings
 import javax.swing.text.StyledEditorKit
 
 interface GameUnit {
-    val checker: MapChecker
     fun getPointsCoordinates() : ArrayList<Pair<Int,Int>>
 
     var xCoordinate: Int
     var yCoordinate: Int
 
-    fun stepLeft() : Boolean
+    fun stepLeft(checker: MapChecker) : Boolean
 
-    fun stepRight() : Boolean
+    fun stepRight(checker: MapChecker) : Boolean
 
-    fun stepUp() : Boolean
+    fun stepUp(checker: MapChecker) : Boolean
 
-    fun stepDown() : Boolean
+    fun stepDown(checker: MapChecker) : Boolean
 }

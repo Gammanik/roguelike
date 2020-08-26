@@ -11,8 +11,7 @@ import java.awt.geom.Rectangle2D
 
 data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
                val color: Color,
-               var currentBehavior: BehaviourStrategy,
-               override val checker: MapChecker)
+               var currentBehavior: BehaviourStrategy)
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), MobSettings.MOB_SIZE, MobSettings.MOB_SIZE),
     GameUnit {
 
@@ -22,32 +21,32 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         hp -= dmg
     }
 
-    override fun stepLeft(): Boolean {
-        if (checker.check(this, Move.LEFT)) {
+    override fun stepLeft(checker: MapChecker): Boolean {
+        if (checker.checkForMobMove(this, Move.LEFT)) {
             xCoordinate--
             return true
         }
         return false
     }
 
-    override fun stepRight(): Boolean {
-        if (checker.check(this, Move.RIGHT)) {
+    override fun stepRight(checker: MapChecker): Boolean {
+        if (checker.checkForMobMove(this, Move.RIGHT)) {
             xCoordinate++
             return true
         }
         return false
     }
 
-    override fun stepUp(): Boolean {
-        if (checker.check(this, Move.UP)) {
+    override fun stepUp(checker: MapChecker): Boolean {
+        if (checker.checkForMobMove(this, Move.UP)) {
             yCoordinate--
             return true
         }
         return false
     }
 
-    override fun stepDown(): Boolean {
-        if (checker.check(this, Move.DOWN)) {
+    override fun stepDown(checker: MapChecker): Boolean {
+        if (checker.checkForMobMove(this, Move.DOWN)) {
             yCoordinate++
             return true
         }
@@ -56,8 +55,8 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
 
 
     /** mob behaviour depends on player distance and currentStrategy */
-    fun behave(p: Character) {
-        currentBehavior.behave(p, this)
+    fun behave(p: Character, checker: MapChecker) {
+        currentBehavior.behave(p, this, checker)
     }
 
     fun updatePosition() {

@@ -17,18 +17,24 @@ import utils.Settings as set
 /** The main game window */
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
-    private val checker = MapChecker(gameMap)
-    private var person : Character = Player(checker)
-    private val timer = Timer(set.DELAY, this)
+    private val mobs = mutableListOf<Mob>()
+    private var person : Character = Player()
 
-    private val mobs = listOf(
-            Mob(10, 10, Color.red, AggressiveStrategy(), checker),
-            Mob(30, 8, Color.CYAN, FunkyStrategy(), checker))
+    private val checker = MapChecker(gameMap, mobs, person)
+
+    private val timer = Timer(set.DELAY, this)
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
 
     init {
+        mobs.add(Mob(10, 10, Color.RED, AggressiveStrategy()))
+        mobs.add(Mob(15, 17, Color.RED, AggressiveStrategy()))
+        mobs.add(Mob(30, 8, Color.CYAN, FunkyStrategy()))
+        mobs.add(Mob(20, 10, Color.RED, AggressiveStrategy()))
+        mobs.add(Mob(25, 17, Color.RED, AggressiveStrategy()))
+        mobs.add(Mob(13, 10, Color.RED, AggressiveStrategy()))
+        mobs.add(Mob(12, 17, Color.RED, AggressiveStrategy()))
         this.addKeyListener(this)
         timer.start()
     }
@@ -42,14 +48,14 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     }
 
     override fun actionPerformed(p0: ActionEvent?) {
-        if (isKeyUp) person.stepUp()
-        if (isKeyDown) person.stepDown()
-        if (isKeyRight) person.stepRight()
-        if (isKeyLeft) person.stepLeft()
+        if (isKeyUp) person.stepUp(checker)
+        if (isKeyDown) person.stepDown(checker)
+        if (isKeyRight) person.stepRight(checker)
+        if (isKeyLeft) person.stepLeft(checker)
 
         person.updatePosition()
         for (m in mobs) {
-            m.behave(person)
+            m.behave(person, checker)
             m.updatePosition()
         }
 

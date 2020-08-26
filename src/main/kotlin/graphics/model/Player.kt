@@ -7,38 +7,38 @@ import utils.Settings
  * x, y represents the current player coordinates in pixels
  * xCoordinate, yCoordinate represents the player coordinates in squares
  * */
-open class Player(checker: MapChecker) : Character(checker) {
+open class Player() : Character() {
 
     override var xCoordinate: Int = Settings.X_START_POINT
 
     override var yCoordinate: Int = Settings.Y_START_POINT
 
-    override fun stepLeft(): Boolean {
-        if (checker.check(this, Move.LEFT)) {
+    override fun stepLeft(checker: MapChecker): Boolean {
+        if (checker.checkForPlayerMove(this, Move.LEFT)) {
             xCoordinate--
             return true
         }
         return true
     }
 
-    override fun stepRight(): Boolean {
-        if (checker.check(this, Move.RIGHT)) {
+    override fun stepRight(checker: MapChecker): Boolean {
+        if (checker.checkForPlayerMove(this, Move.RIGHT)) {
             xCoordinate++
             return true
         }
         return false
     }
 
-    override fun stepUp(): Boolean {
-        if (checker.check(this, Move.UP)) {
+    override fun stepUp(checker: MapChecker): Boolean {
+        if (checker.checkForPlayerMove(this, Move.UP)) {
             yCoordinate--
             return true
         }
         return false
     }
 
-    override fun stepDown(): Boolean {
-        if (checker.check(this, Move.DOWN)) {
+    override fun stepDown(checker: MapChecker): Boolean {
+        if (checker.checkForPlayerMove(this, Move.DOWN)) {
             yCoordinate++
             return true
         }

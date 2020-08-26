@@ -5,7 +5,7 @@ import java.awt.geom.Ellipse2D
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-abstract class Character(override val checker: MapChecker) : Ellipse2D.Double(0.0, 0.0,
+abstract class Character() : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER.toDouble(), Settings.CHARACTER_DIAMETER.toDouble()),
         GameUnit {
 

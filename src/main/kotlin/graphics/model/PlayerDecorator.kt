@@ -2,7 +2,7 @@ package graphics.model
 
 import kotlin.random.Random
 
-abstract class PlayerDecorator(val player: Character, checker: MapChecker) : Character(checker) {
+abstract class PlayerDecorator(val player: Character, checker: MapChecker) : Character() {
     override var xCoordinate: Int
         get() = player.xCoordinate
         set(value) {}
