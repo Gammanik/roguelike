@@ -7,7 +7,7 @@ import kotlin.math.absoluteValue
 class AggressiveStrategy: BehaviourStrategy() {
 
     override fun behave(player: Character, mob: Mob, checker: MapChecker) {
-        if (player.getDistance(mob.xCoordinate, mob.yCoordinate) < 19) {
+        if (player.getDistance(mob.xCoordinate, mob.yCoordinate) < 6) {
             goToPlayer(player, mob, checker)
         }
     }
@@ -17,11 +17,11 @@ class AggressiveStrategy: BehaviourStrategy() {
         val deltaY = p.yCoordinate - mob.yCoordinate
         if (deltaX.absoluteValue < deltaY.absoluteValue) {
             // then move to y direction
-            val firstTryResult: Boolean = if (deltaY > 0) {
-                mob.stepDown(checker)
-            } else if (deltaY < 0) {
-                mob.stepUp(checker)
-            } else false
+            val firstTryResult: Boolean = when {
+                deltaY > 0 -> mob.stepDown(checker)
+                deltaY < 0 -> mob.stepUp(checker)
+                else -> false
+            }
 
             if (firstTryResult) return
 
@@ -29,11 +29,11 @@ class AggressiveStrategy: BehaviourStrategy() {
             if (deltaX < 0) mob.stepLeft(checker)
         } else {
             // then move to x direction
-            val firstTryResult: Boolean = if (deltaX > 0) {
-                mob.stepRight(checker)
-            } else if (deltaX < 0) {
-                mob.stepLeft(checker)
-            } else false
+            val firstTryResult: Boolean = when {
+                deltaX > 0 -> mob.stepRight(checker)
+                deltaX < 0 -> mob.stepLeft(checker)
+                else -> false
+            }
 
             if (firstTryResult) return
 

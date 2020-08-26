@@ -18,9 +18,9 @@ import utils.Settings as set
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
     private val mobs = mutableListOf<Mob>()
-    private var person : Character = Player()
+    private var player : Character = Player()
 
-    private val checker = MapChecker(gameMap, mobs, person)
+    private val checker = MapChecker(gameMap, mobs, player)
 
     private val timer = Timer(set.DELAY, this)
 
@@ -40,7 +40,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     }
 
     fun endConfusion() {
-        person = (person as ConfusionSpellDecorator).player
+        player = (player as ConfusionSpellDecorator).player
     }
 
     override fun getPreferredSize() : Dimension {
@@ -48,21 +48,21 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     }
 
     override fun actionPerformed(p0: ActionEvent?) {
-        if (isKeyUp) person.stepUp(checker)
-        if (isKeyDown) person.stepDown(checker)
-        if (isKeyRight) person.stepRight(checker)
-        if (isKeyLeft) person.stepLeft(checker)
+        if (isKeyUp) player.stepUp(checker)
+        if (isKeyDown) player.stepDown(checker)
+        if (isKeyRight) player.stepRight(checker)
+        if (isKeyLeft) player.stepLeft(checker)
 
-        person.updatePosition()
+        player.updatePosition()
         for (m in mobs) {
-            m.behave(person, checker)
+            m.behave(player, checker)
             m.updatePosition()
         }
 
-        val confusePoint = checker.checkForConfuse(person)
+        val confusePoint = checker.checkForConfuse(player)
 
         if (confusePoint.isNotEmpty()) {
-            person = ConfusionSpellDecorator(person, checker)
+            player = ConfusionSpellDecorator(player, checker)
             for (point in confusePoint) {
                 point.col = utils.Settings.BACKGROUND_COLOR
                 val timer = Timer(2500, ConfusionListener(this))
@@ -84,13 +84,8 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
                     set.SQUARE_SIZE, set.SQUARE_SIZE, true)
         }
 
-        g1.color = set.CHARACTER_COLOR
-        g.fill(person)
-
-        for (m in mobs) {
-            g1.color = m.color
-            g1.fill(m)
-        }
+        player.draw(g1)
+        for (m in mobs) m.draw(g)
     }
 
     override fun keyPressed(p0: KeyEvent?) { }

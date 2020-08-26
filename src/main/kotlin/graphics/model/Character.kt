@@ -1,12 +1,13 @@
 package graphics.model
 
 import utils.Settings
+import java.awt.Graphics2D
 import java.awt.geom.Ellipse2D
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-abstract class Character() : Ellipse2D.Double(0.0, 0.0,
-        Settings.CHARACTER_DIAMETER.toDouble(), Settings.CHARACTER_DIAMETER.toDouble()),
+abstract class Character : Ellipse2D.Double(0.0, 0.0,
+        Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
         GameUnit {
 
     override fun getPointsCoordinates(): ArrayList<Pair<Int, Int>> {

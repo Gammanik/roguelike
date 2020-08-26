@@ -7,6 +7,7 @@ import utils.MobSettings
 import utils.Move
 import utils.Settings
 import java.awt.Color
+import java.awt.Graphics2D
 import java.awt.geom.Rectangle2D
 
 data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
@@ -16,6 +17,11 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
     GameUnit {
 
     var hp = 100; private set
+
+    override fun draw(g: Graphics2D) {
+        g.color = color
+        g.fill(this)
+    }
 
     fun getDamage(dmg: Int) {
         hp -= dmg

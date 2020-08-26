@@ -1,6 +1,7 @@
 package graphics.model
 
 import utils.Settings
+import java.awt.Graphics2D
 import javax.swing.text.StyledEditorKit
 
 interface GameUnit {
@@ -8,6 +9,8 @@ interface GameUnit {
 
     var xCoordinate: Int
     var yCoordinate: Int
+
+    fun draw(g: Graphics2D) {}
 
     fun stepLeft(checker: MapChecker) : Boolean
 
