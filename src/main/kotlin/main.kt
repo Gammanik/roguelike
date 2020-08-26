@@ -9,7 +9,7 @@ import javax.swing.WindowConstants.EXIT_ON_CLOSE
 fun main() {
     val loadMapMenu = LoadMapMenu()
 
-    while (!loadMapMenu.isMapLoaded) {
+    while ( !loadMapMenu.isMapLoaded) {
         Thread.sleep(Settings.LOAD_MAP_UPDATE_PERIOD)
     }
 
@@ -17,11 +17,14 @@ fun main() {
     gameFrame.isResizable = false
     gameFrame.defaultCloseOperation = EXIT_ON_CLOSE
 
-    val gamePanel = GamePanel(loadMapMenu.getMap())
-    gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
-    gameFrame.add(gamePanel)
-
-    gameFrame.pack()
-    gameFrame.isVisible = true
-    gamePanel.isFocusable = true
+    try {
+        val gamePanel = GamePanel(loadMapMenu.getMap())
+        gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
+        gameFrame.add(gamePanel)
+        gameFrame.pack()
+        gameFrame.isVisible = true
+        gamePanel.isFocusable = true
+    } catch (e: EndGameException) {
+        println("-----------------------------------")
+    }
 }

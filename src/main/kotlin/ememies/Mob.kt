@@ -3,6 +3,7 @@ package ememies
 import graphics.model.Character
 import graphics.model.GameUnit
 import graphics.model.MapChecker
+import graphics.model.Player
 import utils.MobSettings
 import utils.Move
 import utils.Settings
@@ -37,6 +38,10 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         if (hp <= 0) {
             color = Color.gray
         }
+    }
+
+    fun attackPlayer(player: Player) {
+        player.getDamage(1)
     }
 
     override fun stepLeft(checker: MapChecker): Boolean {
