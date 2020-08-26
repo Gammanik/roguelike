@@ -90,7 +90,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         for (point in gameMap.rectMap.values) {
             g1.color = point.col
             g1.fill3DRect(point.x * set.SQUARE_SIZE, point.y * set.SQUARE_SIZE,
-                    set.SQUARE_SIZE, set.SQUARE_SIZE, true)
+                set.SQUARE_SIZE, set.SQUARE_SIZE, true)
         }
 
         player.draw(g1)
@@ -98,6 +98,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
         if (isAttackPressed && player is Player) {
             (player as Player).drawAttacking(g1)
+            (player as Player).update()
         }
     }
 

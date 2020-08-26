@@ -1,5 +1,6 @@
 package graphics.model
 
+import ememies.Explosion
 import utils.Move
 import utils.Settings
 import java.awt.Color
@@ -26,15 +27,15 @@ open class Player : Character() {
         g.fill(this)
     }
 
-    fun drawAttacking(g: Graphics2D) {
-        val p1 = Double((xCoordinate - 1) * 10.0, (yCoordinate - 1) * 10.0, 10.0, 10.0)
-        val p2 = Double((xCoordinate) * 10.0, (yCoordinate - 1) * 10.0, 10.0, 10.0)
-        val p3 = Double((xCoordinate - 1) * 10.0, (yCoordinate) * 10.0, 10.0, 10.0)
+    var ex: Explosion? = null
 
-        g.color = Color.PINK
-        g.fill(p1)
-        g.fill(p2)
-        g.fill(p3)
+    fun drawAttacking(g: Graphics2D) {
+        g.color = Color.CYAN
+        ex?.draw(g)
+    }
+
+    fun update() {
+        ex?.r = ex?.r?.plus(2)!!
     }
 
     fun getDamage(dmg: Int) {
@@ -53,6 +54,7 @@ open class Player : Character() {
     }
 
     fun attackClosestMobs(checker: MapChecker) {
+        ex = Explosion(xCoordinate, yCoordinate)
         val mobs = checker.getClosestMobs()
 
         for (m in mobs) {
