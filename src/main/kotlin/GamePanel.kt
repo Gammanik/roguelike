@@ -23,6 +23,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     private val checker = MapChecker(gameMap, mobs, player)
 
     private val timer = Timer(set.DELAY, this)
+    private val mobAttackTimer: Timer = Timer(100, MobListener(checker, player as Player))
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
@@ -39,6 +40,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         mobs.add(Mob(12, 17, Color.RED, AggressiveStrategy()))
         this.addKeyListener(this)
         timer.start()
+        mobAttackTimer.start()
     }
 
     fun endConfusion() {
@@ -73,6 +75,10 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
                 timer.isRepeats = false
                 timer.start()
             }
+        }
+
+        if ((player as Player).hp <= 0) {
+            throw EndGameException()
         }
 
         repaint()
