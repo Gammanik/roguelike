@@ -11,6 +11,8 @@ import utils.Settings as set
 class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
     private var gameMap: GameMap? = null
     var isMapLoaded = false
+        private set
+
     private val fileChooser = JFileChooser()
 
     /** create map or generate from file */
