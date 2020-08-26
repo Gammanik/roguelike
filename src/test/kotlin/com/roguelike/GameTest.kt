@@ -1,3 +1,5 @@
+package com.roguelike
+
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.model.BadMapFileException
 import junit.framework.TestCase.*

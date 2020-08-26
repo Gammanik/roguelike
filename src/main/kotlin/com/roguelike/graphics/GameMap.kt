@@ -1,8 +1,8 @@
-package graphics
+package com.roguelike.graphics
 
-import graphics.model.BadMapFileException
-import graphics.model.MapPoint
-import utils.Settings
+import com.roguelike.graphics.model.BadMapFileException
+import com.roguelike.graphics.model.MapPoint
+import com.roguelike.utils.Settings
 import java.io.File
 
 
@@ -57,7 +57,8 @@ class GameMap {
                         rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
                         wallSet.add(Pair(x, lineNumber))
                     }
-                    else -> { throw BadMapFileException() }
+                    else -> { throw BadMapFileException()
+                    }
                 }
 
             }

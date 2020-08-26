@@ -1,13 +1,15 @@
-import graphics.GameMap
-import graphics.model.Player
-import utils.Keys
+package com.roguelike
+
+import com.roguelike.graphics.GameMap
+import com.roguelike.graphics.model.Player
+import com.roguelike.utils.Keys
 import java.awt.Dimension
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.JPanel
-import utils.Settings as set
+import com.roguelike.utils.Settings as set
 
 /** The main game window */
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener {

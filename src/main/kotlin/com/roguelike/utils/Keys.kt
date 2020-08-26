@@ -1,4 +1,4 @@
-package utils
+package com.roguelike.utils
 
 /** keyboard keys mapping */
 object Keys {

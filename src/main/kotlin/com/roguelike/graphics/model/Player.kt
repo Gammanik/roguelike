@@ -1,6 +1,6 @@
-package graphics.model
+package com.roguelike.graphics.model
 
-import utils.Settings
+import com.roguelike.utils.Settings
 import java.awt.geom.Ellipse2D
 
 /** Player class.
