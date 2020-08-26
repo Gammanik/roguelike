@@ -56,11 +56,14 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         if (isKeyLeft) player.stepLeft(checker)
 
         player.updatePosition()
-        for (m in mobs) {
-            if (m.behave(player, checker)) {
-//                mobs.remove(m)
-            }
+
+        val it = mobs.iterator()
+        while (it.hasNext()) {
+            val m = it.next()
             m.updatePosition()
+
+            if (m.behave(player, checker))
+                it.remove()
         }
 
         val confusePoint = checker.checkForConfuse(player)
