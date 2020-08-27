@@ -5,10 +5,19 @@ import java.awt.Color
 
 /** game settings */
 object Settings {
+
+    // character settings
     const val DELAY = 50
     const val ATTACK_DELAY = 520
     const val ATTACK_RADIUS = 2
 
+    val CHARACTER_COLOR: Color = Color.BLACK
+    val BACKGROUND_COLOR: Color = Color.WHITE
+    val WALL_COLOR: Color = Color.DARK_GRAY
+    val CONFUSE_POINT_COLOR: Color = Color.PINK
+    const val MOB_SIZE = 10.0
+
+    // map settings
     const val WIDTH = 800
     const val HEIGHT = 600
     const val MAP_MENU_WIDTH = 400
@@ -22,11 +31,6 @@ object Settings {
     const val BACKGROUND_SYMBOL = '.'
     const val WALL_SYMBOL = '#'
     const val LOAD_MAP_UPDATE_PERIOD = 250L
-
-    val CHARACTER_COLOR: Color = Color.BLACK
-    val BACKGROUND_COLOR: Color = Color.WHITE
-    val WALL_COLOR: Color = Color.DARK_GRAY
-    val CONFUSE_POINT_COLOR: Color = Color.PINK
 
     const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map"
     const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"

@@ -4,7 +4,6 @@ import ememies.behaviour.BehaviourStrategy
 import player.Character
 import graphics.model.GameUnit
 import utils.MapChecker
-import utils.MobSettings
 import utils.Move
 import utils.Settings
 import java.awt.Color
@@ -17,7 +16,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
                var color: Color, // todo: private set
                var currentBehavior: BehaviourStrategy
 )
-    : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), MobSettings.MOB_SIZE, MobSettings.MOB_SIZE),
+    : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
     GameUnit {
 
     var hp = 100; private set

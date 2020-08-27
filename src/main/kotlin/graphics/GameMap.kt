@@ -10,7 +10,11 @@ import java.io.File
  * each element on map characterized by it's x,y coordinates*/
 class GameMap {
     private var wallSet = mutableSetOf<Pair<Int, Int>>()
-    val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
+    private val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
+
+    fun getRectMap(): Map<Pair<Int, Int>, MapPoint> {
+        return rectMap
+    }
 
     private var wallList = Settings.WALL_LIST
 

@@ -3,6 +3,9 @@ import graphics.map_loading.BadMapFileException
 import junit.framework.TestCase.*
 import org.junit.Assert
 import org.junit.Test
+import utils.Keys
+import utils.Settings
+import java.awt.event.KeyEvent
 import java.io.File
 
 class GameTest {
@@ -10,7 +13,7 @@ class GameTest {
     fun testCreateMap() {
         val m = GameMap()
         assertNotNull(m)
-        assertTrue(m.rectMap.isNotEmpty())
+        assertTrue(m.getRectMap().isNotEmpty())
     }
 
     @Test
@@ -18,7 +21,7 @@ class GameTest {
         val filename = "src/test/resources/mapExample"
         val m = GameMap(File(filename))
         assertNotNull(m)
-        assertTrue(m.rectMap.isNotEmpty())
+        assertTrue(m.getRectMap().isNotEmpty())
     }
 
     @Test

@@ -24,7 +24,8 @@ import utils.Settings as set
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
     private val mobs = mutableListOf<Mob>()
-    private var player : Character = Player()
+    var player : Character = Player()
+    private set
 
     private val checker = MapChecker(gameMap, mobs, player)
 
@@ -49,7 +50,8 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         mobAttackTimer.start()
     }
 
-    fun endConfusion() {
+
+    private fun endConfusion() {
         player = (player as ConfusionSpellDecorator).player
     }
 
@@ -93,7 +95,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         super.paintComponent(g)
         val g1 = g as Graphics2D
 
-        for (point in gameMap.rectMap.values) {
+        for (point in gameMap.getRectMap().values) {
             g1.color = point.col
             g1.fill3DRect(point.x * set.SQUARE_SIZE, point.y * set.SQUARE_SIZE,
                 set.SQUARE_SIZE, set.SQUARE_SIZE, true)
