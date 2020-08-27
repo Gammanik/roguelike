@@ -41,8 +41,11 @@ class GameMap {
             }
         }
 
-        rectMap[Pair(5, 5)] = MapPoint(5, 5, Settings.CONFUSE_POINT_COLOR)
+        addConfusePoint(5, 5)
+    }
 
+    fun addConfusePoint(xCoord: Int, yCoord: Int) {
+        rectMap[Pair(xCoord, yCoord)] = MapPoint(xCoord, yCoord, Settings.CONFUSE_POINT_COLOR)
     }
 
     constructor(file: File) {
@@ -63,7 +66,8 @@ class GameMap {
                         rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
                         wallSet.add(Pair(x, lineNumber))
                     }
-                    else -> throw BadMapFileException()
+                    else -> { throw BadMapFileException()
+                    }
                 }
 
             }

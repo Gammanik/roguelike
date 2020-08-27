@@ -53,7 +53,7 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
         return character
                 .getPointsCoordinates()
                 .stream()
-                .map { pair -> map.getRectMap()[pair] ?: error("") }
+                .map { pair -> map.getRectMap()[pair] ?: error("impossible coordinates") }
                 .filter { x -> x.col == Settings.CONFUSE_POINT_COLOR }
                 .collect(Collectors.toList())
     }

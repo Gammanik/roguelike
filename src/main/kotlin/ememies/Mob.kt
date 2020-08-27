@@ -13,9 +13,7 @@ import java.awt.geom.Rectangle2D
 import javax.swing.Timer
 
 data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
-               var color: Color, // todo: private set
-               var currentBehavior: BehaviourStrategy
-)
+               private var color: Color, var currentBehavior: BehaviourStrategy)
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
     GameUnit {
 

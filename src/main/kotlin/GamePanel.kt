@@ -1,6 +1,7 @@
 import ememies.*
 import ememies.behaviour.AggressiveStrategy
 import ememies.behaviour.FunkyStrategy
+import ememies.behaviour.PassiveStrategy
 import graphics.GameMap
 import graphics.model.*
 import player.Character
@@ -45,6 +46,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         mobs.add(Mob(25, 17, Color.RED, AggressiveStrategy()))
         mobs.add(Mob(13, 10, Color.RED, AggressiveStrategy()))
         mobs.add(Mob(12, 17, Color.RED, AggressiveStrategy()))
+        mobs.add(Mob(2, 2, Color.GREEN, PassiveStrategy()))
         this.addKeyListener(this)
         timer.start()
         mobAttackTimer.start()
@@ -77,7 +79,6 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         }
 
         val confusePoint = checker.checkForConfuse(player)
-
         if (confusePoint.isNotEmpty()) {
             player = ConfusionSpellDecorator(player, checker)
             for (point in confusePoint) {
