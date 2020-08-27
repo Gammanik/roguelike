@@ -1,11 +1,11 @@
-package graphics.map_loading
+package com.roguelike.graphics.map_loading
 
-import graphics.GameMap
+import com.roguelike.graphics.GameMap
 import java.awt.FlowLayout
 import java.awt.event.ActionEvent
 import java.io.File
 import javax.swing.*
-import utils.Settings as set
+import com.roguelike.utils.Settings as set
 
 /** start menu. Map loading logic */
 class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
@@ -84,7 +84,7 @@ class LoadMapMenu : JFrame("[RGlove 1.0] Please choose map mode! ") {
         container.add(randomMapButton)
         container.add(mapFromFileButton)
 
-        setSize(utils.Settings.MAP_MENU_WIDTH, utils.Settings.MAP_MENU_HEIGHT)
+        setSize(com.roguelike.utils.Settings.MAP_MENU_WIDTH, com.roguelike.utils.Settings.MAP_MENU_HEIGHT)
         isResizable = false
         isVisible = true
     }

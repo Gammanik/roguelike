@@ -1,4 +1,4 @@
-package graphics.model
+package com.roguelike.graphics.model
 
 import java.awt.Color
 

@@ -1,11 +1,9 @@
-package player
+package com.roguelike.ememies.player
 
-import player.Character
-import player.PlayerDecorator
-import utils.MapChecker
+import com.roguelike.utils.MapChecker
 import kotlin.random.Random
 
-class ConfusionSpellDecorator(pl: Character, checker: MapChecker) : PlayerDecorator(pl, checker) {
+class ConfusionSpellDecorator(pl: Character) : PlayerDecorator(pl) {
     override fun stepLeft(checker: MapChecker) : Boolean {
         return confusedStep(0, checker)
     }

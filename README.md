@@ -28,4 +28,4 @@ Kласс `Map` отвечает за карту. Он состоит из то�
 движения.
 
 
-![rogue classes](./src/main/kotlin/docs/rogClasses.png)
+![rogue classes](./src/main/kotlin/com/roguelike/docs/rogClasses.png)

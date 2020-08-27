@@ -1,14 +1,13 @@
-import ememies.*
-import ememies.behaviour.AggressiveStrategy
-import ememies.behaviour.FunkyStrategy
-import ememies.behaviour.PassiveStrategy
-import graphics.GameMap
-import graphics.model.*
-import player.Character
-import player.ConfusionSpellDecorator
-import player.Player
-import utils.Keys
-import utils.MapChecker
+import com.roguelike.ememies.*
+import com.roguelike.ememies.behaviour.AggressiveStrategy
+import com.roguelike.ememies.behaviour.FunkyStrategy
+import com.roguelike.ememies.behaviour.PassiveStrategy
+import com.roguelike.graphics.GameMap
+import com.roguelike.ememies.player.Character
+import com.roguelike.ememies.player.ConfusionSpellDecorator
+import com.roguelike.ememies.player.Player
+import com.roguelike.utils.Keys
+import com.roguelike.utils.MapChecker
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics
@@ -19,14 +18,13 @@ import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.JPanel
 import javax.swing.Timer
-import utils.Settings as set
+import com.roguelike.utils.Settings as set
 
 /** The main game window */
 class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
 
     private val mobs = mutableListOf<Mob>()
-    var player : Character = Player()
-    private set
+    private var player : Character = Player()
 
     private val checker = MapChecker(gameMap, mobs, player)
 
@@ -39,19 +37,20 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     private var isAttackPressed = false
 
     init {
-        mobs.add(Mob(10, 10, Color.RED, AggressiveStrategy()))
-        mobs.add(Mob(15, 17, Color.RED, AggressiveStrategy()))
-        mobs.add(Mob(30, 8, Color.CYAN, FunkyStrategy()))
-        mobs.add(Mob(20, 10, Color.RED, AggressiveStrategy()))
-        mobs.add(Mob(25, 17, Color.RED, AggressiveStrategy()))
-        mobs.add(Mob(13, 10, Color.RED, AggressiveStrategy()))
-        mobs.add(Mob(12, 17, Color.RED, AggressiveStrategy()))
-        mobs.add(Mob(2, 2, Color.GREEN, PassiveStrategy()))
+        addMob(Mob(10, 10, Color.RED, AggressiveStrategy()))
+        addMob(Mob(30, 8, Color.CYAN, FunkyStrategy()))
+        addMob(Mob(20, 10, Color.RED, AggressiveStrategy()))
+        addMob(Mob(25, 17, Color.RED, AggressiveStrategy()))
+        addMob(Mob(13, 10, Color.RED, AggressiveStrategy()))
+        addMob(Mob(2, 2, Color.GREEN, PassiveStrategy()))
         this.addKeyListener(this)
         timer.start()
         mobAttackTimer.start()
     }
 
+    fun addMob(newMob: Mob) {
+        mobs.add(newMob)
+    }
 
     private fun endConfusion() {
         player = (player as ConfusionSpellDecorator).player
@@ -80,9 +79,9 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
         val confusePoint = checker.checkForConfuse(player)
         if (confusePoint.isNotEmpty()) {
-            player = ConfusionSpellDecorator(player, checker)
+            player = ConfusionSpellDecorator(player)
             for (point in confusePoint) {
-                point.col = utils.Settings.BACKGROUND_COLOR
+                point.col = com.roguelike.utils.Settings.BACKGROUND_COLOR
                 val timer = Timer(2500, ActionListener { this.endConfusion() })
                 timer.isRepeats = false
                 timer.start()

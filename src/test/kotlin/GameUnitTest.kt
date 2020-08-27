@@ -1,11 +1,14 @@
-import ememies.Mob
-import ememies.behaviour.PassiveStrategy
-import graphics.GameMap
+import com.roguelike.ememies.Mob
+import com.roguelike.ememies.behaviour.AggressiveStrategy
+import com.roguelike.ememies.behaviour.FunkyStrategy
+import com.roguelike.ememies.behaviour.PassiveStrategy
+import com.roguelike.graphics.GameMap
 import junit.framework.TestCase.*
 import org.junit.Test
-import player.Player
-import utils.MapChecker
-import utils.Settings
+import com.roguelike.ememies.player.Player
+import com.roguelike.utils.MapChecker
+import com.roguelike.utils.Settings
+import java.awt.Color
 import java.io.File
 
 class GameUnitTest {
@@ -57,6 +60,53 @@ class GameUnitTest {
 
     @Test
     fun testMobMovement() {
+        val m = Mob(2, 1, Settings.CHARACTER_COLOR, PassiveStrategy())
+        val gameMap = GameMap(File("src/test/resources/mapWithWall"))
+        val checker = MapChecker(gameMap, emptyList(), Player())
 
+        assertTrue(m.stepDown(checker))
+        assertFalse(m.stepLeft(checker))
+        assertTrue(m.stepRight(checker))
+        assertTrue(m.stepDown(checker))
     }
+
+    @Test
+    fun testMobAggressiveStrategy() {
+        val gameMap = GameMap(File("src/test/resources/mapExample"))
+        val panel = GamePanel(gameMap)
+        val aggressiveMob = Mob(3, 0, Color.RED, AggressiveStrategy())
+        panel.addMob(aggressiveMob)
+        panel.actionPerformed(null)
+        assertEquals(2, aggressiveMob.xCoordinate)
+        assertEquals(0, aggressiveMob.yCoordinate)
+    }
+
+    @Test
+    fun testMobFunkyStrategy() {
+        val gameMap = GameMap(File("src/test/resources/mapExample"))
+        val panel = GamePanel(gameMap)
+
+        val funkyMob = Mob(0, 4, Color.GREEN, FunkyStrategy())
+        panel.addMob(funkyMob)
+        panel.actionPerformed(null)
+        assertEquals(1, funkyMob.xCoordinate)
+        assertEquals(5, funkyMob.yCoordinate)
+    }
+
+    @Test
+    fun testMobPassiveStrategy() {
+        val gameMap = GameMap(File("src/test/resources/mapExample"))
+        val panel = GamePanel(gameMap)
+
+        val passiveMob = Mob(3, 0, Color.GREEN, PassiveStrategy())
+        panel.addMob(passiveMob)
+        panel.actionPerformed(null)
+        assertEquals(3, passiveMob.xCoordinate)
+        assertEquals(0, passiveMob.yCoordinate)
+        panel.actionPerformed(null)
+        assertEquals(3, passiveMob.xCoordinate)
+        assertEquals(0, passiveMob.yCoordinate)
+    }
+
+
 }

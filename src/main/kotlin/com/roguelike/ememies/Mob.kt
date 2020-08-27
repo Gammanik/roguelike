@@ -1,11 +1,10 @@
-package ememies
+package com.roguelike.ememies
 
-import ememies.behaviour.BehaviourStrategy
-import player.Character
-import graphics.model.GameUnit
-import utils.MapChecker
-import utils.Move
-import utils.Settings
+import com.roguelike.ememies.behaviour.BehaviourStrategy
+import com.roguelike.ememies.player.Character
+import com.roguelike.utils.MapChecker
+import com.roguelike.utils.Move
+import com.roguelike.utils.Settings
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.ActionListener
@@ -70,7 +69,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
     }
 
 
-    /** returns true if player is dead for it to be deleted */
+    /** returns true if com.roguelike.ememies.player is dead for it to be deleted */
     fun behave(p: Character, checker: MapChecker): Boolean {
         currentBehavior.behave(p, this, checker)
         return hp <= 0

@@ -1,8 +1,8 @@
-package player
+package com.roguelike.ememies.player
 
-import graphics.model.GameUnit
-import utils.MapChecker
-import utils.Settings
+import com.roguelike.ememies.GameUnit
+import com.roguelike.utils.MapChecker
+import com.roguelike.utils.Settings
 import java.awt.Graphics2D
 import java.awt.geom.Ellipse2D
 import kotlin.math.pow

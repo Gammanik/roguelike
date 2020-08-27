@@ -1,9 +1,9 @@
-package player
+package com.roguelike.ememies.player
 
-import graphics.model.Explosion
-import utils.MapChecker
-import utils.Move
-import utils.Settings
+import com.roguelike.graphics.model.Explosion
+import com.roguelike.utils.MapChecker
+import com.roguelike.utils.Move
+import com.roguelike.utils.Settings
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.ActionListener
@@ -11,8 +11,8 @@ import javax.swing.Timer
 import kotlin.system.exitProcess
 
 /** Player class.
- * x, y represents the current player coordinates in pixels
- * xCoordinate, yCoordinate represents the player coordinates in squares
+ * x, y represents the current com.roguelike.ememies.player coordinates in pixels
+ * xCoordinate, yCoordinate represents the com.roguelike.ememies.player coordinates in squares
  * */
 open class Player : Character() {
 

@@ -1,11 +1,8 @@
-import graphics.GameMap
-import graphics.map_loading.BadMapFileException
+import com.roguelike.graphics.GameMap
+import com.roguelike.graphics.map_loading.BadMapFileException
 import junit.framework.TestCase.*
 import org.junit.Assert
 import org.junit.Test
-import utils.Keys
-import utils.Settings
-import java.awt.event.KeyEvent
 import java.io.File
 
 class GameTest {

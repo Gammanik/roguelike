@@ -1,13 +1,13 @@
-import ememies.Mob
-import ememies.behaviour.PassiveStrategy
-import graphics.GameMap
-import graphics.model.MapPoint
+import com.roguelike.ememies.Mob
+import com.roguelike.ememies.behaviour.PassiveStrategy
+import com.roguelike.graphics.GameMap
+import com.roguelike.graphics.model.MapPoint
 import junit.framework.TestCase.*
 import org.junit.Test
-import player.Player
-import utils.MapChecker
-import utils.Move
-import utils.Settings
+import com.roguelike.ememies.player.Player
+import com.roguelike.utils.MapChecker
+import com.roguelike.utils.Move
+import com.roguelike.utils.Settings
 import java.awt.Color
 import java.io.File
 
@@ -39,7 +39,7 @@ class MapCheckerTest {
         val player = Player()
 
         val checker = MapChecker(gameMap, mobs, player)
-        // player is generated at (0,0) coordinates
+        // com.roguelike.ememies.player is generated at (0,0) coordinates
         assertFalse(checker.checkForPlayerMove(Move.UP))
         assertFalse(checker.checkForPlayerMove(Move.LEFT))
         assertTrue(checker.checkForPlayerMove(Move.RIGHT))
@@ -54,7 +54,7 @@ class MapCheckerTest {
         val player = Player()
 
         val checker = MapChecker(gameMap, mobs, player)
-        // player is generated at (0,0) coordinates
+        // com.roguelike.ememies.player is generated at (0,0) coordinates
         assertFalse(checker.checkForPlayerMove(Move.UP))
         assertFalse(checker.checkForPlayerMove(Move.LEFT))
         assertFalse(checker.checkForPlayerMove(Move.RIGHT))
@@ -94,7 +94,6 @@ class MapCheckerTest {
         assertTrue(checker.checkForMobMove(myMob, Move.DOWN))
         assertTrue(checker.checkForMobMove(myMob, Move.RIGHT))
     }
-
 
     @Test
     fun testCheckMobNotMoveToAnotherMob() {

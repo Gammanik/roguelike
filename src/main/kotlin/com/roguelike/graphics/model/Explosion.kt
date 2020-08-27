@@ -1,6 +1,6 @@
-package graphics.model
+package com.roguelike.graphics.model
 
-import utils.Settings
+import com.roguelike.utils.Settings
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D

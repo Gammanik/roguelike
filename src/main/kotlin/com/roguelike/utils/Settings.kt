@@ -1,6 +1,6 @@
-package utils
+package com.roguelike.utils
 
-import graphics.model.MapRectangle
+import com.roguelike.graphics.model.MapRectangle
 import java.awt.Color
 
 /** game settings */

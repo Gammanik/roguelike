@@ -1,11 +1,9 @@
-package player
+package com.roguelike.ememies.player
 
-import player.Character
-import utils.MapChecker
 import java.awt.Color
 import java.awt.Graphics2D
 
-abstract class PlayerDecorator(val player: Character, checker: MapChecker) : Character() {
+abstract class PlayerDecorator(val player: Character) : Character() {
 
     override fun draw(g: Graphics2D) {
         g.color = Color.MAGENTA

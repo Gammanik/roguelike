@@ -1,10 +1,10 @@
-package utils
+package com.roguelike.utils
 
-import ememies.Mob
-import graphics.GameMap
-import player.Character
-import graphics.model.GameUnit
-import graphics.model.MapPoint
+import com.roguelike.ememies.Mob
+import com.roguelike.graphics.GameMap
+import com.roguelike.ememies.player.Character
+import com.roguelike.ememies.GameUnit
+import com.roguelike.graphics.model.MapPoint
 import java.util.stream.Collectors
 import kotlin.math.pow
 import kotlin.math.sqrt

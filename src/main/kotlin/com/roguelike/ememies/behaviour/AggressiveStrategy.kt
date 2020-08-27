@@ -1,8 +1,8 @@
-package ememies.behaviour
+package com.roguelike.ememies.behaviour
 
-import ememies.Mob
-import player.Character
-import utils.MapChecker
+import com.roguelike.ememies.Mob
+import com.roguelike.ememies.player.Character
+import com.roguelike.utils.MapChecker
 import kotlin.math.absoluteValue
 
 class AggressiveStrategy: BehaviourStrategy() {

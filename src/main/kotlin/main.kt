@@ -1,5 +1,5 @@
-import graphics.map_loading.LoadMapMenu
-import utils.Settings
+import com.roguelike.graphics.map_loading.LoadMapMenu
+import com.roguelike.utils.Settings
 import java.awt.Dimension
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE

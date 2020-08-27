@@ -1,8 +1,8 @@
-package graphics
+package com.roguelike.graphics
 
-import graphics.map_loading.BadMapFileException
-import graphics.model.MapPoint
-import utils.Settings
+import com.roguelike.graphics.map_loading.BadMapFileException
+import com.roguelike.graphics.model.MapPoint
+import com.roguelike.utils.Settings
 import java.io.File
 
 

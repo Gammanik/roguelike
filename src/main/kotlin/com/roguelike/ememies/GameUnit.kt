@@ -1,6 +1,6 @@
-package graphics.model
+package com.roguelike.ememies
 
-import utils.MapChecker
+import com.roguelike.utils.MapChecker
 import java.awt.Graphics2D
 
 interface GameUnit {
