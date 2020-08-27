@@ -1,3 +1,5 @@
+package com.roguelike
+
 import com.roguelike.graphics.GameMap
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue

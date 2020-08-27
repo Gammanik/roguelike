@@ -39,7 +39,6 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     init {
         addMob(Mob(10, 10, Color.RED, AggressiveStrategy()))
         addMob(Mob(30, 8, Color.CYAN, FunkyStrategy()))
-        addMob(Mob(20, 10, Color.RED, AggressiveStrategy()))
         addMob(Mob(25, 17, Color.RED, AggressiveStrategy()))
         addMob(Mob(13, 10, Color.RED, AggressiveStrategy()))
         addMob(Mob(2, 2, Color.GREEN, PassiveStrategy()))

@@ -1,3 +1,5 @@
+package com.roguelike
+
 import com.roguelike.ememies.Mob
 import com.roguelike.ememies.behaviour.PassiveStrategy
 import com.roguelike.graphics.GameMap
