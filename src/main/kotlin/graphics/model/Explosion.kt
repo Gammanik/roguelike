@@ -1,4 +1,4 @@
-package ememies
+package graphics.model
 
 import utils.Settings
 import java.awt.BasicStroke

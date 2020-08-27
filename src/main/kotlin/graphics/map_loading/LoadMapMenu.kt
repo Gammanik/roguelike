@@ -1,6 +1,6 @@
-package graphics
+package graphics.map_loading
 
-import graphics.model.BadMapFileException
+import graphics.GameMap
 import java.awt.FlowLayout
 import java.awt.event.ActionEvent
 import java.io.File

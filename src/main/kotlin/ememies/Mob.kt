@@ -1,9 +1,9 @@
 package ememies
 
-import graphics.model.Character
+import ememies.behaviour.BehaviourStrategy
+import player.Character
 import graphics.model.GameUnit
-import graphics.model.MapChecker
-import graphics.model.Player
+import utils.MapChecker
 import utils.MobSettings
 import utils.Move
 import utils.Settings
@@ -15,7 +15,8 @@ import javax.swing.Timer
 
 data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
                var color: Color, // todo: private set
-               var currentBehavior: BehaviourStrategy)
+               var currentBehavior: BehaviourStrategy
+)
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), MobSettings.MOB_SIZE, MobSettings.MOB_SIZE),
     GameUnit {
 

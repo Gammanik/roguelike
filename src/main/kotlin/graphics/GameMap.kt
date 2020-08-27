@@ -1,6 +1,6 @@
 package graphics
 
-import graphics.model.BadMapFileException
+import graphics.map_loading.BadMapFileException
 import graphics.model.MapPoint
 import utils.Settings
 import java.io.File
@@ -59,7 +59,8 @@ class GameMap {
                         rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
                         wallSet.add(Pair(x, lineNumber))
                     }
-                    else -> { throw BadMapFileException() }
+                    else -> { throw BadMapFileException()
+                    }
                 }
 
             }

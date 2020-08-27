@@ -1,8 +1,7 @@
 package graphics.model
 
-import utils.Settings
+import utils.MapChecker
 import java.awt.Graphics2D
-import javax.swing.text.StyledEditorKit
 
 interface GameUnit {
     fun getPointsCoordinates() : ArrayList<Pair<Int,Int>>

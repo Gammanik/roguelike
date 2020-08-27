@@ -1,8 +1,9 @@
-package graphics.model
+package player
 
+import player.Character
+import utils.MapChecker
 import java.awt.Color
 import java.awt.Graphics2D
-import kotlin.random.Random
 
 abstract class PlayerDecorator(val player: Character, checker: MapChecker) : Character() {
 

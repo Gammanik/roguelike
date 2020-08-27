@@ -1,12 +1,11 @@
-package graphics.model
+package utils
 
 import ememies.Mob
 import graphics.GameMap
-import utils.Move
-import utils.Settings
-import java.util.stream.Collector
+import player.Character
+import graphics.model.GameUnit
+import graphics.model.MapPoint
 import java.util.stream.Collectors
-import kotlin.math.absoluteValue
 import kotlin.math.pow
 import kotlin.math.sqrt
 

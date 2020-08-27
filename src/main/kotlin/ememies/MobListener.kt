@@ -1,8 +1,7 @@
 package ememies
 
-import graphics.model.Character
-import graphics.model.MapChecker
-import graphics.model.Player
+import player.Character
+import utils.MapChecker
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 

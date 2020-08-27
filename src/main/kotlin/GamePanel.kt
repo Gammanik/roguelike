@@ -1,7 +1,13 @@
 import ememies.*
+import ememies.behaviour.AggressiveStrategy
+import ememies.behaviour.FunkyStrategy
 import graphics.GameMap
 import graphics.model.*
+import player.Character
+import player.ConfusionSpellDecorator
+import player.Player
 import utils.Keys
+import utils.MapChecker
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics
@@ -74,7 +80,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
             player = ConfusionSpellDecorator(player, checker)
             for (point in confusePoint) {
                 point.col = utils.Settings.BACKGROUND_COLOR
-                val timer = Timer(2500, ConfusionListener(this))
+                val timer = Timer(2500, ActionListener { this.endConfusion() })
                 timer.isRepeats = false
                 timer.start()
             }

@@ -1,5 +1,7 @@
-package graphics.model
+package player
 
+import graphics.model.GameUnit
+import utils.MapChecker
 import utils.Settings
 import java.awt.Graphics2D
 import java.awt.geom.Ellipse2D
@@ -8,7 +10,7 @@ import kotlin.math.sqrt
 
 abstract class Character : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
-        GameUnit {
+    GameUnit {
 
     override fun getPointsCoordinates(): ArrayList<Pair<Int, Int>> {
         return arrayListOf(Pair(xCoordinate, yCoordinate), Pair(xCoordinate + 1, yCoordinate),

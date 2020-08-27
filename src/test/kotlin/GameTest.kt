@@ -1,5 +1,5 @@
 import graphics.GameMap
-import graphics.model.BadMapFileException
+import graphics.map_loading.BadMapFileException
 import junit.framework.TestCase.*
 import org.junit.Assert
 import org.junit.Test

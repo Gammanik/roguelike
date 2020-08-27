@@ -1,7 +1,8 @@
-package ememies
+package ememies.behaviour
 
-import graphics.model.Character
-import graphics.model.MapChecker
+import ememies.Mob
+import player.Character
+import utils.MapChecker
 
 class PassiveStrategy: BehaviourStrategy() {
     override fun behave(player: Character, mob: Mob, checker: MapChecker) {

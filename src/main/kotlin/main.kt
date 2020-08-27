@@ -1,4 +1,4 @@
-import graphics.LoadMapMenu
+import graphics.map_loading.LoadMapMenu
 import utils.Settings
 import java.awt.Dimension
 import javax.swing.JFrame

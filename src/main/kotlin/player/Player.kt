@@ -1,6 +1,7 @@
-package graphics.model
+package player
 
-import ememies.Explosion
+import graphics.model.Explosion
+import utils.MapChecker
 import utils.Move
 import utils.Settings
 import java.awt.Color
@@ -16,8 +17,8 @@ import kotlin.system.exitProcess
 open class Player : Character() {
 
     private var color = Color.BLACK
-
-    var hp = 100
+    private var hp = 100
+    private var ex: Explosion? = null
 
     override var xCoordinate: Int = Settings.X_START_POINT
     override var yCoordinate: Int = Settings.Y_START_POINT
@@ -27,7 +28,6 @@ open class Player : Character() {
         g.fill(this)
     }
 
-    var ex: Explosion? = null
 
     override fun drawAttacking(g: Graphics2D) {
         ex?.r = ex?.r?.plus(2)!!

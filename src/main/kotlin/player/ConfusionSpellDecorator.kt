@@ -1,5 +1,8 @@
-package graphics.model
+package player
 
+import player.Character
+import player.PlayerDecorator
+import utils.MapChecker
 import kotlin.random.Random
 
 class ConfusionSpellDecorator(pl: Character, checker: MapChecker) : PlayerDecorator(pl, checker) {

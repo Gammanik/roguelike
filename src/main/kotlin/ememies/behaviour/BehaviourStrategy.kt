@@ -1,7 +1,8 @@
-package ememies
+package ememies.behaviour
 
-import graphics.model.Character
-import graphics.model.MapChecker
+import ememies.Mob
+import player.Character
+import utils.MapChecker
 
 abstract class BehaviourStrategy {
     open fun behave(player: Character, mob: Mob, checker: MapChecker) { }
