@@ -24,7 +24,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         g.fill(this)
     }
 
-    /** get damage form mob */
+    /** get damage from player */
     fun getDamage(dmg: Int) {
         color = Settings.MOB_GOT_DAMAGE_COLOR
         val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.gray })
