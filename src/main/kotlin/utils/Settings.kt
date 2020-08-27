@@ -5,6 +5,8 @@ import java.awt.Color
 
 /** game settings */
 object Settings {
+    val CONFUSE_POINT_COLOR: Color = Color.PINK
+
 
     // character settings
     const val DELAY = 50
@@ -12,12 +14,17 @@ object Settings {
     const val ATTACK_RADIUS = 2
 
     val CHARACTER_COLOR: Color = Color.BLACK
-    val BACKGROUND_COLOR: Color = Color.WHITE
-    val WALL_COLOR: Color = Color.DARK_GRAY
-    val CONFUSE_POINT_COLOR: Color = Color.PINK
+    const val CHARACTER_HP = 100
+
     const val MOB_SIZE = 10.0
+    const val MOB_HP = 100
+    val MOB_GOT_DAMAGE_COLOR = Color(141, 41, 165, 50)
+    const val MOB_DAMAGE = 1
 
     // map settings
+    val BACKGROUND_COLOR: Color = Color.WHITE
+    val WALL_COLOR: Color = Color.DARK_GRAY
+
     const val WIDTH = 800
     const val HEIGHT = 600
     const val MAP_MENU_WIDTH = 400

@@ -17,7 +17,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
     GameUnit {
 
-    var hp = 100; private set
+    var hp = Settings.MOB_HP; private set
 
     override fun draw(g: Graphics2D) {
         g.color = color
@@ -25,19 +25,16 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
     }
 
     fun getDamage(dmg: Int) {
-        color = Color.ORANGE
-        val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.red })
+        color = Settings.MOB_GOT_DAMAGE_COLOR
+        val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.gray })
         t.isRepeats = false
         t.start()
 
         hp -= dmg
-        if (hp <= 0) {
-            color = Color.gray
-        }
     }
 
     fun attackPlayer(player: Character) {
-        player.getDamage(1)
+        player.getDamage(Settings.MOB_DAMAGE)
     }
 
     override fun stepLeft(checker: MapChecker): Boolean {
