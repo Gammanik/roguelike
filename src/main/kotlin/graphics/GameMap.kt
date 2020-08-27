@@ -63,8 +63,7 @@ class GameMap {
                         rectMap[Pair(x, lineNumber)] = MapPoint(x, lineNumber, Settings.WALL_COLOR)
                         wallSet.add(Pair(x, lineNumber))
                     }
-                    else -> { throw BadMapFileException()
-                    }
+                    else -> throw BadMapFileException()
                 }
 
             }
