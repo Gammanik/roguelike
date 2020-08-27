@@ -3,6 +3,7 @@ package com.roguelike.ememies.player
 import com.roguelike.utils.MapChecker
 import kotlin.random.Random
 
+/** decorator for confusion spell to main character */
 class ConfusionSpellDecorator(pl: Character) : PlayerDecorator(pl) {
     override fun stepLeft(checker: MapChecker) : Boolean {
         return confusedStep(0, checker)

@@ -12,6 +12,7 @@ class GameMap {
     private var wallSet = mutableSetOf<Pair<Int, Int>>()
     private val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 
+    /** getter for rectMap */
     fun getRectMap(): Map<Pair<Int, Int>, MapPoint> {
         return rectMap
     }
@@ -44,6 +45,7 @@ class GameMap {
         addConfusePoint(5, 5)
     }
 
+    /** add a confuse point */
     fun addConfusePoint(xCoord: Int, yCoord: Int) {
         rectMap[Pair(xCoord, yCoord)] = MapPoint(xCoord, yCoord, Settings.CONFUSE_POINT_COLOR)
     }
@@ -75,7 +77,8 @@ class GameMap {
 
     }
 
-    fun isMapPoint(x: Int, y: Int) : Boolean {
+    /** check if (x, y) is a map point */
+     fun isMapPoint(x: Int, y: Int) : Boolean {
         return 0 <= x && x < Settings.X_POINTS_COUNTS
                 && 0 <= y && y < Settings.Y_POINTS_COUNTS
     }

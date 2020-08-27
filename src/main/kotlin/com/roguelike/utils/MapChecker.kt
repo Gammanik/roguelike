@@ -9,6 +9,7 @@ import java.util.stream.Collectors
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+/** a special class for map positions checks */
 class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private val player: Character) {
 
     private val directionsDeltas = hashMapOf(
@@ -19,12 +20,7 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
             Pair(Move.NONE, Pair(0, 0))
     )
 
-    fun check(character: GameUnit, move: Move): Boolean {
-        val (deltaX, deltaY) = directionsDeltas[move]!!
-        val pointsList = character.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
-        return pointsList.stream().allMatch { (x, y) -> !map.isWall(x, y) && map.isMapPoint(x, y)}
-    }
-
+    /** get mobs closest to the player */
     fun getClosestMobs(): List<Mob> {
         return mobs.stream()
                 .filter { x -> getDistanceToMob(x) <= Settings.ATTACK_RADIUS}
@@ -37,18 +33,21 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
         return sqrt(xDelta.pow(2) + yDelta.pow(2))
     }
 
+    /** check if player cab do move step */
     fun checkForPlayerMove(move: Move): Boolean {
         val (deltaX, deltaY) = directionsDeltas[move]!!
         val pointsList = player.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
         return mapCheckHelper(pointsList) && mobCheckHelper(pointsList)
     }
 
+    /** check if mob can do move step */
     fun checkForMobMove(mob: GameUnit, move: Move): Boolean {
         val (deltaX, deltaY) = directionsDeltas[move]!!
         val pointsList = mob.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
         return mapCheckHelper(pointsList) && playerCheckHelper(pointsList) && mobCheckHelper(pointsList)
     }
 
+    /** check player points for points of confuse spell */
     fun checkForConfuse(character: GameUnit) : List<MapPoint> {
         return character
                 .getPointsCoordinates()

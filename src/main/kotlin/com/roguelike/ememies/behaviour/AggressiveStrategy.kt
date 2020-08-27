@@ -5,6 +5,7 @@ import com.roguelike.ememies.player.Character
 import com.roguelike.utils.MapChecker
 import kotlin.math.absoluteValue
 
+/** class for aggressive mob strategy */
 class AggressiveStrategy: BehaviourStrategy() {
 
     override fun behave(player: Character, mob: Mob, checker: MapChecker) {
@@ -41,9 +42,5 @@ class AggressiveStrategy: BehaviourStrategy() {
             if (deltaY > 0) mob.stepDown(checker)
             if (deltaY < 0) mob.stepUp(checker)
         }
-    }
-
-    private fun mobAttacking() {
-
     }
 }

@@ -5,9 +5,11 @@ import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
 
+/** class fot explosion animation of player attack */
 class Explosion(private val x: Int, private val y: Int) {
     var r = 0
 
+    /** function for draw effect */
     fun draw(g: Graphics2D) {
         val pixelX = x * Settings.SQUARE_SIZE + 10
         val pixelY = y * Settings.SQUARE_SIZE + 10

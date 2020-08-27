@@ -8,6 +8,7 @@ import java.awt.geom.Ellipse2D
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+/** abstract class for main character */
 abstract class Character : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
     GameUnit {

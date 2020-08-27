@@ -3,6 +3,7 @@ package com.roguelike.ememies.player
 import java.awt.Color
 import java.awt.Graphics2D
 
+/** abstract class for player decorator */
 abstract class PlayerDecorator(val player: Character) : Character() {
 
     override fun draw(g: Graphics2D) {

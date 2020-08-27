@@ -11,6 +11,7 @@ import java.awt.event.ActionListener
 import java.awt.geom.Rectangle2D
 import javax.swing.Timer
 
+/** class for mob */
 data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
                private var color: Color, var currentBehavior: BehaviourStrategy)
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
@@ -23,6 +24,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         g.fill(this)
     }
 
+    /** get damage form mob */
     fun getDamage(dmg: Int) {
         color = Settings.MOB_GOT_DAMAGE_COLOR
         val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.gray })
@@ -32,6 +34,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         hp -= dmg
     }
 
+    /** attack a main character */
     fun attackPlayer(player: Character) {
         player.getDamage(Settings.MOB_DAMAGE)
     }
@@ -75,6 +78,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
         return hp <= 0
     }
 
+    /** update mob position as a Rectangle2D */
     fun updatePosition() {
         x = xCoordinate.toDouble() * Settings.SQUARE_SIZE
         y = yCoordinate.toDouble() * Settings.SQUARE_SIZE

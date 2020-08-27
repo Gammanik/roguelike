@@ -47,6 +47,7 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
         mobAttackTimer.start()
     }
 
+    /** add mob to a map */
     fun addMob(newMob: Mob) {
         mobs.add(newMob)
     }

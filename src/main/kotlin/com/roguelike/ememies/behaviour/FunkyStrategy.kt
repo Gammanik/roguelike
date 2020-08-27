@@ -5,6 +5,7 @@ import com.roguelike.ememies.player.Character
 import com.roguelike.utils.MapChecker
 import kotlin.math.absoluteValue
 
+/** class for funky mob strategy */
 class FunkyStrategy: BehaviourStrategy() {
     override fun behave(player: Character, mob: Mob, checker: MapChecker) {
         if (player.getDistance(mob.xCoordinate, mob.yCoordinate) < 10) {
@@ -17,7 +18,7 @@ class FunkyStrategy: BehaviourStrategy() {
         val deltaY = p.yCoordinate - mob.yCoordinate
 
         if (deltaX <= 1 && deltaY <= 1) {
-            runVasyaRun(mob, checker)
+            doAnyStep(mob, checker)
         }
 
         if (deltaX.absoluteValue < deltaY.absoluteValue) {
@@ -43,7 +44,7 @@ class FunkyStrategy: BehaviourStrategy() {
         }
     }
 
-    private fun runVasyaRun(mob: Mob, checker: MapChecker) {
+    private fun doAnyStep(mob: Mob, checker: MapChecker) {
         if (mob.stepRight(checker)) return
         if (mob.stepLeft(checker)) return
         if (mob.stepDown(checker)) return
