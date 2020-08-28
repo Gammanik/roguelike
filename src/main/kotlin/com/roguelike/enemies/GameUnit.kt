@@ -1,6 +1,7 @@
 package com.roguelike.enemies
 
 import com.roguelike.utils.MapChecker
+import com.roguelike.utils.Move
 import java.awt.Graphics2D
 
 /** interface for moving units */
@@ -15,15 +16,35 @@ interface GameUnit {
     /** draw gameunit on GamePanel */
     fun draw(g: Graphics2D) {}
 
-    /** do step left */
-    fun stepLeft(checker: MapChecker) : Boolean
+    fun stepLeft(checker: MapChecker): Boolean {
+        if (checker.checkForGameUnitMove(this, Move.LEFT)) {
+            xCoordinate--
+            return true
+        }
+        return false
+    }
 
-    /** do step right */
-    fun stepRight(checker: MapChecker) : Boolean
+    fun stepRight(checker: MapChecker): Boolean {
+        if (checker.checkForGameUnitMove(this, Move.RIGHT)) {
+            xCoordinate++
+            return true
+        }
+        return false
+    }
 
-    /** do step up */
-    fun stepUp(checker: MapChecker) : Boolean
+    fun stepUp(checker: MapChecker): Boolean {
+        if (checker.checkForGameUnitMove(this, Move.UP)) {
+            yCoordinate--
+            return true
+        }
+        return false
+    }
 
-    /** do step down */
-    fun stepDown(checker: MapChecker) : Boolean
+    fun stepDown(checker: MapChecker): Boolean {
+        if (checker.checkForGameUnitMove(this, Move.DOWN)) {
+            yCoordinate++
+            return true
+        }
+        return false
+    }
 }

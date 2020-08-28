@@ -33,27 +33,12 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
         return sqrt(xDelta.pow(2) + yDelta.pow(2))
     }
 
-    /** check if player cab do move step */
-    fun checkForPlayerMove(move: Move): Boolean {
+    /** check if gameUnit cab do step */
+    fun checkForGameUnitMove(unit: GameUnit, move: Move): Boolean {
         val (deltaX, deltaY) = directionsDeltas[move]!!
-        val pointsList = player.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
-        return mapCheckHelper(pointsList) && mobCheckHelper(pointsList)
-    }
-
-    /** check if mob can do move step */
-    fun checkForMobMove(mob: GameUnit, move: Move): Boolean {
-        val (deltaX, deltaY) = directionsDeltas[move]!!
-        val pointsList = mob.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
-        return mapCheckHelper(pointsList) && playerCheckHelper(pointsList) && mobCheckHelper(pointsList)
-    }
-
-    /** check if character can do move step */
-    fun checkForCharacterMove(mobOrPlayer: GameUnit, move: Move): Boolean {
-        val (deltaX, deltaY) = directionsDeltas[move]!!
-        val pointsList = mobOrPlayer.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
-        val shouldMove = mapCheckHelper(pointsList) && mobCheckHelper(pointsList)
-
-        return if (shouldMove && mobOrPlayer is Mob) playerCheckHelper(pointsList) else shouldMove
+        val oldCoordinates = unit.getPointsCoordinates()
+        val newCoordinates = oldCoordinates.map { (x, y) -> Pair(x + deltaX, y + deltaY) }
+        return  mapCheckHelper(newCoordinates) && gameUnitCheckHelper(oldCoordinates, newCoordinates)
     }
 
     /** check player points for points of confuse spell */
@@ -66,19 +51,18 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
                 .collect(Collectors.toList())
     }
 
+    private fun gameUnitCheckHelper(old: List<Pair<Int, Int>>, new: List<Pair<Int, Int>>) : Boolean {
+        val gameUnitsPointsSet = mobs.stream()
+                .flatMap { x -> x.getPointsCoordinates().stream() }
+                .collect(Collectors.toSet())
+        gameUnitsPointsSet.addAll(player.getPointsCoordinates().toSet())
+        gameUnitsPointsSet.removeAll(old)
+        return !new.stream()
+                .anyMatch { x-> gameUnitsPointsSet.contains(x) }
+    }
+
     private fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
         return !list.stream()
                 .anyMatch{ (x, y) -> !map.isMapPoint(x, y) || map.isWall(x, y)}
     }
-
-    private fun playerCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
-        return !list.stream()
-                .anyMatch{ point -> player.getPointsCoordinates().contains(point) }
-    }
-
-    private fun mobCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
-        return !list.stream()
-                .anyMatch{ point -> mobs.flatMap{ x -> x.getPointsCoordinates() }.contains(point) }
-    }
-
 }

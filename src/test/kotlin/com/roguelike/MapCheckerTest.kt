@@ -42,10 +42,10 @@ class MapCheckerTest {
 
         val checker = MapChecker(gameMap, mobs, player)
         // com.roguelike.ememies.player is generated at (0,0) coordinates
-        assertFalse(checker.checkForPlayerMove(Move.UP))
-        assertFalse(checker.checkForPlayerMove(Move.LEFT))
-        assertTrue(checker.checkForPlayerMove(Move.RIGHT))
-        assertTrue(checker.checkForPlayerMove(Move.DOWN))
+        assertFalse(checker.checkForGameUnitMove(player,Move.UP))
+        assertFalse(checker.checkForGameUnitMove(player,Move.LEFT))
+        assertTrue(checker.checkForGameUnitMove(player,Move.RIGHT))
+        assertTrue(checker.checkForGameUnitMove(player, Move.DOWN))
     }
 
     @Test
@@ -57,10 +57,10 @@ class MapCheckerTest {
 
         val checker = MapChecker(gameMap, mobs, player)
         // com.roguelike.ememies.player is generated at (0,0) coordinates
-        assertFalse(checker.checkForPlayerMove(Move.UP))
-        assertFalse(checker.checkForPlayerMove(Move.LEFT))
-        assertFalse(checker.checkForPlayerMove(Move.RIGHT))
-        assertFalse(checker.checkForPlayerMove(Move.DOWN))
+        assertFalse(checker.checkForGameUnitMove(player,Move.UP))
+        assertFalse(checker.checkForGameUnitMove(player,Move.LEFT))
+        assertFalse(checker.checkForGameUnitMove(player,Move.RIGHT))
+        assertFalse(checker.checkForGameUnitMove(player,Move.DOWN))
     }
 
      @Test
@@ -91,10 +91,10 @@ class MapCheckerTest {
         val myMob = mobs.first()
 
         val checker = MapChecker(gameMap, mobs, player)
-        assertFalse(checker.checkForMobMove(myMob, Move.UP))
-        assertFalse(checker.checkForMobMove(myMob, Move.LEFT)) // wall
-        assertTrue(checker.checkForMobMove(myMob, Move.DOWN))
-        assertTrue(checker.checkForMobMove(myMob, Move.RIGHT))
+        assertFalse(checker.checkForGameUnitMove(myMob, Move.UP))
+        assertFalse(checker.checkForGameUnitMove(myMob, Move.LEFT)) // wall
+        assertTrue(checker.checkForGameUnitMove(myMob, Move.DOWN))
+        assertTrue(checker.checkForGameUnitMove(myMob, Move.RIGHT))
     }
 
     @Test
@@ -109,9 +109,9 @@ class MapCheckerTest {
         val myMob = mobs.first()
 
         val checker = MapChecker(gameMap, mobs, player)
-        assertFalse(checker.checkForMobMove(myMob, Move.UP))
-        assertFalse(checker.checkForMobMove(myMob, Move.LEFT)) // wall
-        assertTrue(checker.checkForMobMove(myMob, Move.DOWN))
-        assertFalse(checker.checkForMobMove(myMob, Move.RIGHT)) // anotherMob
+        assertFalse(checker.checkForGameUnitMove(myMob, Move.UP))
+        assertFalse(checker.checkForGameUnitMove(myMob, Move.LEFT)) // wall
+        assertTrue(checker.checkForGameUnitMove(myMob, Move.DOWN))
+        assertFalse(checker.checkForGameUnitMove(myMob, Move.RIGHT)) // anotherMob
     }
 }

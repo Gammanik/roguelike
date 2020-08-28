@@ -52,39 +52,6 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int, var
         player.getDamage(Settings.MOB_DAMAGE)
     }
 
-    override fun stepLeft(checker: MapChecker): Boolean {
-        if (checker.checkForMobMove(this, Move.LEFT)) {
-            xCoordinate--
-            return true
-        }
-        return false
-    }
-
-    override fun stepRight(checker: MapChecker): Boolean {
-        if (checker.checkForMobMove(this, Move.RIGHT)) {
-            xCoordinate++
-            return true
-        }
-        return false
-    }
-
-    override fun stepUp(checker: MapChecker): Boolean {
-        if (checker.checkForMobMove(this, Move.UP)) {
-            yCoordinate--
-            return true
-        }
-        return false
-    }
-
-    override fun stepDown(checker: MapChecker): Boolean {
-        if (checker.checkForMobMove(this, Move.DOWN)) {
-            yCoordinate++
-            return true
-        }
-        return false
-    }
-
-
     /** returns true if com.roguelike.ememies.player is dead for it to be deleted */
     fun behave(p: Character, checker: MapChecker): Boolean {
         currentBehavior.behave(p, this, checker)

@@ -7,7 +7,6 @@ import java.awt.Color
 object Settings {
     val CONFUSE_POINT_COLOR: Color = Color.PINK
 
-
     // character settings
     const val DELAY = 50
     const val ATTACK_DELAY = 520

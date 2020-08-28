@@ -57,38 +57,4 @@ open class Player : Character() {
             m.getDamage(40)
         }
     }
-
-    override fun stepLeft(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(Move.LEFT)) {
-            xCoordinate--
-            return true
-        }
-        return true
-    }
-
-    override fun stepRight(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(Move.RIGHT)) {
-            xCoordinate++
-            return true
-        }
-        return false
-    }
-
-    override fun stepUp(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(Move.UP)) {
-            yCoordinate--
-            return true
-        }
-        return false
-    }
-
-    override fun stepDown(checker: MapChecker): Boolean {
-        if (checker.checkForPlayerMove(Move.DOWN)) {
-            yCoordinate++
-            return true
-        }
-        return false
-    }
-
-
 }
