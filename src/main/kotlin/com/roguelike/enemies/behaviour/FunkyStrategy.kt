@@ -16,32 +16,43 @@ class FunkyStrategy: BehaviourStrategy() {
     private fun goFromPlayer(p: Character, mob: Mob, checker: MapChecker) {
         val deltaX = p.xCoordinate - mob.xCoordinate
         val deltaY = p.yCoordinate - mob.yCoordinate
+        val firstTryResult: Boolean
+        val secondTryResult: Boolean
 
-        if (deltaX <= 1 && deltaY <= 1) {
-            doAnyStep(mob, checker)
-            return
-        }
-
-        if (deltaX.absoluteValue < deltaY.absoluteValue) {
+        if (deltaX.absoluteValue > deltaY.absoluteValue) {
             // then move to y direction
-            val firstTryResult: Boolean = if (deltaY > 0) {
-                mob.stepUp(checker)
-            } else {
-                mob.stepDown(checker)
+            firstTryResult = when {
+                deltaY > 0 -> mob.stepUp(checker)
+                deltaY < 0 -> mob.stepDown(checker)
+                else -> false
             }
+
             if (firstTryResult) return
-            if (deltaX > 0) mob.stepLeft(checker)
-            if (deltaX < 0) mob.stepRight(checker)
-        } else {
-            // then move to x direction
-            val firstTryResult: Boolean = if (deltaX > 0) {
+
+            secondTryResult = if (deltaX > 0) {
                 mob.stepLeft(checker)
             } else {
                 mob.stepRight(checker)
             }
+        } else {
+            // then move to x direction
+            firstTryResult = when {
+                deltaX > 0 -> mob.stepLeft(checker)
+                deltaX < 0 -> mob.stepRight(checker)
+                else -> false
+            }
+
             if (firstTryResult) return
-            if (deltaY < 0) mob.stepDown(checker)
-            if (deltaY > 0) mob.stepUp(checker)
+
+            secondTryResult = if (deltaY < 0) {
+                mob.stepDown(checker)
+            } else {
+                mob.stepUp(checker)
+            }
+        }
+
+        if ( !firstTryResult && !secondTryResult && deltaX.absoluteValue < 2 && deltaY.absoluteValue < 2) {
+            doAnyStep(mob, checker)
         }
     }
 
