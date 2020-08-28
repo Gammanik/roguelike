@@ -1,4 +1,4 @@
-package com.roguelike.ememies.player
+package com.roguelike.enemies.player
 
 import com.roguelike.graphics.model.Explosion
 import com.roguelike.utils.MapChecker
@@ -89,4 +89,6 @@ open class Player : Character() {
         }
         return false
     }
+
+
 }

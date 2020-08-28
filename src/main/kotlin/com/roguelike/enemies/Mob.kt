@@ -1,7 +1,10 @@
-package com.roguelike.ememies
+package com.roguelike.enemies
 
-import com.roguelike.ememies.behaviour.BehaviourStrategy
-import com.roguelike.ememies.player.Character
+import com.roguelike.enemies.behaviour.AggressiveStrategy
+import com.roguelike.enemies.behaviour.BehaviourStrategy
+import com.roguelike.enemies.behaviour.FunkyStrategy
+import com.roguelike.enemies.behaviour.PassiveStrategy
+import com.roguelike.enemies.player.Character
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Move
 import com.roguelike.utils.Settings
@@ -12,16 +15,26 @@ import java.awt.geom.Rectangle2D
 import javax.swing.Timer
 
 /** class for mob */
-data class Mob(override var xCoordinate: Int, override var yCoordinate: Int,
-               private var color: Color, var currentBehavior: BehaviourStrategy)
+data class Mob(override var xCoordinate: Int, override var yCoordinate: Int, var currentBehavior: BehaviourStrategy)
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
     GameUnit {
+
+    private var color = getMobColor()
 
     var hp = Settings.MOB_HP; private set
 
     override fun draw(g: Graphics2D) {
         g.color = color
         g.fill(this)
+    }
+
+    private fun getMobColor(): Color {
+        return when (currentBehavior) {
+            is AggressiveStrategy -> Color.red
+            is FunkyStrategy -> Color.cyan
+            is PassiveStrategy -> Color.green
+            else -> Color.ORANGE
+        }
     }
 
     /** get damage form mob */

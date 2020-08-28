@@ -1,4 +1,4 @@
-package com.roguelike.ememies.player
+package com.roguelike.enemies.player
 
 import com.roguelike.utils.MapChecker
 import kotlin.random.Random

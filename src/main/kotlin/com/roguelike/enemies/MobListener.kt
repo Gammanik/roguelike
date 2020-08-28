@@ -1,6 +1,6 @@
-package com.roguelike.ememies
+package com.roguelike.enemies
 
-import com.roguelike.ememies.player.Character
+import com.roguelike.enemies.player.Character
 import com.roguelike.utils.MapChecker
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener

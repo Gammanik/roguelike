@@ -1,11 +1,11 @@
-import com.roguelike.ememies.*
-import com.roguelike.ememies.behaviour.AggressiveStrategy
-import com.roguelike.ememies.behaviour.FunkyStrategy
-import com.roguelike.ememies.behaviour.PassiveStrategy
+import com.roguelike.enemies.*
+import com.roguelike.enemies.behaviour.AggressiveStrategy
+import com.roguelike.enemies.behaviour.FunkyStrategy
+import com.roguelike.enemies.behaviour.PassiveStrategy
 import com.roguelike.graphics.GameMap
-import com.roguelike.ememies.player.Character
-import com.roguelike.ememies.player.ConfusionSpellDecorator
-import com.roguelike.ememies.player.Player
+import com.roguelike.enemies.player.Character
+import com.roguelike.enemies.player.ConfusionSpellDecorator
+import com.roguelike.enemies.player.Player
 import com.roguelike.utils.Keys
 import com.roguelike.utils.MapChecker
 import java.awt.Color
@@ -37,11 +37,15 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     private var isAttackPressed = false
 
     init {
-        addMob(Mob(10, 10, Color.RED, AggressiveStrategy()))
-        addMob(Mob(30, 8, Color.CYAN, FunkyStrategy()))
-        addMob(Mob(25, 17, Color.RED, AggressiveStrategy()))
-        addMob(Mob(13, 10, Color.RED, AggressiveStrategy()))
-        addMob(Mob(2, 2, Color.GREEN, PassiveStrategy()))
+        val aggressiveStrategy = AggressiveStrategy()
+        val funkyStrategy = FunkyStrategy()
+        val passiveStrategy = PassiveStrategy()
+
+        addMob(Mob(10, 10, aggressiveStrategy))
+        addMob(Mob(30, 8, funkyStrategy))
+        addMob(Mob(25, 17, aggressiveStrategy))
+        addMob(Mob(13, 10, aggressiveStrategy))
+        addMob(Mob(2, 2, passiveStrategy))
         this.addKeyListener(this)
         timer.start()
         mobAttackTimer.start()
@@ -93,20 +97,20 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
 
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
-        val g1 = g as Graphics2D
+        val gameField = g as Graphics2D
 
         for (point in gameMap.getRectMap().values) {
-            g1.color = point.col
-            g1.fill3DRect(point.x * set.SQUARE_SIZE, point.y * set.SQUARE_SIZE,
+            gameField.color = point.col
+            gameField.fill3DRect(point.x * set.SQUARE_SIZE, point.y * set.SQUARE_SIZE,
                 set.SQUARE_SIZE, set.SQUARE_SIZE, true)
         }
 
-        player.draw(g1)
+        player.draw(gameField)
         for (m in mobs)
             m.draw(g)
 
         if (isAttackPressed) {
-            player.drawAttacking(g1)
+            player.drawAttacking(gameField)
         }
     }
 

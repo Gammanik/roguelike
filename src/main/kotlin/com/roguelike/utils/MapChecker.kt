@@ -1,9 +1,9 @@
 package com.roguelike.utils
 
-import com.roguelike.ememies.Mob
+import com.roguelike.enemies.Mob
 import com.roguelike.graphics.GameMap
-import com.roguelike.ememies.player.Character
-import com.roguelike.ememies.GameUnit
+import com.roguelike.enemies.player.Character
+import com.roguelike.enemies.GameUnit
 import com.roguelike.graphics.model.MapPoint
 import java.util.stream.Collectors
 import kotlin.math.pow
@@ -45,6 +45,15 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
         val (deltaX, deltaY) = directionsDeltas[move]!!
         val pointsList = mob.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
         return mapCheckHelper(pointsList) && playerCheckHelper(pointsList) && mobCheckHelper(pointsList)
+    }
+
+    /** check if character can do move step */
+    fun checkForCharacterMove(mobOrPlayer: GameUnit, move: Move): Boolean {
+        val (deltaX, deltaY) = directionsDeltas[move]!!
+        val pointsList = mobOrPlayer.getPointsCoordinates().map { (x, y) -> Pair(x + deltaX, y + deltaY) }
+        val shouldMove = mapCheckHelper(pointsList) && mobCheckHelper(pointsList)
+
+        return if (shouldMove && mobOrPlayer is Mob) playerCheckHelper(pointsList) else shouldMove
     }
 
     /** check player points for points of confuse spell */

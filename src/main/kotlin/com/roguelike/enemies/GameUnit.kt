@@ -1,4 +1,4 @@
-package com.roguelike.ememies
+package com.roguelike.enemies
 
 import com.roguelike.utils.MapChecker
 import java.awt.Graphics2D

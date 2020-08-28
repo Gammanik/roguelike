@@ -1,4 +1,4 @@
-package com.roguelike.ememies.player
+package com.roguelike.enemies.player
 
 import java.awt.Color
 import java.awt.Graphics2D

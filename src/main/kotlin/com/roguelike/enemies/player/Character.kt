@@ -1,6 +1,6 @@
-package com.roguelike.ememies.player
+package com.roguelike.enemies.player
 
-import com.roguelike.ememies.GameUnit
+import com.roguelike.enemies.GameUnit
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
 import java.awt.Graphics2D

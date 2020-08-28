@@ -1,7 +1,7 @@
-package com.roguelike.ememies.behaviour
+package com.roguelike.enemies.behaviour
 
-import com.roguelike.ememies.Mob
-import com.roguelike.ememies.player.Character
+import com.roguelike.enemies.Mob
+import com.roguelike.enemies.player.Character
 import com.roguelike.utils.MapChecker
 
 /** abstract class for mob moving behaviour */

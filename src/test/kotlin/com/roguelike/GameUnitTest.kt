@@ -1,14 +1,14 @@
 package com.roguelike
 
 import GamePanel
-import com.roguelike.ememies.Mob
-import com.roguelike.ememies.behaviour.AggressiveStrategy
-import com.roguelike.ememies.behaviour.FunkyStrategy
-import com.roguelike.ememies.behaviour.PassiveStrategy
+import com.roguelike.enemies.Mob
+import com.roguelike.enemies.behaviour.AggressiveStrategy
+import com.roguelike.enemies.behaviour.FunkyStrategy
+import com.roguelike.enemies.behaviour.PassiveStrategy
 import com.roguelike.graphics.GameMap
 import junit.framework.TestCase.*
 import org.junit.Test
-import com.roguelike.ememies.player.Player
+import com.roguelike.enemies.player.Player
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
 import java.awt.Color

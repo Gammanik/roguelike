@@ -1,12 +1,12 @@
 package com.roguelike
 
-import com.roguelike.ememies.Mob
-import com.roguelike.ememies.behaviour.PassiveStrategy
+import com.roguelike.enemies.Mob
+import com.roguelike.enemies.behaviour.PassiveStrategy
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.model.MapPoint
 import junit.framework.TestCase.*
 import org.junit.Test
-import com.roguelike.ememies.player.Player
+import com.roguelike.enemies.player.Player
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Move
 import com.roguelike.utils.Settings
