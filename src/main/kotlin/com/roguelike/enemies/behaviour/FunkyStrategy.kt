@@ -19,6 +19,7 @@ class FunkyStrategy: BehaviourStrategy() {
 
         if (deltaX <= 1 && deltaY <= 1) {
             doAnyStep(mob, checker)
+            return
         }
 
         if (deltaX.absoluteValue < deltaY.absoluteValue) {

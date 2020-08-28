@@ -13,6 +13,11 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
     GameUnit {
 
+    var playerDeadCallback: (() -> Unit)? = null
+    fun addDeadCallback(cb: (() -> Unit)) {
+        playerDeadCallback = cb
+    }
+
     override fun getPointsCoordinates(): ArrayList<Pair<Int, Int>> {
         return arrayListOf(Pair(xCoordinate, yCoordinate), Pair(xCoordinate + 1, yCoordinate),
                     Pair(xCoordinate, yCoordinate + 1), Pair(xCoordinate + 1, yCoordinate + 1))

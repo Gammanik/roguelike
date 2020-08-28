@@ -76,7 +76,7 @@ class GameUnitTest {
     @Test
     fun testMobAggressiveStrategy() {
         val gameMap = GameMap(File("src/test/resources/mapExample"))
-        val panel = GamePanel(gameMap)
+        val panel = GamePanel(gameMap) {}
         val aggressiveMob = Mob(3, 0, AggressiveStrategy())
         panel.addMob(aggressiveMob)
         panel.actionPerformed(null)
@@ -87,19 +87,20 @@ class GameUnitTest {
     @Test
     fun testMobFunkyStrategy() {
         val gameMap = GameMap(File("src/test/resources/mapExample"))
-        val panel = GamePanel(gameMap)
+        val panel = GamePanel(gameMap) {}
 
         val funkyMob = Mob(0, 4, FunkyStrategy())
         panel.addMob(funkyMob)
         panel.actionPerformed(null)
+
         assertEquals(1, funkyMob.xCoordinate)
-        assertEquals(5, funkyMob.yCoordinate)
+        assertEquals(4, funkyMob.yCoordinate)
     }
 
     @Test
     fun testMobPassiveStrategy() {
         val gameMap = GameMap(File("src/test/resources/mapExample"))
-        val panel = GamePanel(gameMap)
+        val panel = GamePanel(gameMap) {}
 
         val passiveMob = Mob(3, 0, PassiveStrategy())
         panel.addMob(passiveMob)

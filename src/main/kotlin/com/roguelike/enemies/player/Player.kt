@@ -28,7 +28,6 @@ open class Player : Character() {
         g.fill(this)
     }
 
-
     override fun drawAttacking(g: Graphics2D) {
         ex?.r = ex?.r?.plus(2)!!
         g.color = Color.CYAN
@@ -45,7 +44,7 @@ open class Player : Character() {
 
         if (hp <= 0) {
             color = Color.gray
-            exitProcess(0)
+            playerDeadCallback?.let { it() }
         }
     }
 

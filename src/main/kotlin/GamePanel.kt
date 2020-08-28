@@ -21,7 +21,7 @@ import javax.swing.Timer
 import com.roguelike.utils.Settings as set
 
 /** The main game window */
-class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionListener {
+class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: () -> Unit) : JPanel(), KeyListener, ActionListener {
 
     private val mobs = mutableListOf<Mob>()
     private var player : Character = Player()
@@ -37,6 +37,8 @@ class GamePanel(private val gameMap: GameMap) : JPanel(), KeyListener, ActionLis
     private var isAttackPressed = false
 
     init {
+        player.addDeadCallback(playerDeadCallback)
+
         val aggressiveStrategy = AggressiveStrategy()
         val funkyStrategy = FunkyStrategy()
         val passiveStrategy = PassiveStrategy()
