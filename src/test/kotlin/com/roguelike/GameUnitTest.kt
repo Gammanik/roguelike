@@ -17,7 +17,7 @@ import java.io.File
 class GameUnitTest {
     @Test
     fun testMobGettingDamage() {
-        val mob = Mob(0, 0, Settings.CHARACTER_COLOR, PassiveStrategy())
+        val mob = Mob(0, 0, PassiveStrategy())
         assertEquals(Settings.MOB_HP, mob.hp)
         mob.getDamage(1)
         assertEquals(Settings.MOB_HP - 1, mob.hp)
@@ -27,7 +27,7 @@ class GameUnitTest {
 
     @Test
     fun testMobGotDead() {
-        val mob = Mob(0, 0, Settings.CHARACTER_COLOR, PassiveStrategy())
+        val mob = Mob(0, 0, PassiveStrategy())
         val p = Player()
         val gameMap = GameMap(File("src/test/resources/mapWithWall"))
         val checker = MapChecker(gameMap, emptyList(), p)
@@ -45,7 +45,7 @@ class GameUnitTest {
 
     @Test
     fun testMobAttackPlayer() {
-        val mob = Mob(0, 0, Settings.CHARACTER_COLOR, PassiveStrategy())
+        val mob = Mob(0, 0, PassiveStrategy())
         val p = Player()
 
         assertEquals(Settings.CHARACTER_HP, p.hp)
@@ -63,7 +63,7 @@ class GameUnitTest {
 
     @Test
     fun testMobMovement() {
-        val m = Mob(2, 1, Settings.CHARACTER_COLOR, PassiveStrategy())
+        val m = Mob(2, 1, PassiveStrategy())
         val gameMap = GameMap(File("src/test/resources/mapWithWall"))
         val checker = MapChecker(gameMap, emptyList(), Player())
 
@@ -77,7 +77,7 @@ class GameUnitTest {
     fun testMobAggressiveStrategy() {
         val gameMap = GameMap(File("src/test/resources/mapExample"))
         val panel = GamePanel(gameMap)
-        val aggressiveMob = Mob(3, 0, Color.RED, AggressiveStrategy())
+        val aggressiveMob = Mob(3, 0, AggressiveStrategy())
         panel.addMob(aggressiveMob)
         panel.actionPerformed(null)
         assertEquals(2, aggressiveMob.xCoordinate)
@@ -89,7 +89,7 @@ class GameUnitTest {
         val gameMap = GameMap(File("src/test/resources/mapExample"))
         val panel = GamePanel(gameMap)
 
-        val funkyMob = Mob(0, 4, Color.GREEN, FunkyStrategy())
+        val funkyMob = Mob(0, 4, FunkyStrategy())
         panel.addMob(funkyMob)
         panel.actionPerformed(null)
         assertEquals(1, funkyMob.xCoordinate)
@@ -101,7 +101,7 @@ class GameUnitTest {
         val gameMap = GameMap(File("src/test/resources/mapExample"))
         val panel = GamePanel(gameMap)
 
-        val passiveMob = Mob(3, 0, Color.GREEN, PassiveStrategy())
+        val passiveMob = Mob(3, 0, PassiveStrategy())
         panel.addMob(passiveMob)
         panel.actionPerformed(null)
         assertEquals(3, passiveMob.xCoordinate)
@@ -110,6 +110,5 @@ class GameUnitTest {
         assertEquals(3, passiveMob.xCoordinate)
         assertEquals(0, passiveMob.yCoordinate)
     }
-
 
 }

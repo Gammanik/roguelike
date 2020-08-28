@@ -20,9 +20,9 @@ class MapCheckerTest {
         val mapFilename = "src/test/resources/mapExample"
         val gameMap = GameMap(File(mapFilename))
         val mobs = listOf(
-            Mob(1, 2, Color.CYAN, PassiveStrategy()),
-            Mob(0, 2, Color.CYAN, PassiveStrategy()),
-            Mob(5, 2, Color.CYAN, PassiveStrategy()))
+            Mob(1, 2, PassiveStrategy()),
+            Mob(0, 2, PassiveStrategy()),
+            Mob(5, 2, PassiveStrategy()))
         val player = Player()
 
         val checker = MapChecker(gameMap, mobs, player)
@@ -87,7 +87,7 @@ class MapCheckerTest {
         val gameMap = GameMap(File(mapFilename))
         val player = Player()
 
-        val mobs = listOf(Mob(3, 0, Color.CYAN, PassiveStrategy()))
+        val mobs = listOf(Mob(3, 0, PassiveStrategy()))
         val myMob = mobs.first()
 
         val checker = MapChecker(gameMap, mobs, player)
@@ -104,8 +104,8 @@ class MapCheckerTest {
         val player = Player()
 
         val mobs = listOf(
-            Mob(3, 0, Color.CYAN, PassiveStrategy()),
-            Mob(4, 0, Color.CYAN, PassiveStrategy()))
+            Mob(3, 0, PassiveStrategy()),
+            Mob(4, 0, PassiveStrategy()))
         val myMob = mobs.first()
 
         val checker = MapChecker(gameMap, mobs, player)
