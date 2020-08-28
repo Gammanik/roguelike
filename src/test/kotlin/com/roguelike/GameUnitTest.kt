@@ -93,8 +93,8 @@ class GameUnitTest {
         panel.addMob(funkyMob)
         panel.actionPerformed(null)
 
-        assertEquals(1, funkyMob.xCoordinate)
-        assertEquals(4, funkyMob.yCoordinate)
+        assertEquals(0, funkyMob.xCoordinate)
+        assertEquals(5, funkyMob.yCoordinate)
     }
 
     @Test
