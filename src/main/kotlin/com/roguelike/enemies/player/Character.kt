@@ -13,7 +13,7 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
     GameUnit {
 
-    private var playerDeadCallback: (() -> Unit)? = null
+    var playerDeadCallback: (() -> Unit)? = null
     fun addDeadCallback(cb: (() -> Unit)) {
         playerDeadCallback = cb
     }
