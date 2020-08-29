@@ -14,15 +14,17 @@ import java.awt.Color
 import java.io.File
 
 class MapCheckerTest {
+    
+    private val passiveStrategy = PassiveStrategy()
 
     @Test
     fun testReturnsClosestMobs() {
         val mapFilename = "src/test/resources/mapExample"
         val gameMap = GameMap(File(mapFilename))
         val mobs = listOf(
-            Mob(1, 2, PassiveStrategy()),
-            Mob(0, 2, PassiveStrategy()),
-            Mob(5, 2, PassiveStrategy()))
+            Mob(1, 2, passiveStrategy),
+            Mob(0, 2, passiveStrategy),
+            Mob(5, 2, passiveStrategy))
         val player = Player()
 
         val checker = MapChecker(gameMap, mobs, player)
@@ -87,7 +89,7 @@ class MapCheckerTest {
         val gameMap = GameMap(File(mapFilename))
         val player = Player()
 
-        val mobs = listOf(Mob(3, 0, PassiveStrategy()))
+        val mobs = listOf(Mob(3, 0, passiveStrategy))
         val myMob = mobs.first()
 
         val checker = MapChecker(gameMap, mobs, player)
@@ -104,8 +106,8 @@ class MapCheckerTest {
         val player = Player()
 
         val mobs = listOf(
-            Mob(3, 0, PassiveStrategy()),
-            Mob(4, 0, PassiveStrategy()))
+            Mob(3, 0, passiveStrategy),
+            Mob(4, 0, passiveStrategy))
         val myMob = mobs.first()
 
         val checker = MapChecker(gameMap, mobs, player)
