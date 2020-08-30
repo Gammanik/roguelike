@@ -33,26 +33,12 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
-
     private var isAttackPressed = false
 
     init {
         player.addDeadCallback(playerDeadCallback)
-
-        val aggressiveStrategy = AggressiveStrategy()
-        val funkyStrategy = FunkyStrategy()
-        val passiveStrategy = PassiveStrategy()
-
-        addMob(Mob(10, 10, aggressiveStrategy))
-        addMob(Mob(30, 8, funkyStrategy))
-        addMob(Mob(25, 17,aggressiveStrategy))
-        addMob(Mob(17, 20, aggressiveStrategy))
-        addMob(Mob(2, 2, passiveStrategy))
-        addMob(Mob(27, 27, aggressiveStrategy))
-        addMob(Mob(30, 35, aggressiveStrategy))
-        addMob(Mob(32, 40, aggressiveStrategy))
-        addMob(Mob(32, 45, aggressiveStrategy))
         this.addKeyListener(this)
+        addMobs()
         timer.start()
         mobAttackTimer.start()
     }
@@ -121,9 +107,7 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
     }
 
     override fun keyPressed(p0: KeyEvent?) {
-        if (p0 == null) return
-
-        if (p0.keyCode == Keys.KEY_ATTACK) {
+        if (p0?.keyCode == Keys.KEY_ATTACK) {
             player.attackClosestMobs(checker)
 
             isAttackPressed = true
@@ -150,5 +134,22 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
             Keys.KEY_RIGHT -> isKeyRight = newBool
             Keys.KEY_LEFT -> isKeyLeft = newBool
         }
+    }
+
+
+    private fun addMobs() {
+        val aggressiveStrategy = AggressiveStrategy()
+        val funkyStrategy = FunkyStrategy()
+        val passiveStrategy = PassiveStrategy()
+
+        addMob(Mob(10, 10, aggressiveStrategy))
+        addMob(Mob(30, 8, funkyStrategy))
+        addMob(Mob(25, 17,aggressiveStrategy))
+        addMob(Mob(17, 20, aggressiveStrategy))
+        addMob(Mob(2, 2, passiveStrategy))
+        addMob(Mob(27, 27, aggressiveStrategy))
+        addMob(Mob(30, 35, aggressiveStrategy))
+        addMob(Mob(32, 40, aggressiveStrategy))
+        addMob(Mob(32, 45, aggressiveStrategy))
     }
 }
