@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
 open class Player : Character() {
 
     private var color = Color.BLACK
-    var hp = Settings.CHARACTER_HP; private set
     private var ex: Explosion? = null
 
     override var xCoordinate: Int = Settings.X_START_POINT

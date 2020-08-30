@@ -24,7 +24,7 @@ import com.roguelike.utils.Settings as set
 class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: () -> Unit) : JPanel(), KeyListener, ActionListener {
 
     private val mobs = mutableListOf<Mob>()
-    private var player : Character = Player()
+    var player : Character = Player(); private set
 
     private val checker = MapChecker(gameMap, mobs, player)
 

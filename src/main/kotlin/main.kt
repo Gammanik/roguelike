@@ -1,7 +1,9 @@
 import com.roguelike.graphics.map_loading.LoadMapMenu
 import com.roguelike.utils.Settings
+import java.awt.Component
 import java.awt.Dimension
 import java.awt.event.WindowEvent
+import javax.swing.BoxLayout
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE
 
@@ -22,9 +24,21 @@ fun main() {
         println("game over")
         gameFrame.dispatchEvent(WindowEvent(gameFrame, WindowEvent.WINDOW_CLOSING))
     }
+
+    val infoMenuPanel = InfoMenuPanel(gamePanel)
+
+    val contPane = gameFrame.contentPane
+    contPane.layout = BoxLayout(contPane, BoxLayout.Y_AXIS)
+    contPane.add(gamePanel)
+    contPane.add(infoMenuPanel)
+
     gamePanel.size = Dimension(Settings.WIDTH, Settings.HEIGHT)
+
     gameFrame.add(gamePanel)
+    gameFrame.add(infoMenuPanel)
     gameFrame.pack()
+
     gameFrame.isVisible = true
     gamePanel.isFocusable = true
+    infoMenuPanel.isFocusable = true
 }
