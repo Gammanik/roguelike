@@ -123,8 +123,10 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
             val m = it.next()
             m.updatePosition()
 
-            if (m.behave(player, checker))
+            if (m.behave(player, checker)) {
+                player.getExp(30)
                 it.remove()
+            }
         }
     }
 

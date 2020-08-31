@@ -41,7 +41,7 @@ object Settings {
     const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map"
     const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"
 
-    const val WALL_SUBSET_SIZE = 0.8
+    const val WALL_SUBSET_SIZE = 0.45
     val WALL_LIST = mutableListOf(
             MapRectangle(3, 6, 7, 11),
             MapRectangle(0, 2, 14, 16),

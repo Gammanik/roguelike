@@ -25,11 +25,11 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
         // lets paint frame
         gameField.color = Color.BLACK
         gameField.fill3DRect(0, 0,
-                800, 70,true)
+                800, 100,true)
 
         gameField.color = Color.lightGray
         gameField.fill3DRect(2, 2,
-                796, 66,true)
+                796, 96,true)
 
         // lets paint hp
         val hp = gamePanel.player.hp
@@ -48,8 +48,9 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
         g.drawString("[HP] $hp / 100", 400, 20);
 
         // lets paint lvl
-
-        val exp = 40
+        val exp = gamePanel.player.exp
+        val lvl = gamePanel.player.lvl
+        val expMax = gamePanel.player.expMax
 
         gameField.color = Color.WHITE
         gameField.fill3DRect(5, 30,
@@ -57,18 +58,23 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
 
         gameField.color = Color.YELLOW
         gameField.fill3DRect(5, 30,
-                (790 * (exp.toDouble() / 100)).toInt(), 20,true)
-
-//        g.setFont(Font("TimesRoman", Font.BOLD, 15))
+                (790 * (exp.toDouble() / expMax)).toInt(), 20,true)
 
         gameField.color = Color.DARK_GRAY
-        g.drawString("[EXP(1)] $exp / 100", 400, 45);
+        g.drawString("[EXP] $exp / $expMax", 400, 45);
 
+        // lets paint lvl oval
+        gameField.color = Color.MAGENTA
+        g.fillOval(5, 55, 40, 40)
+
+        gameField.color = Color.DARK_GRAY
+        g.setFont(Font("TimesRoman", Font.BOLD, 20))
+        g.drawString(lvl.toString(), 20, 80)
 
     }
 
     override fun getPreferredSize() : Dimension {
-        return Dimension(800, 70)
+        return Dimension(800, 100)
     }
 
 }

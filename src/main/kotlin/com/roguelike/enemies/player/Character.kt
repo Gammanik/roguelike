@@ -3,7 +3,6 @@ package com.roguelike.enemies.player
 import com.roguelike.enemies.GameUnit
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
-import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.geom.Ellipse2D
 import kotlin.math.pow
@@ -15,6 +14,9 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
     GameUnit {
 
     var hp = Settings.CHARACTER_HP; protected set
+    var exp = 0; protected set
+    var lvl = 1; protected set
+    var expMax = 100; protected set
 
     var playerDeadCallback: (() -> Unit)? = null
     fun addDeadCallback(cb: (() -> Unit)) {
@@ -42,6 +44,16 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
 
     /** attack closest to the player mobs */
     open fun attackClosestMobs(checker: MapChecker) {}
+
+    /** get damage from mobs */
+    fun getExp(value: Int) {
+        exp += value
+        if (exp >= expMax) {
+            exp %= expMax
+            lvl++
+            expMax *= 2
+        }
+    }
 
     /** get damage from mobs */
     open fun getDamage(dmg: Int) {}
