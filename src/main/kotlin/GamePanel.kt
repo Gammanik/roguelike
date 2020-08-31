@@ -6,6 +6,8 @@ import com.roguelike.graphics.GameMap
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
+import com.roguelike.items.ItemBase
+import com.roguelike.items.PowerUpItem
 import com.roguelike.utils.Keys
 import com.roguelike.utils.MapChecker
 import java.awt.Color
@@ -25,6 +27,7 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
 
     private val mobs = mutableListOf<Mob>()
     var player : Character = Player(); private set
+    private val items = mutableListOf<ItemBase>()
 
     private val checker = MapChecker(gameMap, mobs, player)
 
@@ -39,13 +42,9 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
         player.addDeadCallback(playerDeadCallback)
         this.addKeyListener(this)
         addMobs()
+        addItems()
         timer.start()
         mobAttackTimer.start()
-    }
-
-    /** add mob to a map */
-    fun addMob(newMob: Mob) {
-        mobs.add(newMob)
     }
 
     private fun endConfusion() {
@@ -64,26 +63,8 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
 
         player.updatePosition()
 
-        val it = mobs.iterator()
-        while (it.hasNext()) {
-            val m = it.next()
-            m.updatePosition()
-
-            if (m.behave(player, checker))
-                it.remove()
-        }
-
-        val confusePoint = checker.checkForConfuse(player)
-        if (confusePoint.isNotEmpty()) {
-            player = ConfusionSpellDecorator(player)
-            for (point in confusePoint) {
-                point.col = com.roguelike.utils.Settings.BACKGROUND_COLOR
-                val timer = Timer(2500, ActionListener { this.endConfusion() })
-                timer.isRepeats = false
-                timer.start()
-            }
-        }
-
+        behaveMobs()
+        checkConfuse()
         repaint()
     }
 
@@ -98,8 +79,8 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
         }
 
         player.draw(gameField)
-        for (m in mobs)
-            m.draw(g)
+        for (m in mobs) m.draw(g)
+        for (item in items) item.draw(g)
 
         if (isAttackPressed) {
             player.drawAttacking(gameField)
@@ -136,6 +117,43 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
         }
     }
 
+    private fun behaveMobs() {
+        val it = mobs.iterator()
+        while (it.hasNext()) {
+            val m = it.next()
+            m.updatePosition()
+
+            if (m.behave(player, checker))
+                it.remove()
+        }
+    }
+
+    private fun checkConfuse() {
+        val confusePoint = checker.checkForConfuse(player)
+        if (confusePoint.isNotEmpty()) {
+            player = ConfusionSpellDecorator(player)
+            for (point in confusePoint) {
+                point.col = com.roguelike.utils.Settings.BACKGROUND_COLOR
+                val timer = Timer(2500) { this.endConfusion() }
+                timer.isRepeats = false
+                timer.start()
+            }
+        }
+    }
+
+    /** add an item to a map */
+    private fun addItem(item: ItemBase) {
+        items.add(item)
+    }
+
+    private fun addItems() {
+        addItem(PowerUpItem(20, 20))
+    }
+
+    /** add mob to a map */
+    fun addMob(newMob: Mob) {
+        mobs.add(newMob)
+    }
 
     private fun addMobs() {
         val aggressiveStrategy = AggressiveStrategy()

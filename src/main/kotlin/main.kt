@@ -1,6 +1,5 @@
 import com.roguelike.graphics.map_loading.LoadMapMenu
 import com.roguelike.utils.Settings
-import java.awt.Component
 import java.awt.Dimension
 import java.awt.event.WindowEvent
 import javax.swing.BoxLayout
