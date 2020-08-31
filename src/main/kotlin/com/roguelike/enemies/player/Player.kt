@@ -4,6 +4,7 @@ import com.roguelike.graphics.model.Explosion
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Move
 import com.roguelike.utils.Settings
+import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.ActionListener
@@ -29,20 +30,18 @@ open class Player : Character() {
 
     override fun drawAttacking(g: Graphics2D) {
         ex?.r = ex?.r?.plus(2)!!
-        g.color = Color.CYAN
-        ex?.draw(g)
+        ex?.draw(g, ex?.r!!, currAttackPower)
     }
 
     override fun getDamage(dmg: Int) {
         color = Color.ORANGE
-        val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.BLACK })
+        val t = Timer(Settings.ATTACK_DELAY) { color = Color.BLACK }
         t.isRepeats = false
         t.start()
 
         hp -= dmg
 
         if (hp <= 0) {
-            color = Color.gray
             playerDeadCallback?.let { it() }
         }
     }
@@ -52,7 +51,7 @@ open class Player : Character() {
         val mobs = checker.getClosestMobs()
 
         for (m in mobs) {
-            m.getDamage(40)
+            m.getDamage(currAttackPower)
         }
     }
 }

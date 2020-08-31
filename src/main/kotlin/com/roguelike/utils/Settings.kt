@@ -9,11 +9,11 @@ object Settings {
 
     // character settings
     const val DELAY = 50
-    const val ATTACK_DELAY = 520
+    const val ATTACK_DELAY = 500
     const val ATTACK_RADIUS = 2
 
     val CHARACTER_COLOR: Color = Color.BLACK
-    const val CHARACTER_HP = 100
+    const val CHARACTER_MAX_HP = 100
 
     const val MOB_SIZE = 10.0
     const val MOB_HP = 100

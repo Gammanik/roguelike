@@ -1,5 +1,6 @@
 package com.roguelike.items
 
+import com.roguelike.enemies.player.Character
 import com.roguelike.utils.Settings
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
@@ -13,5 +14,10 @@ class AidItem(override val x: Int, override val y: Int): ItemBase(x, y) {
 
     override fun draw(g: Graphics2D) {
         g.drawImage(img, x * sz, y * sz, 1 * sz, 1 * sz, null)
+    }
+
+    override fun execute(p: Character) {
+        p.addHp(15)
+        p.addExp(20)
     }
 }

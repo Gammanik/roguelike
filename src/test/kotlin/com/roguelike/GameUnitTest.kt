@@ -11,7 +11,6 @@ import org.junit.Test
 import com.roguelike.enemies.player.Player
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
-import java.awt.Color
 import java.io.File
 
 class GameUnitTest {
@@ -52,17 +51,17 @@ class GameUnitTest {
         val mob = Mob(0, 0, passiveStrategy)
         val p = Player()
 
-        assertEquals(Settings.CHARACTER_HP, p.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP, p.hp)
         mob.attackPlayer(p)
-        assertEquals(Settings.CHARACTER_HP - Settings.MOB_DAMAGE, p.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP - Settings.MOB_DAMAGE, p.hp)
     }
 
     @Test
     fun testPlayerGotDamage() {
         val p = Player()
-        assertEquals(Settings.CHARACTER_HP, p.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP, p.hp)
         p.getDamage(Settings.MOB_DAMAGE)
-        assertEquals(Settings.CHARACTER_HP - Settings.MOB_DAMAGE, p.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP - Settings.MOB_DAMAGE, p.hp)
     }
 
     @Test

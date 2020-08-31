@@ -1,5 +1,6 @@
 package com.roguelike.enemies.player
 
+import GamePanel
 import com.roguelike.enemies.GameUnit
 import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
@@ -14,10 +15,11 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
     GameUnit {
 
-    var hp = Settings.CHARACTER_HP; protected set
+    var hp = Settings.CHARACTER_MAX_HP; protected set
     var exp = 0; protected set
     var lvl = 1; protected set
     var expMax = 100; protected set
+    internal var currAttackPower = 20
 
     private val currentItems = mutableListOf<ItemBase>()
 
@@ -49,7 +51,7 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
     open fun attackClosestMobs(checker: MapChecker) {}
 
     /** get damage from mobs */
-    fun getExp(value: Int) {
+    fun addExp(value: Int) {
         exp += value
         if (exp >= expMax) {
             exp %= expMax
@@ -65,7 +67,15 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
         currentItems.add(item)
     }
 
-    fun putItemOff() {
+    fun putItemOff(panel: GamePanel) {
+//        panel.addItem()
+    }
 
+    fun addHp(v: Int) {
+        hp = if ((hp + v) > Settings.CHARACTER_MAX_HP) 100 else hp + v
+    }
+
+    fun addAttackPower(v: Int) {
+        currAttackPower += v
     }
 }

@@ -40,7 +40,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int, var
     /** get damage from player */
     fun getDamage(dmg: Int) {
         color = Settings.MOB_GOT_DAMAGE_COLOR
-        val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.gray })
+        val t = Timer(Settings.ATTACK_DELAY) { color = Color.gray }
         t.isRepeats = false
         t.start()
 

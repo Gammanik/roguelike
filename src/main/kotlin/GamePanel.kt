@@ -94,7 +94,7 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
             player.attackClosestMobs(checker)
 
             isAttackPressed = true
-            val t = Timer(set.ATTACK_DELAY, ActionListener { isAttackPressed = false })
+            val t = Timer(set.ATTACK_DELAY) { isAttackPressed = false }
             t.isRepeats = false
             t.start()
         }
@@ -126,7 +126,7 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
             m.updatePosition()
 
             if (m.behave(player, checker)) {
-                player.getExp(30)
+                player.addExp(30)
                 it.remove()
             }
         }
@@ -147,8 +147,8 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
 
     private fun checkItems() {
         checker.getClosestItems(items).forEach {
+            it.execute(player)
             items.remove(it)
-//            it.
         }
     }
 
@@ -158,9 +158,13 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
     }
 
     private fun addItems() {
-        addItem(PowerUpItem(2, 20))
+        addItem(AidItem(2, 20))
         addItem(AidItem(5, 35))
-        addItem(PoisonItem(4, 15))
+        addItem(AidItem(4, 15))
+        addItem(PowerUpItem(5, 5))
+        addItem(PowerUpItem(10, 10))
+        addItem(PowerUpItem(10, 15))
+        addItem(PoisonItem(40, 15))
     }
 
     /** add mob to a map */
