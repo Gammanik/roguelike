@@ -9,7 +9,7 @@ import java.io.File
 /** Class representing the game field
  * each element on map characterized by it's x,y coordinates*/
 class GameMap {
-    private var wallSet = mutableSetOf<Pair<Int, Int>>()
+    var wallSet = mutableSetOf<Pair<Int, Int>>(); private set
     private val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 
     /** getter for rectMap */
@@ -17,6 +17,7 @@ class GameMap {
         return rectMap
     }
 
+    @Transient
     private var wallList = Settings.WALL_LIST
 
     private fun generateRandomWalls() {
