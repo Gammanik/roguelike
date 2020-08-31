@@ -1,4 +1,5 @@
 
+import com.roguelike.utils.Keys
 import com.roguelike.utils.Settings
 import java.awt.*
 import java.awt.event.ActionEvent
@@ -17,49 +18,42 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
 
     private fun addBindings() {
         for (i in 1..Settings.MAX_ITEMS) {
-            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(i.toString()), i.toString())
-            this.actionMap.put(i.toString(), object : AbstractAction() {
-                override fun actionPerformed(p0: ActionEvent?) {
-                    gamePanel.player.itemNumChosen = i - 1
-                }
-            })
+            bindKey(i.toString()) { gamePanel.player.itemNumChosen = i - 1 }
         }
 
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("E"), "E")
-        this.actionMap.put("E", object : AbstractAction() {
-            override fun actionPerformed(p0: ActionEvent?) {
-                val itemNum = gamePanel.player.itemNumChosen
-                if (itemNum != null) {
-                    val itemToExecute = gamePanel.player.getCurrentItems()[itemNum]
-                    itemToExecute.execute(gamePanel.player)
-                    gamePanel.player.deleteItem(itemToExecute)
-                }
+        bindKey(Keys.KEY_EXECUTE) {
+            val itemNum = gamePanel.player.itemNumChosen
+            if (itemNum != null) {
+                val itemToExecute = gamePanel.player.getCurrentItems()[itemNum]
+                itemToExecute.execute(gamePanel.player)
+                gamePanel.player.deleteItem(itemToExecute)
             }
-        })
+        }
 
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F"), "F")
-        this.actionMap.put("F", object : AbstractAction() {
-            override fun actionPerformed(p0: ActionEvent?) {
-                val itemNum = gamePanel.player.itemNumChosen
-                if (itemNum != null) {
-                    val itemToDelete = gamePanel.player.getCurrentItems()[itemNum]
-                    gamePanel.player.deleteItem(itemToDelete)
-                }
+        bindKey(Keys.DROP) {
+            val itemNum = gamePanel.player.itemNumChosen
+            if (itemNum != null) {
+                val itemToDelete = gamePanel.player.getCurrentItems()[itemNum]
+                gamePanel.player.deleteItem(itemToDelete)
             }
-        })
+        }
 
-
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("Q"), "Q")
-        this.actionMap.put("Q", object : AbstractAction() {
-            override fun actionPerformed(p0: ActionEvent?) {
-                if (gamePanel.player.itemNumChosen == null) {
-                    gamePanel.player.itemNumChosen = 0
-                    return
-                }
-
-                gamePanel.player.itemNumChosen =
-                        (gamePanel.player.itemNumChosen!! + 1).rem(gamePanel.player.getCurrentItems().size)
+        bindKey(Keys.SWITCH_ITEM) {
+            if (gamePanel.player.itemNumChosen == null) {
+                gamePanel.player.itemNumChosen = 0
+                return@bindKey
             }
+
+            gamePanel.player.itemNumChosen =
+                    (gamePanel.player.itemNumChosen!! + 1).rem(gamePanel.player.getCurrentItems().size)
+        }
+
+    }
+
+    private fun bindKey(key: String, fn: () -> Unit) {
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key), key)
+        this.actionMap.put(key, object : AbstractAction() {
+            override fun actionPerformed(p0: ActionEvent?) { fn() }
         })
     }
 
@@ -132,7 +126,6 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
 
         var i = 0
         for (itm in items) {
-
             g.color = if (i == gamePanel.player.itemNumChosen && gamePanel.player.itemNumChosen != null)
                 Color(22, 22, 22)
                 else Color(222, 222, 222)
@@ -142,5 +135,4 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
             i += 1
         }
     }
-
 }
