@@ -15,7 +15,8 @@ class PlayerSerializer : JsonSerializer<Character> {
         result.addProperty("hp", src.hp)
         result.addProperty("lvl", src.lvl)
         result.addProperty("exp", src.exp)
-        result.addProperty("expMap", src.expMax)
+        result.addProperty("expMax", src.expMax)
+        result.add("items", context.serialize(src.getCurrentItems()))
         return result
     }
 }

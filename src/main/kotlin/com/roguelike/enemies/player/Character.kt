@@ -11,7 +11,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /** abstract class for main character */
-abstract class Character : Ellipse2D.Double(0.0, 0.0,
+abstract class Character() : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
     GameUnit {
 
@@ -21,11 +21,19 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
     var expMax = 100; protected set
     internal var currAttackPower = 20
 
-    private val currentItems = mutableListOf<ItemBase>()
+    private var currentItems = mutableListOf<ItemBase>()
 
     var playerDeadCallback: (() -> Unit)? = null
     fun addDeadCallback(cb: (() -> Unit)) {
         playerDeadCallback = cb
+    }
+
+    fun setCurrentItems(list: MutableList<ItemBase>) {
+        currentItems = list
+    }
+
+    fun getCurrentItems(): List<ItemBase> {
+        return currentItems
     }
 
     override fun getPointsCoordinates(): ArrayList<Pair<Int, Int>> {

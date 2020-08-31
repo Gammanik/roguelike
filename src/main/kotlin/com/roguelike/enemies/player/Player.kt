@@ -1,6 +1,7 @@
 package com.roguelike.enemies.player
 
 import com.roguelike.graphics.model.Explosion
+import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Move
 import com.roguelike.utils.Settings
@@ -15,7 +16,7 @@ import kotlin.system.exitProcess
  * x, y represents the current com.roguelike.ememies.player coordinates in pixels
  * xCoordinate, yCoordinate represents the com.roguelike.ememies.player coordinates in squares
  * */
-open class Player : Character() {
+class Player() : Character() {
 
     private var color = Color.BLACK
     private var ex: Explosion? = null
@@ -26,6 +27,16 @@ open class Player : Character() {
     override fun draw(g: Graphics2D) {
         g.color = color
         g.fill(this)
+    }
+
+    constructor(x: Int, y: Int, hp: Int, lvl: Int, exp: Int, expMax: Int, items : MutableList<ItemBase>) : this() {
+        xCoordinate = x
+        yCoordinate = y
+        this.hp = hp
+        this.lvl = lvl
+        this.exp = exp
+        this.expMax = expMax
+        setCurrentItems(items)
     }
 
     override fun drawAttacking(g: Graphics2D) {
