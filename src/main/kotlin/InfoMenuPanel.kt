@@ -1,9 +1,9 @@
 
+import com.roguelike.utils.Settings
 import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
-import javax.swing.JPanel
-import javax.swing.Timer
+import javax.swing.*
 
 
 class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener {
@@ -11,7 +11,56 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
     private val timer: Timer = Timer(100, this)
 
     init {
+        addBindings()
         timer.start()
+    }
+
+    private fun addBindings() {
+        for (i in 1..Settings.MAX_ITEMS) {
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(i.toString()), i.toString())
+            this.actionMap.put(i.toString(), object : AbstractAction() {
+                override fun actionPerformed(p0: ActionEvent?) {
+                    gamePanel.player.itemNumChosen = i - 1
+                }
+            })
+        }
+
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("E"), "E")
+        this.actionMap.put("E", object : AbstractAction() {
+            override fun actionPerformed(p0: ActionEvent?) {
+                val itemNum = gamePanel.player.itemNumChosen
+                if (itemNum != null) {
+                    val itemToExecute = gamePanel.player.getCurrentItems()[itemNum]
+                    itemToExecute.execute(gamePanel.player)
+                    gamePanel.player.deleteItem(itemToExecute)
+                }
+            }
+        })
+
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F"), "F")
+        this.actionMap.put("F", object : AbstractAction() {
+            override fun actionPerformed(p0: ActionEvent?) {
+                val itemNum = gamePanel.player.itemNumChosen
+                if (itemNum != null) {
+                    val itemToDelete = gamePanel.player.getCurrentItems()[itemNum]
+                    gamePanel.player.deleteItem(itemToDelete)
+                }
+            }
+        })
+
+
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("Q"), "Q")
+        this.actionMap.put("Q", object : AbstractAction() {
+            override fun actionPerformed(p0: ActionEvent?) {
+                if (gamePanel.player.itemNumChosen == null) {
+                    gamePanel.player.itemNumChosen = 0
+                    return
+                }
+
+                gamePanel.player.itemNumChosen =
+                        (gamePanel.player.itemNumChosen!! + 1).rem(gamePanel.player.getCurrentItems().size)
+            }
+        })
     }
 
     override fun actionPerformed(e: ActionEvent?) {
@@ -45,7 +94,7 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
         g.setFont(Font("TimesRoman", Font.BOLD, 15))
 
         gameField.color = Color.DARK_GRAY
-        g.drawString("[HP] $hp / 100", 400, 20);
+        g.drawString("[HP] $hp / 100", 400, 20)
 
         // lets paint lvl
         val exp = gamePanel.player.exp
@@ -71,10 +120,27 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
         g.setFont(Font("TimesRoman", Font.BOLD, 20))
         g.drawString(lvl.toString(), 20, 80)
 
+        drawCurrentItems(gameField)
     }
 
     override fun getPreferredSize() : Dimension {
         return Dimension(800, 100)
+    }
+
+    private fun drawCurrentItems(g: Graphics2D) {
+        val items = gamePanel.player.getCurrentItems()
+
+        var i = 0
+        for (itm in items) {
+
+            g.color = if (i == gamePanel.player.itemNumChosen && gamePanel.player.itemNumChosen != null)
+                Color(22, 22, 22)
+                else Color(222, 222, 222)
+
+            g.fill3DRect(55 + i * 41, 55, 40, 40, true)
+            g.drawImage(itm.getPicture(), 55 + i * 41, 55, 40, 40, null)
+            i += 1
+        }
     }
 
 }

@@ -80,9 +80,9 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
                 set.SQUARE_SIZE, set.SQUARE_SIZE, true)
         }
 
-        player.draw(gameField)
         for (m in mobs) m.draw(g)
         for (item in items) item.draw(g)
+        player.draw(gameField)
 
         if (isAttackPressed) {
             player.drawAttacking(gameField)
@@ -147,8 +147,9 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
 
     private fun checkItems() {
         checker.getClosestItems(items).forEach {
-            it.execute(player)
-            items.remove(it)
+            if (player.putItemOn(it)) {
+                items.remove(it)
+            }
         }
     }
 
@@ -160,10 +161,17 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
     private fun addItems() {
         addItem(AidItem(2, 20))
         addItem(AidItem(5, 35))
+        addItem(PowerUpItem(5, 8))
+
+        addItem(AidItem(0, 15))
+        addItem(PoisonItem(2, 15))
         addItem(AidItem(4, 15))
-        addItem(PowerUpItem(5, 5))
-        addItem(PowerUpItem(10, 10))
+        addItem(PoisonItem(6, 15))
+        addItem(AidItem(8, 15))
         addItem(PowerUpItem(10, 15))
+        addItem(PowerUpItem(11, 15))
+
+        addItem(PowerUpItem(10, 10))
         addItem(PoisonItem(40, 15))
     }
 

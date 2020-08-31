@@ -11,6 +11,7 @@ object Settings {
     const val DELAY = 50
     const val ATTACK_DELAY = 500
     const val ATTACK_RADIUS = 2
+    const val MAX_ITEMS = 8
 
     val CHARACTER_COLOR: Color = Color.BLACK
     const val CHARACTER_MAX_HP = 100
