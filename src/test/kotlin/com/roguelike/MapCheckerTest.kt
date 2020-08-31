@@ -7,10 +7,12 @@ import com.roguelike.graphics.model.MapPoint
 import junit.framework.TestCase.*
 import org.junit.Test
 import com.roguelike.enemies.player.Player
+import com.roguelike.items.AidItem
+import com.roguelike.items.ItemBase
+import com.roguelike.items.PowerUpItem
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Move
 import com.roguelike.utils.Settings
-import java.awt.Color
 import java.io.File
 
 class MapCheckerTest {
@@ -115,5 +117,24 @@ class MapCheckerTest {
         assertFalse(checker.checkForGameUnitMove(myMob, Move.LEFT)) // wall
         assertTrue(checker.checkForGameUnitMove(myMob, Move.DOWN))
         assertFalse(checker.checkForGameUnitMove(myMob, Move.RIGHT)) // anotherMob
+    }
+
+    @Test
+    fun testGetClosestItems() {
+        val mapFilename = "src/test/resources/mapExample"
+        val gameMap = GameMap(File(mapFilename))
+        val player = Player()
+
+        val checker = MapChecker(gameMap, emptyList(), player)
+
+        val items = listOf<ItemBase>(AidItem(0, 0),
+                PowerUpItem(1, 1),
+                PowerUpItem(2, 1),
+                AidItem(1, 2))
+
+        val res = checker.getClosestItems(items)
+        assertTrue(res.size == 2)
+        assertEquals(items.first(), res.first())
+        assertEquals(items[1], res[1])
     }
 }

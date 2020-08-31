@@ -6,11 +6,12 @@ import com.roguelike.graphics.GameMap
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
+import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
+import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
 import com.roguelike.utils.Keys
 import com.roguelike.utils.MapChecker
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics
 import java.awt.Graphics2D
@@ -65,6 +66,7 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
 
         behaveMobs()
         checkConfuse()
+        checkItems()
         repaint()
     }
 
@@ -143,13 +145,22 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
         }
     }
 
+    private fun checkItems() {
+        checker.getClosestItems(items).forEach {
+            items.remove(it)
+//            it.
+        }
+    }
+
     /** add an item to a map */
     private fun addItem(item: ItemBase) {
         items.add(item)
     }
 
     private fun addItems() {
-        addItem(PowerUpItem(20, 20))
+        addItem(PowerUpItem(2, 20))
+        addItem(AidItem(5, 35))
+        addItem(PoisonItem(4, 15))
     }
 
     /** add mob to a map */

@@ -1,6 +1,7 @@
 package com.roguelike.enemies.player
 
 import com.roguelike.enemies.GameUnit
+import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
 import java.awt.Graphics2D
@@ -17,6 +18,8 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
     var exp = 0; protected set
     var lvl = 1; protected set
     var expMax = 100; protected set
+
+    private val currentItems = mutableListOf<ItemBase>()
 
     var playerDeadCallback: (() -> Unit)? = null
     fun addDeadCallback(cb: (() -> Unit)) {
@@ -57,4 +60,12 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
 
     /** get damage from mobs */
     open fun getDamage(dmg: Int) {}
+
+    fun putItemOn(item: ItemBase) {
+        currentItems.add(item)
+    }
+
+    fun putItemOff() {
+
+    }
 }

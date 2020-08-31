@@ -7,5 +7,6 @@ object Keys {
     const val KEY_RIGHT = 'd' // 68
     const val KEY_LEFT = 'a' // 65
 
+    const val KEY_EXECUTE = 'e'
     const val KEY_ATTACK = 10
 }
