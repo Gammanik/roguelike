@@ -10,11 +10,16 @@ import java.io.File
  * each element on map characterized by it's x,y coordinates*/
 class GameMap {
     var wallSet = mutableSetOf<Pair<Int, Int>>(); private set
-    private val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
+    private var rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 
     /** getter for rectMap */
     fun getRectMap(): Map<Pair<Int, Int>, MapPoint> {
         return rectMap
+    }
+
+    constructor(wallSet: MutableSet<Pair<Int, Int>>, rectMap: MutableMap<Pair<Int, Int>, MapPoint>) {
+        this.wallSet = wallSet
+        this.rectMap = rectMap
     }
 
     @Transient

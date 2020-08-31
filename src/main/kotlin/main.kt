@@ -2,6 +2,7 @@ import com.google.gson.GsonBuilder
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
+import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.map_loading.LoadMapMenu
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
@@ -59,6 +60,7 @@ fun main() {
                 println("game over")
                 gameFrame.dispatchEvent(WindowEvent(gameFrame, WindowEvent.WINDOW_CLOSING))
             })
+            .registerTypeAdapter(GameMap::class.java, MapDeserializer())
             .registerTypeAdapter(ItemBase::class.java, ItemDeserializer())
             .registerTypeAdapter(AidItem::class.java, ItemDeserializer())
             .registerTypeAdapter(PoisonItem::class.java, ItemDeserializer())
