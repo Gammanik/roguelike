@@ -1,15 +1,19 @@
-import com.roguelike.enemies.*
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.roguelike.enemies.Mob
+import com.roguelike.enemies.MobListener
 import com.roguelike.enemies.behaviour.AggressiveStrategy
 import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
-import com.roguelike.graphics.GameMap
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
+import com.roguelike.graphics.GameMap
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
 import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
+import com.roguelike.saving.*
 import com.roguelike.utils.Keys
 import com.roguelike.utils.MapChecker
 import java.awt.Dimension
@@ -19,25 +23,32 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
 import javax.swing.JPanel
 import javax.swing.Timer
 import com.roguelike.utils.Settings as set
 
 /** The main game window */
-class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: () -> Unit) : JPanel(), KeyListener, ActionListener {
+class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel(), KeyListener, ActionListener {
 
-    private val mobs = mutableListOf<Mob>()
+    var mobs = mutableListOf<Mob>()
     var player : Character = Player(); private set
-    private val items = mutableListOf<ItemBase>()
+    var items = mutableListOf<ItemBase>()
 
-    private val checker = MapChecker(gameMap, mobs, player)
+    val checker = MapChecker(gameMap, mobs, player)
 
-    private val timer = Timer(set.DELAY, this)
-    private val mobAttackTimer: Timer = Timer(100, MobListener(checker, player))
+    private var timer = Timer(set.DELAY, this)
+    private var mobAttackTimer: Timer = Timer(100, MobListener(checker, player))
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
     private var isAttackPressed = false
+
+//    fun getItems(): List<ItemBase> {
+//        return items
+//    }
 
     init {
         player.addDeadCallback(playerDeadCallback)
@@ -46,6 +57,16 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
         addItems()
         timer.start()
         mobAttackTimer.start()
+    }
+
+    constructor(gameMap: GameMap, mobs: MutableList<Mob>, character: Character,
+                items: MutableList<ItemBase>, playerDeadCallback: () -> Unit): this(gameMap, playerDeadCallback) {
+        this.gameMap = gameMap
+        this.player = character
+        this.mobs = mobs
+        this.items = items
+        timer = Timer(set.DELAY, this)
+        mobAttackTimer = Timer(100, MobListener(checker, player))
     }
 
     private fun endConfusion() {
@@ -92,6 +113,8 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
     override fun keyPressed(p0: KeyEvent?) {
         if (p0?.keyCode == Keys.KEY_ATTACK) {
             player.attackClosestMobs(checker)
+
+//            saveGame()
 
             isAttackPressed = true
             val t = Timer(set.ATTACK_DELAY) { isAttackPressed = false }
@@ -185,14 +208,56 @@ class GamePanel(private val gameMap: GameMap, private val playerDeadCallback: ()
         val funkyStrategy = FunkyStrategy()
         val passiveStrategy = PassiveStrategy()
 
+        var gson: Gson = GsonBuilder()
+            .registerTypeAdapter(Character::class.java, PlayerSerializer())
+            .registerTypeAdapter(Player::class.java, PlayerSerializer())
+            .registerTypeAdapter(ConfusionSpellDecorator::class.java, PlayerSerializer())
+            .registerTypeAdapter(Mob::class.java, MobSerializer())
+            .registerTypeAdapter(GamePanel::class.java, GamePanelSerializer())
+            .create()
+        val json: String = gson.toJson(Mob(10, 10, aggressiveStrategy))
+
+        gson = GsonBuilder()
+            .registerTypeAdapter(Mob::class.java, MobDeserializer())
+            .create()
+
+
+        val mob: Mob = gson.fromJson(json, Mob::class.java)
+
+        addMob(mob)
+
+
         addMob(Mob(10, 10, aggressiveStrategy))
         addMob(Mob(30, 8, funkyStrategy))
-        addMob(Mob(25, 17,aggressiveStrategy))
+        addMob(Mob(25, 17, aggressiveStrategy))
         addMob(Mob(17, 20, aggressiveStrategy))
         addMob(Mob(2, 2, passiveStrategy))
         addMob(Mob(27, 27, aggressiveStrategy))
         addMob(Mob(30, 35, aggressiveStrategy))
         addMob(Mob(32, 40, aggressiveStrategy))
         addMob(Mob(32, 45, aggressiveStrategy))
+    }
+
+    private fun saveGame() {
+        val file = File("src/main/resources/snapshots", "snapshot")
+        file.createNewFile()
+        val writer = BufferedWriter(FileWriter(file));
+        val gson = GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Character::class.java, PlayerSerializer())
+            .registerTypeAdapter(Player::class.java, PlayerSerializer())
+            .registerTypeAdapter(ConfusionSpellDecorator::class.java, PlayerSerializer())
+            .registerTypeAdapter(Mob::class.java, MobSerializer())
+            .registerTypeAdapter(GamePanel::class.java, GamePanelSerializer())
+            .registerTypeAdapter(GameMap::class.java, MapSerializer())
+            .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
+            .registerTypeAdapter(AidItem::class.java, ItemSerializer())
+            .registerTypeAdapter(PoisonItem::class.java, ItemSerializer())
+            .registerTypeAdapter(PowerUpItem::class.java, ItemSerializer())
+            .create()
+        val json = gson.toJson(this)
+        println(json)
+        writer.write(json)
+        writer.close()
     }
 }

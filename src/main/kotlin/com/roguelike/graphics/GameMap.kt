@@ -9,12 +9,17 @@ import java.io.File
 /** Class representing the game field
  * each element on map characterized by it's x,y coordinates*/
 class GameMap {
-    private var wallSet = mutableSetOf<Pair<Int, Int>>()
-    private val rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
+    var wallSet = mutableSetOf<Pair<Int, Int>>(); private set
+    private var rectMap = mutableMapOf<Pair<Int, Int>, MapPoint>()
 
     /** getter for rectMap */
     fun getRectMap(): Map<Pair<Int, Int>, MapPoint> {
         return rectMap
+    }
+
+    constructor(wallSet: MutableSet<Pair<Int, Int>>, rectMap: MutableMap<Pair<Int, Int>, MapPoint>) {
+        this.wallSet = wallSet
+        this.rectMap = rectMap
     }
 
     private var wallList = Settings.WALL_LIST

@@ -19,6 +19,12 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int, var
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
     GameUnit {
 
+    constructor(xCoordinate: Int, yCoordinate: Int, hp: Int, currentBehavior: BehaviourStrategy):
+        this(xCoordinate, yCoordinate, currentBehavior) {
+        this.hp = hp
+        color = getMobColor()
+    }
+
     private var color = getMobColor()
 
     var hp = Settings.MOB_HP; private set
