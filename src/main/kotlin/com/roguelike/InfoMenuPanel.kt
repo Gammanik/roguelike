@@ -107,10 +107,9 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
 
     private fun painLvlOval(g: Graphics2D) {
         val lvl = gamePanel.player.lvl
-        g.color = Color.MAGENTA
-        g.fillOval(5, 55, 40, 40)
-
-        g.color = Color.DARK_GRAY
+        g.color = Color(0, 0, 0, 200)
+        g.draw3DRect(5, 55, 40, 40, true)
+        g.color = Color.BLACK
         g.font = Font("TimesRoman", Font.BOLD, 20)
         g.drawString(lvl.toString(), 20, 80)
     }
