@@ -22,7 +22,6 @@ class GameMap {
         this.rectMap = rectMap
     }
 
-    @Transient
     private var wallList = Settings.WALL_LIST
 
     private fun generateRandomWalls() {

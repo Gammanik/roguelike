@@ -9,7 +9,7 @@ import javax.imageio.ImageIO
 
 class PowerUpItem(override val x: Int, override val y: Int): ItemBase(x, y) {
 
-    private val img: BufferedImage = ImageIO.read(File("src/main/resources/bomb.png"))
+    override val img: BufferedImage = ImageIO.read(File("src/main/resources/bomb.png"))
     private val sz = Settings.SQUARE_SIZE
 
     override fun draw(g: Graphics2D) {

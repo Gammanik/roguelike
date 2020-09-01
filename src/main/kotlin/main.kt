@@ -28,7 +28,7 @@ fun main() {
         Thread.sleep(Settings.LOAD_MAP_UPDATE_PERIOD)
     }
 
-    val loadGame = true
+    val loadGame = false
 
 //    gson = GsonBuilder()
 //        .registerTypeAdapter(DwarvesBand::class.java, DwarvesBandDeserializer())
@@ -84,5 +84,4 @@ fun main() {
     gameFrame.isVisible = true
     gamePanel.isFocusable = true
     infoMenuPanel.isFocusable = true
-
 }

@@ -1,6 +1,5 @@
 package com.roguelike.enemies.player
 
-import GamePanel
 import com.roguelike.enemies.GameUnit
 import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
@@ -21,7 +20,19 @@ abstract class Character() : Ellipse2D.Double(0.0, 0.0,
     var expMax = 100; protected set
     internal var currAttackPower = 20
 
+    var itemNumChosen: Int? = null
+        set(value) { if (value != null) {
+                field = if (value < Settings.MAX_ITEMS) value
+                        else null
+            }
+        }
+
     private var currentItems = mutableListOf<ItemBase>()
+    fun getCurrentItems(): List<ItemBase> = currentItems
+
+    fun deleteItem(item: ItemBase) {
+        currentItems.remove(item)
+    }
 
     var playerDeadCallback: (() -> Unit)? = null
     fun addDeadCallback(cb: (() -> Unit)) {
@@ -30,10 +41,6 @@ abstract class Character() : Ellipse2D.Double(0.0, 0.0,
 
     fun setCurrentItems(list: MutableList<ItemBase>) {
         currentItems = list
-    }
-
-    fun getCurrentItems(): List<ItemBase> {
-        return currentItems
     }
 
     override fun getPointsCoordinates(): ArrayList<Pair<Int, Int>> {
@@ -71,12 +78,13 @@ abstract class Character() : Ellipse2D.Double(0.0, 0.0,
     /** get damage from mobs */
     open fun getDamage(dmg: Int) {}
 
-    fun putItemOn(item: ItemBase) {
-        currentItems.add(item)
-    }
-
-    fun putItemOff(panel: GamePanel) {
-//        panel.addItem()
+    /** returns false  **/
+    fun putItemOn(item: ItemBase): Boolean {
+        if (currentItems.size <= Settings.MAX_ITEMS) {
+            currentItems.add(item)
+            return true
+        }
+        return false
     }
 
     fun addHp(v: Int) {
