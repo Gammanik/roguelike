@@ -1,6 +1,7 @@
 package com.roguelike.enemies.player
 
 import com.roguelike.enemies.GameUnit
+import com.roguelike.enemies.Mob
 import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
@@ -10,7 +11,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /** abstract class for main character */
-abstract class Character() : Ellipse2D.Double(0.0, 0.0,
+abstract class Character : Ellipse2D.Double(0.0, 0.0,
         Settings.CHARACTER_DIAMETER, Settings.CHARACTER_DIAMETER),
     GameUnit {
 
@@ -28,8 +29,10 @@ abstract class Character() : Ellipse2D.Double(0.0, 0.0,
         }
 
     private var currentItems = mutableListOf<ItemBase>()
+    /** returns current items (immutable list) **/
     fun getCurrentItems(): List<ItemBase> = currentItems
 
+    /** delete used item **/
     fun deleteItem(item: ItemBase) {
         currentItems.remove(item)
     }
@@ -39,6 +42,7 @@ abstract class Character() : Ellipse2D.Double(0.0, 0.0,
         playerDeadCallback = cb
     }
 
+    /** updates character current items **/
     fun setCurrentItems(list: MutableList<ItemBase>) {
         currentItems = list
     }
@@ -87,10 +91,12 @@ abstract class Character() : Ellipse2D.Double(0.0, 0.0,
         return false
     }
 
+    /** adds health to player **/
     fun addHp(v: Int) {
         hp = if ((hp + v) > Settings.CHARACTER_MAX_HP) 100 else hp + v
     }
 
+    /** increase player' attack power **/
     fun addAttackPower(v: Int) {
         currAttackPower += v
     }

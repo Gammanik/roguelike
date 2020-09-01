@@ -3,17 +3,13 @@ package com.roguelike.enemies.player
 import com.roguelike.graphics.model.Explosion
 import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
-import com.roguelike.utils.Move
 import com.roguelike.utils.Settings
-import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
-import java.awt.event.ActionListener
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.Timer
-import kotlin.system.exitProcess
 
 /** Player class.
  * x, y represents the current com.roguelike.ememies.player coordinates in pixels
@@ -35,7 +31,7 @@ class Player() : Character() {
         g.drawImage(img, xCoordinate * sz, yCoordinate * sz, szMob, szMob, null)
     }
 
-    constructor(x: Int, y: Int, hp: Int, lvl: Int, exp: Int, expMax: Int, items : MutableList<ItemBase>) : this() {
+    constructor(x: Int, y: Int, hp: Int, lvl: Int, exp: Int, expMax: Int, items: MutableList<ItemBase>) : this() {
         xCoordinate = x
         yCoordinate = y
         this.hp = hp
