@@ -1,17 +1,9 @@
 package com.roguelike.saving
 
 import com.google.gson.*
-import com.roguelike.enemies.Mob
-import com.roguelike.enemies.behaviour.AggressiveStrategy
-import com.roguelike.enemies.behaviour.BehaviourStrategy
-import com.roguelike.enemies.behaviour.FunkyStrategy
-import com.roguelike.enemies.behaviour.PassiveStrategy
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.Player
-import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
 import java.lang.reflect.Type
 
 
@@ -31,8 +23,8 @@ class PlayerDeserializer : JsonDeserializer<Character> {
             .setPrettyPrinting()
             .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
             .create()
-        val items : MutableList<ItemBase> = gson.fromJson(jsonObject.get("items"), MutableList::class.java) as
-                MutableList<ItemBase>
+        val items = context.deserialize<Array<ItemBase>>(jsonObject.get("items"),
+                Array<ItemBase>::class.java)!!.toMutableList()
 
         return Player(
             xCoordinate,

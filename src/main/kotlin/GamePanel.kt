@@ -37,7 +37,7 @@ class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel()
     var player : Character = Player(); private set
     var items = mutableListOf<ItemBase>()
 
-    val checker = MapChecker(gameMap, mobs, player)
+    var checker = MapChecker(gameMap, mobs, player)
 
     private var timer = Timer(set.DELAY, this)
     private var mobAttackTimer: Timer = Timer(100, MobListener(checker, player))
@@ -66,7 +66,12 @@ class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel()
         this.mobs = mobs
         this.items = items
         timer = Timer(set.DELAY, this)
-//        mobAttackTimer = Timer(100, MobListener(checker, player))
+        checker = MapChecker(gameMap, mobs, character)
+        timer = Timer(set.DELAY, this)
+        timer.start()
+        mobAttackTimer = Timer(100, MobListener(checker, player))
+        mobAttackTimer.start()
+        repaint()
     }
 
     private fun endConfusion() {

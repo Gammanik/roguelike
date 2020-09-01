@@ -49,6 +49,7 @@ class GameMap {
         }
 
         addConfusePoint(5, 5)
+        addConfusePoint(6, 6)
     }
 
     /** add a confuse point */

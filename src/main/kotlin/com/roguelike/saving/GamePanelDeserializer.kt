@@ -26,8 +26,8 @@ class GamePanelDeserializer(val playerDeadCallback: () -> Unit): JsonDeserialize
         val items = context.deserialize<Array<ItemBase>>(jsonObject.get("items"),
             Array<ItemBase>::class.java)!!.toMutableList()
 
-//        val gameMap: GameMap = context.deserialize(jsonObject.get("map"), GameMap::class.java)
-        val gameMap: GameMap = GameMap()
+        val gameMap: GameMap = context.deserialize(jsonObject.get("map"), GameMap::class.java)
+//        val gameMap: GameMap = GameMap()
         return GamePanel(gameMap, mobs, character, items, playerDeadCallback)
     }
 }
