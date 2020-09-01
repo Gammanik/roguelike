@@ -1,3 +1,6 @@
+package com.roguelike
+
+
 import com.roguelike.graphics.map_loading.LoadMapMenu
 import com.roguelike.utils.Settings
 import java.awt.Dimension

@@ -63,8 +63,7 @@ class MapChecker(private val map: GameMap,
                 .collect(Collectors.toSet())
         gameUnitsPointsSet.addAll(player.getPointsCoordinates().toSet())
         gameUnitsPointsSet.removeAll(old)
-        return !new.stream()
-                .anyMatch { x-> gameUnitsPointsSet.contains(x) }
+        return !new.any { x-> gameUnitsPointsSet.contains(x) }
     }
 
     fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {

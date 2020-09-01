@@ -1,7 +1,7 @@
 package com.roguelike.commands
 
-import GamePanel
 import com.google.gson.GsonBuilder
+import com.roguelike.GamePanel
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.ConfusionSpellDecorator

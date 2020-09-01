@@ -1,6 +1,7 @@
 package com.roguelike.graphics.map_loading
 
-import GamePanel
+
+import com.roguelike.GamePanel
 import com.roguelike.commands.LoadGameCommand
 import com.roguelike.commands.LoadMapCommand
 import com.roguelike.commands.RandomMapCommand

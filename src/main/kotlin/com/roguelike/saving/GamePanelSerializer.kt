@@ -1,10 +1,10 @@
 package com.roguelike.saving
 
-import GamePanel
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import com.roguelike.GamePanel
 import java.lang.reflect.Type
 
 class GamePanelSerializer : JsonSerializer<GamePanel> {

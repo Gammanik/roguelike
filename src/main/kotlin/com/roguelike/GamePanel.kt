@@ -1,5 +1,5 @@
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+package com.roguelike
+
 import com.roguelike.commands.SaveGameCommand
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.MobListener
@@ -15,7 +15,6 @@ import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
 import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
-import com.roguelike.saving.*
 import com.roguelike.utils.Keys
 import com.roguelike.utils.MapChecker
 import java.awt.Dimension
@@ -25,9 +24,6 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
 import javax.swing.AbstractAction
 import javax.swing.JPanel
 import javax.swing.KeyStroke

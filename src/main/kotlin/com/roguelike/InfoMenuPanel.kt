@@ -1,4 +1,4 @@
-
+package com.roguelike
 import com.roguelike.utils.Keys
 import com.roguelike.utils.Settings
 import java.awt.*

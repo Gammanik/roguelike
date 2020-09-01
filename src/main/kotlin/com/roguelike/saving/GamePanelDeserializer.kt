@@ -1,10 +1,10 @@
 package com.roguelike.saving
 
-import GamePanel
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.roguelike.GamePanel
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
