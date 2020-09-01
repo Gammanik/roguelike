@@ -41,6 +41,7 @@ object Settings {
 
     const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map"
     const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"
+    const val MAP_LOAD_BTN_CONTINUE_GAME = "Continue last save"
 
     const val WALL_SUBSET_SIZE = 0.45
     val WALL_LIST = mutableListOf(

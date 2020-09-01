@@ -1,5 +1,6 @@
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.roguelike.commands.SaveGameCommand
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.MobListener
 import com.roguelike.enemies.behaviour.AggressiveStrategy
@@ -9,6 +10,7 @@ import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
+import com.roguelike.graphics.model.SavePopUp
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
 import com.roguelike.items.PoisonItem
@@ -26,7 +28,9 @@ import java.awt.event.KeyListener
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
+import javax.swing.AbstractAction
 import javax.swing.JPanel
+import javax.swing.KeyStroke
 import javax.swing.Timer
 import com.roguelike.utils.Settings as set
 
@@ -46,16 +50,20 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
     private var isKeyLeft = false; private var isKeyRight = false
     private var isAttackPressed = false
 
+    private var savePopUp: SavePopUp? = null
+
     fun initGame(playerDeadCallback: () -> Unit) {
         this.checker = MapChecker(gameMap, mobs, player)
         timer = Timer(set.DELAY, this)
         mobAttackTimer = Timer(100, MobListener(checker, player))
         player.addDeadCallback(playerDeadCallback)
         this.addKeyListener(this)
-        addMobs()
+        addMobs() // todo: do not add if load from saved
         addItems()
         timer.start()
         mobAttackTimer.start()
+
+        bindSaveGame("T")
     }
 
     constructor(gameMap: GameMap, playerDeadCallback: () -> Unit): this() {
@@ -116,6 +124,8 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         if (isAttackPressed) {
             player.drawAttacking(gameField)
         }
+
+        savePopUp?.draw(g)
     }
 
     override fun keyPressed(p0: KeyEvent?) {
@@ -213,26 +223,6 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         val aggressiveStrategy = AggressiveStrategy()
         val funkyStrategy = FunkyStrategy()
         val passiveStrategy = PassiveStrategy()
-
-        var gson: Gson = GsonBuilder()
-            .registerTypeAdapter(Character::class.java, PlayerSerializer())
-            .registerTypeAdapter(Player::class.java, PlayerSerializer())
-            .registerTypeAdapter(ConfusionSpellDecorator::class.java, PlayerSerializer())
-            .registerTypeAdapter(Mob::class.java, MobSerializer())
-            .registerTypeAdapter(GamePanel::class.java, GamePanelSerializer())
-            .create()
-        val json: String = gson.toJson(Mob(10, 10, aggressiveStrategy))
-
-        gson = GsonBuilder()
-            .registerTypeAdapter(Mob::class.java, MobDeserializer())
-            .create()
-
-
-        val mob: Mob = gson.fromJson(json, Mob::class.java)
-
-        addMob(mob)
-
-
         addMob(Mob(10, 10, aggressiveStrategy))
         addMob(Mob(30, 8, funkyStrategy))
         addMob(Mob(25, 17, aggressiveStrategy))
@@ -244,26 +234,18 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         addMob(Mob(32, 45, aggressiveStrategy))
     }
 
-    private fun saveGame() {
-        val file = File("src/main/resources/snapshots", "snapshot")
-        file.createNewFile()
-        val writer = BufferedWriter(FileWriter(file));
-        val gson = GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(Character::class.java, PlayerSerializer())
-            .registerTypeAdapter(Player::class.java, PlayerSerializer())
-            .registerTypeAdapter(ConfusionSpellDecorator::class.java, PlayerSerializer())
-            .registerTypeAdapter(Mob::class.java, MobSerializer())
-            .registerTypeAdapter(GamePanel::class.java, GamePanelSerializer())
-            .registerTypeAdapter(GameMap::class.java, MapSerializer())
-            .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
-            .registerTypeAdapter(AidItem::class.java, ItemSerializer())
-            .registerTypeAdapter(PoisonItem::class.java, ItemSerializer())
-            .registerTypeAdapter(PowerUpItem::class.java, ItemSerializer())
-            .create()
-        val json = gson.toJson(this)
-        println(json)
-        writer.write(json)
-        writer.close()
+    private fun bindSaveGame(key: String) {
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key), key)
+        this.actionMap.put(key, object : AbstractAction() {
+            override fun actionPerformed(p0: ActionEvent?) {
+                SaveGameCommand(this@GamePanel).execute()
+
+
+                this@GamePanel.savePopUp = SavePopUp()
+                val timer = Timer(2500) { savePopUp = null }
+                timer.isRepeats = false
+                timer.start()
+            }
+        })
     }
 }
