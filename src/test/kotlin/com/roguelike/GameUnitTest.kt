@@ -1,6 +1,4 @@
 package com.roguelike
-
-import GamePanel
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.behaviour.AggressiveStrategy
 import com.roguelike.enemies.behaviour.FunkyStrategy

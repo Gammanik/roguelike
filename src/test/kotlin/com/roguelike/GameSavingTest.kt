@@ -1,31 +1,24 @@
 package com.roguelike
 
-import GamePanel
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.behaviour.AggressiveStrategy
 import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
 import com.roguelike.graphics.GameMap
-import com.roguelike.graphics.map_loading.BadMapFileException
-import com.roguelike.graphics.model.MapPoint
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
 import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
 import com.roguelike.saving.*
-import junit.framework.TestCase.*
-import org.junit.Assert
+import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import java.io.File
 
 class GameSavingTest {
 
     @Test
     fun testMobs() {
-        var mobs = mutableListOf<Mob>()
+        val mobs = mutableListOf<Mob>()
         val aggressiveStrategy = AggressiveStrategy()
         val funkyStrategy = FunkyStrategy()
         val passiveStrategy = PassiveStrategy()
@@ -64,7 +57,7 @@ class GameSavingTest {
 
     @Test
     fun testItems() {
-        var items = mutableListOf<ItemBase>()
+        val items = mutableListOf<ItemBase>()
 
         items.add(AidItem(2, 20))
         items.add(AidItem(5, 35))
@@ -106,23 +99,17 @@ class GameSavingTest {
         val map = GameMap()
 
         val gson = GsonBuilder()
-            .setPrettyPrinting()
             .registerTypeAdapter(GameMap::class.java, MapSerializer())
             .create()
-
         val json = gson.toJson(map)
-
-        println(json)
 
         val gson2 = GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(GameMap::class.java, MapDeserializer())
             .create()
-
         val gameMap = gson2.fromJson(json, GameMap::class.java)
 
         assertEquals(map.getRectMap().size, gameMap.getRectMap().size)
-
         for (key in map.getRectMap().keys) {
             assertEquals(map.getRectMap()[key], gameMap.getRectMap()[key])
         }
