@@ -45,6 +45,7 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
 
     private lateinit var timer: Timer
     private lateinit var mobAttackTimer: Timer
+    private lateinit var mobsRegenerationTimer: Timer
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
@@ -52,16 +53,25 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
 
     private var savePopUp: SavePopUp? = null
 
-    fun initGame(playerDeadCallback: () -> Unit) {
+    private fun initGame(playerDeadCallback: () -> Unit) {
         this.checker = MapChecker(gameMap, mobs, player)
         timer = Timer(set.DELAY, this)
         mobAttackTimer = Timer(100, MobListener(checker, player))
         player.addDeadCallback(playerDeadCallback)
         this.addKeyListener(this)
-        addMobs() // todo: do not add if load from saved
-        addItems()
         timer.start()
         mobAttackTimer.start()
+
+        mobsRegenerationTimer = Timer(500) {
+            val cdrX = (0..set.MAP_MENU_WIDTH).random()
+            val cdrY = (0..set.MAP_MENU_HEIGHT).random()
+
+            val notInWall = checker.mapCheckHelper(listOf(Pair(cdrX, cdrY)))
+            if (notInWall) {
+                mobs.add(Mob(cdrX, cdrY, 100, AggressiveStrategy()))
+            }
+        }
+        mobsRegenerationTimer.start()
 
         bindSaveGame("T")
     }
@@ -73,6 +83,8 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         items = mutableListOf()
 
         initGame(playerDeadCallback)
+        addMobs()
+        addItems()
     }
 
     constructor(gameMap: GameMap, mobs: MutableList<Mob>, character: Character,

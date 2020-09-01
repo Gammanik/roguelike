@@ -67,8 +67,7 @@ class MapChecker(private val map: GameMap,
                 .anyMatch { x-> gameUnitsPointsSet.contains(x) }
     }
 
-    private fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
-        return !list.stream()
-                .anyMatch{ (x, y) -> !map.isMapPoint(x, y) || map.isWall(x, y)}
+    fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
+        return !list.any{ (x, y) -> !map.isMapPoint(x, y) || map.isWall(x, y)}
     }
 }
