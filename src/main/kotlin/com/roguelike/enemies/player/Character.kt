@@ -73,6 +73,7 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
     fun addExp(value: Int) {
         exp += value
         if (exp >= expMax) {
+            hp = Settings.CHARACTER_MAX_HP
             exp %= expMax
             lvl++
             expMax *= 2

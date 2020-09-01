@@ -82,12 +82,18 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
 
         var i = 0
         for (itm in items) {
-            g.color = if (i == gamePanel.player.itemNumChosen && gamePanel.player.itemNumChosen != null)
-                Color(22, 22, 22)
-                else Color(222, 222, 222)
+            if (i == gamePanel.player.itemNumChosen && gamePanel.player.itemNumChosen != null) {
+                val add = 6
 
-            g.fill3DRect(55 + i * 41, 55, 40, 40, true)
-            g.drawImage(itm.getPicture(), 55 + i * 41, 55, 40, 40, null)
+                g.color = Color(0, 0, 0, 210)
+                g.fill3DRect((55 + i * 41) - add, 55 - add, 40 + add, 50 + add, true)
+                g.drawImage(itm.getPicture(), (55 + i * 41) - add, 55 - add, 40 + add, 40 + add, null)
+            } else {
+                g.color = Color(222, 222, 222)
+                g.fill3DRect(55 + i * 41, 55, 40, 40, true)
+                g.drawImage(itm.getPicture(), 55 + i * 41, 55, 40, 40, null)
+            }
+
             i += 1
         }
     }

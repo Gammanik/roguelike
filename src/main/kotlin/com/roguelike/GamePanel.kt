@@ -58,9 +58,9 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         timer.start()
         mobAttackTimer.start()
 
-        mobsRegenerationTimer = Timer(500) {
-            val cdrX = (0..set.MAP_MENU_WIDTH).random()
-            val cdrY = (0..set.MAP_MENU_HEIGHT).random()
+        mobsRegenerationTimer = Timer(400) {
+            val cdrX = (0..set.X_POINTS_COUNTS).random()
+            val cdrY = (0..set.Y_POINTS_COUNTS).random()
 
             val notInWall = checker.mapCheckHelper(listOf(Pair(cdrX, cdrY)))
             if (notInWall) {
@@ -209,9 +209,11 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         addItem(AidItem(2, 20))
         addItem(AidItem(5, 35))
         addItem(PowerUpItem(5, 8))
+        addItem(PowerUpItem(6, 8))
+        addItem(PowerUpItem(8, 8))
 
         addItem(AidItem(0, 15))
-        addItem(PoisonItem(2, 15))
+        addItem(PowerUpItem(2, 15))
         addItem(AidItem(4, 15))
         addItem(PoisonItem(6, 15))
         addItem(AidItem(8, 15))
