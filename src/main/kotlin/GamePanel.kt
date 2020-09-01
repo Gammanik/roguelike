@@ -31,26 +31,29 @@ import javax.swing.Timer
 import com.roguelike.utils.Settings as set
 
 /** The main game window */
-class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel(), KeyListener, ActionListener {
+class GamePanel() : JPanel(), KeyListener, ActionListener {
 
-    var mobs = mutableListOf<Mob>()
-    var player : Character = Player(); private set
-    var items = mutableListOf<ItemBase>()
+    lateinit var gameMap: GameMap; private set
+    lateinit var mobs: MutableList<Mob>; private set
+    lateinit var player : Character; private set
+    lateinit var items: MutableList<ItemBase>; private set
+    private lateinit var checker: MapChecker
 
-    var checker = MapChecker(gameMap, mobs, player)
-
-    private var timer = Timer(set.DELAY, this)
-    private var mobAttackTimer: Timer = Timer(100, MobListener(checker, player))
+    private lateinit var timer: Timer
+    private lateinit var mobAttackTimer: Timer
 
     private var isKeyUp = false; private var isKeyDown = false
     private var isKeyLeft = false; private var isKeyRight = false
     private var isAttackPressed = false
 
-//    fun getItems(): List<ItemBase> {
-//        return items
-//    }
-
-    init {
+    constructor(gameMap: GameMap, playerDeadCallback: () -> Unit): this() {
+        this.gameMap = gameMap
+        mobs = mutableListOf()
+        player = Player()
+        items = mutableListOf()
+        this.checker = MapChecker(gameMap, mobs, player)
+        timer = Timer(set.DELAY, this)
+        mobAttackTimer = Timer(100, MobListener(checker, player))
         player.addDeadCallback(playerDeadCallback)
         this.addKeyListener(this)
         addMobs()
@@ -60,18 +63,21 @@ class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel()
     }
 
     constructor(gameMap: GameMap, mobs: MutableList<Mob>, character: Character,
-                items: MutableList<ItemBase>, playerDeadCallback: () -> Unit): this(gameMap, playerDeadCallback) {
+                items: MutableList<ItemBase>, playerDeadCallback: () -> Unit): this() {
         this.gameMap = gameMap
-        this.player = character
         this.mobs = mobs
+        this.player = character
         this.items = items
+
+        this.checker = MapChecker(gameMap, mobs, player)
         timer = Timer(set.DELAY, this)
-        checker = MapChecker(gameMap, mobs, character)
-        timer = Timer(set.DELAY, this)
-        timer.start()
         mobAttackTimer = Timer(100, MobListener(checker, player))
+        player.addDeadCallback(playerDeadCallback)
+        this.addKeyListener(this)
+        addMobs()
+        addItems()
+        timer.start()
         mobAttackTimer.start()
-        repaint()
     }
 
     private fun endConfusion() {
