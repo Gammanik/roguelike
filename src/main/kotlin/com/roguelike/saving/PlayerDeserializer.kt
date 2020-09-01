@@ -6,7 +6,6 @@ import com.roguelike.enemies.player.Player
 import com.roguelike.items.ItemBase
 import java.lang.reflect.Type
 
-
 class PlayerDeserializer : JsonDeserializer<Character> {
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Character {

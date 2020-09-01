@@ -10,7 +10,6 @@ import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
 import java.lang.reflect.Type
 
-
 class ItemDeserializer: JsonDeserializer<ItemBase> {
 
     private fun deserializeStrategy(number: Int, x: Int, y: Int): ItemBase {

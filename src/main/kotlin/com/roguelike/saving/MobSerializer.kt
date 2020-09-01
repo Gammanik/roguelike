@@ -9,7 +9,6 @@ import com.roguelike.enemies.behaviour.AggressiveStrategy
 import com.roguelike.enemies.behaviour.BehaviourStrategy
 import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
-import com.roguelike.enemies.player.Character
 import java.lang.reflect.Type
 
 class MobSerializer : JsonSerializer<Mob> {

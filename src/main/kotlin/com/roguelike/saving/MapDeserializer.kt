@@ -7,11 +7,7 @@ import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.model.MapPoint
-import com.roguelike.items.ItemBase
 import java.lang.reflect.Type
-import java.util.*
-import kotlin.collections.HashMap
-
 
 class MapDeserializer: JsonDeserializer<GameMap> {
 

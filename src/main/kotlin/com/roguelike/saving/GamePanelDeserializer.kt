@@ -6,13 +6,9 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.roguelike.enemies.Mob
-import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
-import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
 import java.lang.reflect.Type
 
 class GamePanelDeserializer(val playerDeadCallback: () -> Unit): JsonDeserializer<GamePanel> {
@@ -31,8 +27,3 @@ class GamePanelDeserializer(val playerDeadCallback: () -> Unit): JsonDeserialize
         return GamePanel(gameMap, mobs, character, items, playerDeadCallback)
     }
 }
-
-//result.add("character", context.serialize(src.player))
-//result.add("mobs", context.serialize(src.mobs))
-//result.add("items", context.serialize(src.items))
-//result.add("map", context.serialize(src.gameMap))

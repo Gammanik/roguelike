@@ -11,7 +11,6 @@ import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
 import java.lang.reflect.Type
 
-
 class MobDeserializer: JsonDeserializer<Mob> {
 
     private fun deserializeStrategy(number: Int): BehaviourStrategy {
