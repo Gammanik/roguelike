@@ -5,10 +5,10 @@ import com.roguelike.graphics.map_loading.BadMapFileException
 import java.io.File
 import javax.swing.JFileChooser
 
-class LoadMapCommand(
-        private val fileChooser: JFileChooser,
-        private var gameMap: GameMap?
-): Command() {
+/** load map from file and updates given gameMap **/
+class LoadMapCommand(private val fileChooser: JFileChooser,
+        private var gameMap: GameMap?): Command() {
+
     override fun execute(): Boolean {
         var selectedFile: File? = null
         fileChooser.currentDirectory = File(System.getProperty("user.dir"))

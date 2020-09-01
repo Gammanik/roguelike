@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
+/** adding HP and EXP to a player **/
 class AidItem(override val x: Int, override val y: Int): ItemBase(x, y) {
 
     override val img: BufferedImage = ImageIO.read(File("src/main/resources/monster.png"))

@@ -7,12 +7,13 @@ import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.model.MapPoint
+import com.roguelike.items.ItemBase
 import java.lang.reflect.Type
 
+/** class to deserialize [GameMap] from Json format with gson lib **/
 class MapDeserializer: JsonDeserializer<GameMap> {
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): GameMap {
-
         val jsonObject: JsonObject = json.asJsonObject
 
         val setType = object : TypeToken<Array<Pair<Int, Int>>>() {}.type

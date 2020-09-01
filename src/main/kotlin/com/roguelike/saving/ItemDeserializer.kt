@@ -4,12 +4,14 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.roguelike.GamePanel
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
 import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
 import java.lang.reflect.Type
 
+/** class to deserialize [ItemBase] from Json format **/
 class ItemDeserializer: JsonDeserializer<ItemBase> {
 
     private fun deserializeStrategy(number: Int, x: Int, y: Int): ItemBase {

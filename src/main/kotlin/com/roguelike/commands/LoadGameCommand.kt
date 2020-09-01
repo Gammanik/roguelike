@@ -15,6 +15,7 @@ import com.roguelike.saving.*
 import java.io.File
 import java.nio.file.Files
 
+/** command for loading last saved game **/
 class LoadGameCommand(private val playerDeadCb: () -> Unit): Command() {
     override fun execute(): GamePanel {
         val file = File("src/main/resources/snapshots", "snapshot")

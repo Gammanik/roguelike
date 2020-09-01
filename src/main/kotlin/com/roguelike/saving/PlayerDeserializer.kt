@@ -3,9 +3,11 @@ package com.roguelike.saving
 import com.google.gson.*
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.Player
+import com.roguelike.graphics.GameMap
 import com.roguelike.items.ItemBase
 import java.lang.reflect.Type
 
+/** class to deserialize [Character] from Json format with gson lib **/
 class PlayerDeserializer : JsonDeserializer<Character> {
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Character {
@@ -18,10 +20,6 @@ class PlayerDeserializer : JsonDeserializer<Character> {
         val exp = jsonObject.get("exp").asInt
         val expMax = jsonObject.get("expMax").asInt
 
-        val gson = GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
-            .create()
         val items = context.deserialize<Array<ItemBase>>(jsonObject.get("items"),
                 Array<ItemBase>::class.java)!!.toMutableList()
 

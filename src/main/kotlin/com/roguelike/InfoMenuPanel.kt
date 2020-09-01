@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
 
-
+/** panel for showing player hp, exp, level and items
+ * adds keyboard bindings to interact with items (switch, drop or execute)
+ * if you want to choose specific item you can use number buttons (12345678)**/
 class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener {
 
     private val timer: Timer = Timer(100, this)

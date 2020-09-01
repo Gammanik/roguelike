@@ -16,6 +16,8 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 
+/** class for saving current game
+ * serializing given [GamePanel] to json format and writes it to snapshot file **/
 class SaveGameCommand(private val gamePanel: GamePanel): Command() {
     override fun execute() {
         val file = File("src/main/resources/snapshots", "snapshot")

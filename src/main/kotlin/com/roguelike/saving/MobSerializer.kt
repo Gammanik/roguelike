@@ -11,6 +11,7 @@ import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
 import java.lang.reflect.Type
 
+/** class to serialize [Mob] to Json format **/
 class MobSerializer : JsonSerializer<Mob> {
 
     private fun serializeStrategy(strategy: BehaviourStrategy): Int {

@@ -7,6 +7,7 @@ import com.google.gson.JsonSerializer
 import com.roguelike.graphics.GameMap
 import java.lang.reflect.Type
 
+/** class to serialize [GameMap] to Json format **/
 class MapSerializer : JsonSerializer<GameMap> {
     override fun serialize(src: GameMap, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
         val result = JsonObject()

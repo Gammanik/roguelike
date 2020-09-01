@@ -4,12 +4,14 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import com.roguelike.enemies.Mob
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
 import com.roguelike.items.PoisonItem
 import com.roguelike.items.PowerUpItem
 import java.lang.reflect.Type
 
+/** class to serialize [ItemBase] to Json format **/
 class ItemSerializer : JsonSerializer<ItemBase> {
 
     private fun serializeStrategy(itemBase: ItemBase): Int {

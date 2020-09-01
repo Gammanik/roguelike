@@ -7,6 +7,7 @@ import com.google.gson.JsonSerializer
 import com.roguelike.enemies.player.Character
 import java.lang.reflect.Type
 
+/** class for player serialization to Json format **/
 class PlayerSerializer : JsonSerializer<Character> {
     override fun serialize(src: Character, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
         val result = JsonObject()

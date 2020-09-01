@@ -5,8 +5,10 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
 import com.roguelike.GamePanel
+import com.roguelike.enemies.Mob
 import java.lang.reflect.Type
 
+/** class to serialize [GamePanel] to Json format **/
 class GamePanelSerializer : JsonSerializer<GamePanel> {
     override fun serialize(src: GamePanel, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
         val result = JsonObject()

@@ -9,8 +9,10 @@ import com.roguelike.enemies.behaviour.AggressiveStrategy
 import com.roguelike.enemies.behaviour.BehaviourStrategy
 import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
+import com.roguelike.graphics.GameMap
 import java.lang.reflect.Type
 
+/** class to deserialize [Mob] from Json format with gson lib **/
 class MobDeserializer: JsonDeserializer<Mob> {
 
     private fun deserializeStrategy(number: Int): BehaviourStrategy {

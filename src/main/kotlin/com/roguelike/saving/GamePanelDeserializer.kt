@@ -11,6 +11,7 @@ import com.roguelike.graphics.GameMap
 import com.roguelike.items.ItemBase
 import java.lang.reflect.Type
 
+/** class to deserialize [GamePanel] from Json format **/
 class GamePanelDeserializer(private val playerDeadCallback: () -> Unit): JsonDeserializer<GamePanel> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): GamePanel {
         val jsonObject: JsonObject = json.asJsonObject
