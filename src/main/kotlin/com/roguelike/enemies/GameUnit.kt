@@ -16,6 +16,8 @@ interface GameUnit {
     /** draw gameunit on GamePanel */
     fun draw(g: Graphics2D) {}
 
+    /** unit makes step. Returns true if the step is made
+     * and false if not **/
     fun stepLeft(checker: MapChecker): Boolean {
         if (checker.checkForGameUnitMove(this, Move.LEFT)) {
             xCoordinate--
@@ -24,6 +26,8 @@ interface GameUnit {
         return false
     }
 
+    /** unit makes step. Returns true if the step is made
+     * and false if not **/
     fun stepRight(checker: MapChecker): Boolean {
         if (checker.checkForGameUnitMove(this, Move.RIGHT)) {
             xCoordinate++
@@ -32,6 +36,8 @@ interface GameUnit {
         return false
     }
 
+    /** unit makes step. Returns true if the step is made
+     * and false if not **/
     fun stepUp(checker: MapChecker): Boolean {
         if (checker.checkForGameUnitMove(this, Move.UP)) {
             yCoordinate--
@@ -40,6 +46,8 @@ interface GameUnit {
         return false
     }
 
+    /** unit makes step. Returns true if the step is made
+     * and false if not **/
     fun stepDown(checker: MapChecker): Boolean {
         if (checker.checkForGameUnitMove(this, Move.DOWN)) {
             yCoordinate++
