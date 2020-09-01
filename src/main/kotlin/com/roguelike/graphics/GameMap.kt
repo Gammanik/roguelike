@@ -23,14 +23,11 @@ class GameMap {
         this.rectMap = rectMap
     }
 
-    private var wallList = listOf(
-        MapRectangle(0, 1, 2, 3),
-        MapRectangle(-1, -2, -3, -4)
-    ) // Settings.WALL_LIST
+    private var wallList = Settings.WALL_LIST
 
     private fun generateRandomWalls() {
-//        wallList.shuffle()
-//        wallList = wallList.subList(0, (wallList.size * Settings.WALL_SUBSET_SIZE).toInt())
+        wallList.shuffle()
+        wallList = wallList.subList(0, (wallList.size * Settings.WALL_SUBSET_SIZE).toInt())
     }
 
     constructor() {
@@ -44,8 +41,8 @@ class GameMap {
             }
         }
 
-        for (x in 0 until 3) { // todo: Settings.X_POINTS_COUNTS
-            for (y in 0 until 3) { // todo: Settings.Y_POINTS_COUNTS
+        for (x in 0 until Settings.X_POINTS_COUNTS) { // todo: Settings.X_POINTS_COUNTS
+            for (y in 0 until Settings.Y_POINTS_COUNTS) { // todo: Settings.Y_POINTS_COUNTS
                 val pointColor = if (wallSet.contains(Pair(x, y))) Settings.WALL_COLOR else Settings.BACKGROUND_COLOR
                 rectMap[Pair(x, y)] = MapPoint(x, y, pointColor)
             }

@@ -28,7 +28,7 @@ fun main() {
         Thread.sleep(Settings.LOAD_MAP_UPDATE_PERIOD)
     }
 
-    val loadGame = false
+    val loadGame = true
 
 //    gson = GsonBuilder()
 //        .registerTypeAdapter(DwarvesBand::class.java, DwarvesBandDeserializer())

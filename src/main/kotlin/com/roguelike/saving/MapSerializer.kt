@@ -11,8 +11,8 @@ import java.lang.reflect.Type
 class MapSerializer : JsonSerializer<GameMap> {
     override fun serialize(src: GameMap, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
         val result = JsonObject()
-        result.add("wallSet", context.serialize(src.wallSet))
-        result.add("rectMap", context.serialize(src.getRectMap()))
+        result.add("wallSet", context.serialize(src.wallSet.toList()))
+        result.add("rectMap", context.serialize(src.getRectMap().values.toList()))
         return result
     }
 }

@@ -66,7 +66,7 @@ class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel()
         this.mobs = mobs
         this.items = items
         timer = Timer(set.DELAY, this)
-        mobAttackTimer = Timer(100, MobListener(checker, player))
+//        mobAttackTimer = Timer(100, MobListener(checker, player))
     }
 
     private fun endConfusion() {
@@ -114,7 +114,7 @@ class GamePanel(var gameMap: GameMap, playerDeadCallback: () -> Unit) : JPanel()
         if (p0?.keyCode == Keys.KEY_ATTACK) {
             player.attackClosestMobs(checker)
 
-//            saveGame()
+            saveGame()
 
             isAttackPressed = true
             val t = Timer(set.ATTACK_DELAY) { isAttackPressed = false }
