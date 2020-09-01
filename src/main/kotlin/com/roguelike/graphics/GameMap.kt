@@ -2,6 +2,7 @@ package com.roguelike.graphics
 
 import com.roguelike.graphics.map_loading.BadMapFileException
 import com.roguelike.graphics.model.MapPoint
+import com.roguelike.graphics.model.MapRectangle
 import com.roguelike.utils.Settings
 import java.io.File
 
@@ -22,17 +23,20 @@ class GameMap {
         this.rectMap = rectMap
     }
 
-    private var wallList = Settings.WALL_LIST
+    private var wallList = listOf(
+        MapRectangle(0, 1, 2, 3),
+        MapRectangle(-1, -2, -3, -4)
+    ) // Settings.WALL_LIST
 
     private fun generateRandomWalls() {
-        wallList.shuffle()
-        wallList = wallList.subList(0, (wallList.size * Settings.WALL_SUBSET_SIZE).toInt())
+//        wallList.shuffle()
+//        wallList = wallList.subList(0, (wallList.size * Settings.WALL_SUBSET_SIZE).toInt())
     }
 
     constructor() {
         generateRandomWalls()
 
-        for (rect in wallList) {
+        for (rect in wallList) { // todo: cancel
             for (x in rect.x1..rect.x2) {
                 for (y in rect.y1..rect.y2) {
                     wallSet.add(Pair(x, y))
@@ -40,8 +44,8 @@ class GameMap {
             }
         }
 
-        for (x in 0 until Settings.X_POINTS_COUNTS) {
-            for (y in 0 until Settings.Y_POINTS_COUNTS) {
+        for (x in 0 until 3) { // todo: Settings.X_POINTS_COUNTS
+            for (y in 0 until 3) { // todo: Settings.Y_POINTS_COUNTS
                 val pointColor = if (wallSet.contains(Pair(x, y))) Settings.WALL_COLOR else Settings.BACKGROUND_COLOR
                 rectMap[Pair(x, y)] = MapPoint(x, y, pointColor)
             }
@@ -83,7 +87,7 @@ class GameMap {
     }
 
     /** check if (x, y) is a map point */
-     fun isMapPoint(x: Int, y: Int) : Boolean {
+    fun isMapPoint(x: Int, y: Int) : Boolean {
         return 0 <= x && x < Settings.X_POINTS_COUNTS
                 && 0 <= y && y < Settings.Y_POINTS_COUNTS
     }

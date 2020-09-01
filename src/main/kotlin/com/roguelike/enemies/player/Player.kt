@@ -9,6 +9,9 @@ import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.ActionListener
+import java.awt.image.BufferedImage
+import java.io.File
+import javax.imageio.ImageIO
 import javax.swing.Timer
 import kotlin.system.exitProcess
 
@@ -24,9 +27,12 @@ class Player() : Character() {
     override var xCoordinate: Int = Settings.X_START_POINT
     override var yCoordinate: Int = Settings.Y_START_POINT
 
+    private val img: BufferedImage = ImageIO.read(File("src/main/resources/pngegg.png"))
+    private val sz = Settings.SQUARE_SIZE
+    private val szMob = 20
+
     override fun draw(g: Graphics2D) {
-        g.color = color
-        g.fill(this)
+        g.drawImage(img, xCoordinate * sz, yCoordinate * sz, szMob, szMob, null)
     }
 
     constructor(x: Int, y: Int, hp: Int, lvl: Int, exp: Int, expMax: Int, items : MutableList<ItemBase>) : this() {

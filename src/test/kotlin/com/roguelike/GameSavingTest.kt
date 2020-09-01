@@ -101,16 +101,16 @@ class GameSavingTest {
 
     @Test
     fun testMap() {
-//        val map = GameMap()
-//
-//        val gson = GsonBuilder()
-//            .setPrettyPrinting()
-//            .registerTypeAdapter(GameMap::class.java, MapSerializer())
-//            .create()
-//
-//        val json = gson.toJson(map)
-//
-////        println(json)
+        val map = GameMap()
+
+        val gson = GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(GameMap::class.java, MapSerializer())
+            .create()
+
+        val json = gson.toJson(map)
+
+        println(json)
 //
 //        val gson2 = GsonBuilder()
 //            .setPrettyPrinting()
