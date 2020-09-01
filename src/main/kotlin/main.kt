@@ -28,13 +28,7 @@ fun main() {
         Thread.sleep(Settings.LOAD_MAP_UPDATE_PERIOD)
     }
 
-    val loadGame = true
-
-//    gson = GsonBuilder()
-//        .registerTypeAdapter(DwarvesBand::class.java, DwarvesBandDeserializer())
-//        .registerTypeAdapter(FacialHair::class.java, FacialHairDeserializer())
-//        .registerTypeAdapter(Dwarf::class.java, DwafDeserializer())
-//        .create()
+    val loadGame = false
 
     val gameFrame = JFrame()
     gameFrame.isResizable = false

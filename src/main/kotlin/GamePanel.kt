@@ -46,11 +46,7 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
     private var isKeyLeft = false; private var isKeyRight = false
     private var isAttackPressed = false
 
-    constructor(gameMap: GameMap, playerDeadCallback: () -> Unit): this() {
-        this.gameMap = gameMap
-        mobs = mutableListOf()
-        player = Player()
-        items = mutableListOf()
+    fun initGame(playerDeadCallback: () -> Unit) {
         this.checker = MapChecker(gameMap, mobs, player)
         timer = Timer(set.DELAY, this)
         mobAttackTimer = Timer(100, MobListener(checker, player))
@@ -62,6 +58,15 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         mobAttackTimer.start()
     }
 
+    constructor(gameMap: GameMap, playerDeadCallback: () -> Unit): this() {
+        this.gameMap = gameMap
+        mobs = mutableListOf()
+        player = Player()
+        items = mutableListOf()
+
+        initGame(playerDeadCallback)
+    }
+
     constructor(gameMap: GameMap, mobs: MutableList<Mob>, character: Character,
                 items: MutableList<ItemBase>, playerDeadCallback: () -> Unit): this() {
         this.gameMap = gameMap
@@ -69,15 +74,7 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         this.player = character
         this.items = items
 
-        this.checker = MapChecker(gameMap, mobs, player)
-        timer = Timer(set.DELAY, this)
-        mobAttackTimer = Timer(100, MobListener(checker, player))
-        player.addDeadCallback(playerDeadCallback)
-        this.addKeyListener(this)
-        addMobs()
-        addItems()
-        timer.start()
-        mobAttackTimer.start()
+        initGame(playerDeadCallback)
     }
 
     private fun endConfusion() {
@@ -124,8 +121,6 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
     override fun keyPressed(p0: KeyEvent?) {
         if (p0?.keyCode == Keys.KEY_ATTACK) {
             player.attackClosestMobs(checker)
-
-            saveGame()
 
             isAttackPressed = true
             val t = Timer(set.ATTACK_DELAY) { isAttackPressed = false }

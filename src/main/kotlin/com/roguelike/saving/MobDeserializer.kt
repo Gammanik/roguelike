@@ -27,7 +27,6 @@ class MobDeserializer: JsonDeserializer<Mob> {
 
         val xCoordinate = jsonObject.get("x").asInt
         val yCoordinate = jsonObject.get("y").asInt
-        print(jsonObject)
         val hp = 100
         val behaviourStrategy = jsonObject.get("behaviour").asInt
 
