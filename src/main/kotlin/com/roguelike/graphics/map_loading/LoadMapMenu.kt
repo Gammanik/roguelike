@@ -5,7 +5,6 @@ import com.roguelike.GamePanel
 import com.roguelike.commands.LoadGameCommand
 import com.roguelike.commands.LoadMapCommand
 import com.roguelike.commands.RandomMapCommand
-import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
 import java.awt.FlowLayout
 import java.awt.event.ActionEvent

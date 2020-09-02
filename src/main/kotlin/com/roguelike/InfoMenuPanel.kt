@@ -119,7 +119,7 @@ class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener
         g.fill3DRect(5, offset, 790, 20,true)
         g.color = lineColor
         g.fill3DRect(5, offset,
-                (790 * (v1.toDouble() / v2)).toInt(), 20,true)
+                (790 * (v1.toDouble() / v2)).toInt(), 20, true)
 
         g.font = Font("TimesRoman", Font.BOLD, 15)
 

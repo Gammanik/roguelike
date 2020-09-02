@@ -20,6 +20,10 @@ import java.io.FileWriter
  * serializing given [GamePanel] to json format and writes it to snapshot file **/
 class SaveGameCommand(private val gamePanel: GamePanel): Command() {
     override fun execute() {
+        val directory = File("src/main/resources/snapshots")
+        if (!directory.exists()) {
+            directory.mkdirs()
+        }
         val file = File("src/main/resources/snapshots", "snapshot")
         file.createNewFile()
         val writer = BufferedWriter(FileWriter(file));
