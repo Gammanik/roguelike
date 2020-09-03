@@ -205,17 +205,17 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
     private fun addItems() {
         addItem(AidItem(2, 20))
         addItem(AidItem(5, 35))
-        addItem(PowerUpItem(5, 8))
-        addItem(PowerUpItem(6, 8))
+        addItem(PowerUpItem(5, 3))
+        addItem(PowerUpItem(6, 3))
         addItem(ArmorItem(8, 8))
 
-        addItem(AidItem(0, 15))
+        addItem(AidItem(0, 25))
         addItem(ArmorItem(2, 15))
         addItem(AidItem(4, 15))
         addItem(PoisonItem(6, 15))
         addItem(AidItem(8, 15))
         addItem(PowerUpItem(10, 15))
-        addItem(PowerUpItem(11, 15))
+        addItem(PowerUpItem(11, 18))
 
         addItem(PowerUpItem(10, 10))
         addItem(PoisonItem(40, 15))
