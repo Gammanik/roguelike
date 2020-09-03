@@ -54,7 +54,7 @@ class GameUnitTest {
 
         assertEquals(Settings.CHARACTER_MAX_HP, p.hp)
         mob.attackPlayer(p)
-        assertEquals(Settings.CHARACTER_MAX_HP - Settings.MOB_DAMAGE, p.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP - 2 * Settings.MOB_DAMAGE, p.hp)
     }
 
     @Test
@@ -62,7 +62,7 @@ class GameUnitTest {
         val p = Player()
         assertEquals(Settings.CHARACTER_MAX_HP, p.hp)
         p.getDamage(Settings.MOB_DAMAGE)
-        assertEquals(Settings.CHARACTER_MAX_HP - Settings.MOB_DAMAGE, p.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP - 2 * Settings.MOB_DAMAGE, p.hp)
     }
 
     @Test
@@ -157,10 +157,10 @@ class GameUnitTest {
         val player = panel.player
         assertEquals(Settings.CHARACTER_MAX_HP, player.hp)
         PoisonItem(4,3).execute(player)
-        assertEquals(Settings.CHARACTER_MAX_HP - 20, player.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP - 40, player.hp)
 
         AidItem(3, 3).execute(player)
-        assertEquals(Settings.CHARACTER_MAX_HP - 5, player.hp)
+        assertEquals(Settings.CHARACTER_MAX_HP - 25, player.hp)
 
         assertEquals(player.currAttackPower, 20)
         PowerUpItem(2,3).execute(player)
