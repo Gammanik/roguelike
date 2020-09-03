@@ -91,3 +91,6 @@ gen
 
 # uml sources
 *.vpd
+
+# game save
+/src/main/resources/snapshots/snapshot

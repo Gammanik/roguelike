@@ -19,7 +19,7 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
     var exp = 0; protected set
     var lvl = 1; protected set
     var expMax = 100; protected set
-    internal var currAttackPower = 20 // todo:
+    internal var currAttackPower = 20
 
     var itemNumChosen: Int? = null
         set(value) { if (value != null) {

@@ -2,6 +2,7 @@ package com.roguelike.graphics.map_loading
 
 
 import com.roguelike.GamePanel
+import com.roguelike.commands.CommandController
 import com.roguelike.commands.LoadGameCommand
 import com.roguelike.commands.LoadMapCommand
 import com.roguelike.commands.RandomMapCommand
@@ -13,12 +14,24 @@ import javax.swing.*
 import com.roguelike.utils.Settings as set
 
 /** start menu. Map loading logic */
-class LoadMapMenu(private val playerDeadCb: () -> Unit) : JFrame("[RGlove 1.0] Please choose map mode! ") {
+class LoadMapMenu(val playerDeadCb: () -> Unit) : JFrame("[RGlove 1.0] Please choose map mode! ") {
     private var gameMap: GameMap? = null
     var isMapLoaded = false; private set
     private val fileChooser = JFileChooser()
 
+    private val controller = CommandController.getInstance()
+
+    init {
+        controller.registerCommand(set.MAP_LOAD_FIRST_BUTTON_NAME,
+            RandomMapCommand(gameMap))
+        controller.registerCommand(set.MAP_LOAD_SECOND_BUTTON_NAME,
+            LoadMapCommand(fileChooser, gameMap))
+        controller.registerCommand(set.MAP_LOAD_BTN_CONTINUE_GAME,
+            LoadGameCommand(this))
+    }
+
     private var gamePanel: GamePanel? = null
+    fun setGamePanel(newPanel: GamePanel) { gamePanel = newPanel }
 
     /** get map or create if yet not created */
     private fun getMap(): GameMap {
@@ -33,25 +46,12 @@ class LoadMapMenu(private val playerDeadCb: () -> Unit) : JFrame("[RGlove 1.0] P
         override fun actionPerformed(e: ActionEvent) {
             val btn = e.source as JButton
 
-            if (btn.name.equals(set.MAP_LOAD_FIRST_BUTTON_NAME, ignoreCase = true)) {
-                RandomMapCommand(gameMap).execute()
+            try {
+                controller.runCommand(btn.name)
                 isMapLoaded = true
                 isVisible = false
-            }
-
-            if (btn.name.equals(set.MAP_LOAD_SECOND_BUTTON_NAME, ignoreCase = true)) {
-                if (LoadMapCommand(fileChooser, gameMap).execute()) {
-                    isMapLoaded = true
-                    isVisible = false
-                } else {
-                    title = "[Bad map file] Try again! "
-                }
-            }
-
-            if (btn.name == set.MAP_LOAD_BTN_CONTINUE_GAME) {
-                gamePanel = LoadGameCommand(playerDeadCb).execute()
-                isMapLoaded = true
-                isVisible = false
+            } catch (e: BadMapFileException) {
+                title = "Bad map loaded try again"
             }
         }
     }

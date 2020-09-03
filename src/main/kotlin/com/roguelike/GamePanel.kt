@@ -192,7 +192,7 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         }
     }
 
-    private fun checkItems() {
+    fun checkItems() {
         checker.getClosestItems(items).forEach {
             if (player.putItemOn(it)) {
                 items.remove(it)
@@ -201,7 +201,7 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
     }
 
     /** add an item to a map */
-    private fun addItem(item: ItemBase) {
+    fun addItem(item: ItemBase) {
         items.add(item)
     }
 

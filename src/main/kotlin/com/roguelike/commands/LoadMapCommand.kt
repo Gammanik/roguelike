@@ -9,7 +9,7 @@ import javax.swing.JFileChooser
 class LoadMapCommand(private val fileChooser: JFileChooser,
         private var gameMap: GameMap?): Command() {
 
-    override fun execute(): Boolean {
+    override fun execute() {
         var selectedFile: File? = null
         fileChooser.currentDirectory = File(System.getProperty("user.dir"))
 
@@ -21,10 +21,8 @@ class LoadMapCommand(private val fileChooser: JFileChooser,
         try {
             gameMap = createMap(selectedFile)
         } catch (e: BadMapFileException) {
-            return false
+            throw BadMapFileException()
         }
-
-        return true
     }
 
     /** create map or generate from file */

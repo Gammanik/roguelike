@@ -49,6 +49,7 @@ class MapChecker(private val map: GameMap,
                 .filter { x -> x.col == Settings.CONFUSE_POINT_COLOR }
     }
 
+    /** returns items that intersects with player */
     fun getClosestItems(lst: List<ItemBase>): List<ItemBase> {
         return lst.filter {
             player.getPointsCoordinates().any { pp ->
@@ -66,6 +67,7 @@ class MapChecker(private val map: GameMap,
         return !new.any { x-> gameUnitsPointsSet.contains(x) }
     }
 
+    /** check points in list not intersect the wall */
     fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
         return !list.any{ (x, y) -> !map.isMapPoint(x, y) || map.isWall(x, y)}
     }
