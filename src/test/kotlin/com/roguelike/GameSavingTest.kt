@@ -8,10 +8,7 @@ import com.roguelike.enemies.behaviour.PassiveStrategy
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
-import com.roguelike.items.AidItem
-import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
+import com.roguelike.items.*
 import com.roguelike.saving.*
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
@@ -130,9 +127,12 @@ class GameSavingTest {
             .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
             .registerTypeAdapter(AidItem::class.java, ItemSerializer())
             .registerTypeAdapter(PoisonItem::class.java, ItemSerializer())
+                .registerTypeAdapter(ArmorItem::class.java, ItemSerializer())
             .registerTypeAdapter(PowerUpItem::class.java, ItemSerializer())
             .create()
         val json = gson.toJson(panel)
+
+        val size = panel.mobs.size
 
         val gson2 = GsonBuilder()
             .registerTypeAdapter(Character::class.java, PlayerDeserializer())
@@ -145,17 +145,20 @@ class GameSavingTest {
             .registerTypeAdapter(AidItem::class.java, ItemDeserializer())
             .registerTypeAdapter(PoisonItem::class.java, ItemDeserializer())
             .registerTypeAdapter(PowerUpItem::class.java, ItemDeserializer())
+                .registerTypeAdapter(ArmorItem::class.java, ItemDeserializer())
             .create()
         val res = gson2.fromJson(json, GamePanel::class.java)
 
         assertEquals(panel.items.size, res.items.size)
         for (i in panel.items.indices) {
-            assertEquals(panel.items[i], res.items[i])
+            assertEquals(panel.items[i].x, res.items[i].x)
+            assertEquals(panel.items[i].y, res.items[i].y)
         }
 
-        assertEquals(panel.mobs.size, res.mobs.size)
-        for (i in panel.mobs.indices) {
-            assertEquals(panel.mobs[i], res.mobs[i])
+        assertEquals(size, res.mobs.size)
+        for (i in 0 until size) {
+            assertEquals(panel.mobs[i].xCoordinate, res.mobs[i].xCoordinate)
+            assertEquals(panel.mobs[i].yCoordinate, res.mobs[i].yCoordinate)
         }
 
         assertEquals(panel.player.xCoordinate, res.player.xCoordinate)
