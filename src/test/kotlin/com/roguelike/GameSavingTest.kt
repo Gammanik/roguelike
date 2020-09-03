@@ -5,6 +5,8 @@ import com.roguelike.enemies.Mob
 import com.roguelike.enemies.behaviour.AggressiveStrategy
 import com.roguelike.enemies.behaviour.FunkyStrategy
 import com.roguelike.enemies.behaviour.PassiveStrategy
+import com.roguelike.enemies.player.ConfusionSpellDecorator
+import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
 import com.roguelike.items.AidItem
 import com.roguelike.items.ItemBase
@@ -104,7 +106,6 @@ class GameSavingTest {
         val json = gson.toJson(map)
 
         val gson2 = GsonBuilder()
-            .setPrettyPrinting()
             .registerTypeAdapter(GameMap::class.java, MapDeserializer())
             .create()
         val gameMap = gson2.fromJson(json, GameMap::class.java)
@@ -113,6 +114,52 @@ class GameSavingTest {
         for (key in map.getRectMap().keys) {
             assertEquals(map.getRectMap()[key], gameMap.getRectMap()[key])
         }
+    }
+
+    @Test
+    fun testGamePanelSave() {
+        val panel = GamePanel(GameMap()) {}
+
+        val gson = GsonBuilder()
+            .registerTypeAdapter(com.roguelike.enemies.player.Character::class.java, PlayerSerializer())
+            .registerTypeAdapter(Player::class.java, PlayerSerializer())
+            .registerTypeAdapter(ConfusionSpellDecorator::class.java, PlayerSerializer())
+            .registerTypeAdapter(Mob::class.java, MobSerializer())
+            .registerTypeAdapter(GamePanel::class.java, GamePanelSerializer())
+            .registerTypeAdapter(GameMap::class.java, MapSerializer())
+            .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
+            .registerTypeAdapter(AidItem::class.java, ItemSerializer())
+            .registerTypeAdapter(PoisonItem::class.java, ItemSerializer())
+            .registerTypeAdapter(PowerUpItem::class.java, ItemSerializer())
+            .create()
+        val json = gson.toJson(panel)
+
+        val gson2 = GsonBuilder()
+            .registerTypeAdapter(Character::class.java, PlayerDeserializer())
+            .registerTypeAdapter(Player::class.java, PlayerDeserializer())
+            .registerTypeAdapter(ConfusionSpellDecorator::class.java, PlayerDeserializer())
+            .registerTypeAdapter(Mob::class.java, MobDeserializer())
+            .registerTypeAdapter(GamePanel::class.java, GamePanelDeserializer {})
+            .registerTypeAdapter(GameMap::class.java, MapDeserializer())
+            .registerTypeAdapter(ItemBase::class.java, ItemDeserializer())
+            .registerTypeAdapter(AidItem::class.java, ItemDeserializer())
+            .registerTypeAdapter(PoisonItem::class.java, ItemDeserializer())
+            .registerTypeAdapter(PowerUpItem::class.java, ItemDeserializer())
+            .create()
+        val res = gson2.fromJson(json, GamePanel::class.java)
+
+        assertEquals(panel.items.size, res.items.size)
+        for (i in panel.items.indices) {
+            assertEquals(panel.items[i], res.items[i])
+        }
+
+        assertEquals(panel.mobs.size, res.mobs.size)
+        for (i in panel.mobs.indices) {
+            assertEquals(panel.mobs[i], res.mobs[i])
+        }
+
+        assertEquals(panel.player.xCoordinate, res.player.xCoordinate)
+        assertEquals(panel.player.yCoordinate, res.player.yCoordinate)
     }
 
 }

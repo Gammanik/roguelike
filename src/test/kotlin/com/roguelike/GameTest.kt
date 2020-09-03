@@ -2,10 +2,16 @@ package com.roguelike
 
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.map_loading.BadMapFileException
+import com.roguelike.items.AidItem
+import com.roguelike.items.PoisonItem
+import com.roguelike.items.PowerUpItem
 import junit.framework.TestCase.*
 import org.junit.Assert
 import org.junit.Test
+import java.awt.Robot
+import java.awt.event.KeyEvent
 import java.io.File
+
 
 class GameTest {
     @Test
@@ -27,6 +33,17 @@ class GameTest {
     fun testBadMapFromFile() {
         val filename = "src/test/resources/badMapExample"
         assertThrows<BadMapFileException>({ GameMap(File(filename)) }, null)
+    }
+
+    @Test
+    fun testInfoMenuPanelNotAffectItemNum() {
+        val gamePanel = GamePanel(GameMap()) {}
+        val items = listOf(AidItem(3, 3), PoisonItem(4,3), PowerUpItem(3,4))
+        val player = gamePanel.player
+        items.forEach { player.putItemOn(it) }
+
+        val info = InfoMenuPanel(gamePanel)
+        assertNull(player.itemNumChosen)
     }
 
     private inline fun <reified T : Exception> assertThrows(runnable: () -> Any?, message: String?) {

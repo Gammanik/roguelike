@@ -126,7 +126,6 @@ class MapCheckerTest {
         val player = Player()
 
         val checker = MapChecker(gameMap, emptyList(), player)
-
         val items = listOf<ItemBase>(AidItem(0, 0),
                 PowerUpItem(1, 1),
                 PowerUpItem(2, 1),

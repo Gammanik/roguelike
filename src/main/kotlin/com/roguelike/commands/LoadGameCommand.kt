@@ -8,10 +8,7 @@ import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.map_loading.LoadMapMenu
-import com.roguelike.items.AidItem
-import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
+import com.roguelike.items.*
 import com.roguelike.saving.*
 import java.io.File
 import java.nio.file.Files
@@ -32,6 +29,7 @@ class LoadGameCommand(private val menu: LoadMapMenu): Command() {
             .registerTypeAdapter(ItemBase::class.java, ItemDeserializer())
             .registerTypeAdapter(AidItem::class.java, ItemDeserializer())
             .registerTypeAdapter(PoisonItem::class.java, ItemDeserializer())
+            .registerTypeAdapter(ArmorItem::class.java, ItemDeserializer())
             .registerTypeAdapter(PowerUpItem::class.java, ItemDeserializer())
             .create()
 

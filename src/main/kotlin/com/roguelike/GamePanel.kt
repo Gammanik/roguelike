@@ -1,5 +1,6 @@
 package com.roguelike
 
+import com.roguelike.commands.CommandController
 import com.roguelike.commands.SaveGameCommand
 import com.roguelike.enemies.Mob
 import com.roguelike.enemies.MobListener
@@ -66,7 +67,9 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         }
         mobsRegenerationTimer.start()
 
-        bindSaveGame("T")
+        CommandController.getInstance()
+            .registerCommand("T", SaveGameCommand(this@GamePanel),
+                this.getInputMap(WHEN_IN_FOCUSED_WINDOW), this.actionMap)
     }
 
     constructor(gameMap: GameMap, playerDeadCallback: () -> Unit): this() {
@@ -241,18 +244,11 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         addMob(Mob(32, 45, aggressiveStrategy))
     }
 
-    private fun bindSaveGame(key: String) {
-        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key), key)
-        this.actionMap.put(key, object : AbstractAction() {
-            override fun actionPerformed(p0: ActionEvent?) {
-                SaveGameCommand(this@GamePanel).execute()
-
-
-                this@GamePanel.savePopUp = SavePopUp()
-                val timer = Timer(2500) { savePopUp = null }
-                timer.isRepeats = false
-                timer.start()
-            }
-        })
+    fun showSavePopUp() {
+        savePopUp = SavePopUp()
+        val timer = Timer(2500) { savePopUp = null }
+        timer.isRepeats = false
+        timer.start()
     }
+
 }

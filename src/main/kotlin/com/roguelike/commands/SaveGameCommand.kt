@@ -7,10 +7,7 @@ import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
-import com.roguelike.items.AidItem
-import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
+import com.roguelike.items.*
 import com.roguelike.saving.*
 import java.io.BufferedWriter
 import java.io.File
@@ -38,11 +35,14 @@ class SaveGameCommand(private val gamePanel: GamePanel): Command() {
             .registerTypeAdapter(ItemBase::class.java, ItemSerializer())
             .registerTypeAdapter(AidItem::class.java, ItemSerializer())
             .registerTypeAdapter(PoisonItem::class.java, ItemSerializer())
+            .registerTypeAdapter(ArmorItem::class.java, ItemSerializer())
             .registerTypeAdapter(PowerUpItem::class.java, ItemSerializer())
             .create()
 
         val json = gson.toJson(gamePanel)
         writer.write(json)
         writer.close()
+
+        gamePanel.showSavePopUp()
     }
 }

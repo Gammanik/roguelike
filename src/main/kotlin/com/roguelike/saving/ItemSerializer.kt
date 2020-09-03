@@ -5,10 +5,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
 import com.roguelike.enemies.Mob
-import com.roguelike.items.AidItem
-import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
+import com.roguelike.items.*
 import java.lang.reflect.Type
 
 /** class to serialize [ItemBase] to Json format **/
@@ -19,6 +16,7 @@ class ItemSerializer : JsonSerializer<ItemBase> {
             is AidItem -> 1
             is PoisonItem -> 2
             is PowerUpItem -> 3
+            is ArmorItem -> 4
             else -> 0
         }
     }
