@@ -9,7 +9,8 @@ import java.awt.image.BufferedImage
  * item could be executed (affects the player somehow) or dropped **/
 abstract class ItemBase(
         open val x: Int,
-        open val y: Int
+        open val y: Int,
+        open val isUsable: Boolean
 ) {
     protected abstract val img: BufferedImage
 

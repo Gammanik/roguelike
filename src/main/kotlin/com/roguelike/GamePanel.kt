@@ -11,10 +11,7 @@ import com.roguelike.enemies.player.ConfusionSpellDecorator
 import com.roguelike.enemies.player.Player
 import com.roguelike.graphics.GameMap
 import com.roguelike.graphics.model.SavePopUp
-import com.roguelike.items.AidItem
-import com.roguelike.items.ItemBase
-import com.roguelike.items.PoisonItem
-import com.roguelike.items.PowerUpItem
+import com.roguelike.items.*
 import com.roguelike.utils.Keys
 import com.roguelike.utils.MapChecker
 import java.awt.Dimension
@@ -210,10 +207,10 @@ class GamePanel() : JPanel(), KeyListener, ActionListener {
         addItem(AidItem(5, 35))
         addItem(PowerUpItem(5, 8))
         addItem(PowerUpItem(6, 8))
-        addItem(PowerUpItem(8, 8))
+        addItem(ArmorItem(8, 8))
 
         addItem(AidItem(0, 15))
-        addItem(PowerUpItem(2, 15))
+        addItem(ArmorItem(2, 15))
         addItem(AidItem(4, 15))
         addItem(PoisonItem(6, 15))
         addItem(AidItem(8, 15))

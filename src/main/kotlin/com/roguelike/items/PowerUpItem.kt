@@ -8,7 +8,7 @@ import java.io.File
 import javax.imageio.ImageIO
 
 /** increase the player attack power **/
-class PowerUpItem(override val x: Int, override val y: Int): ItemBase(x, y) {
+class PowerUpItem(override val x: Int, override val y: Int): ItemBase(x, y, true) {
 
     override val img: BufferedImage = ImageIO.read(File("src/main/resources/bomb.png"))
     private val sz = Settings.SQUARE_SIZE

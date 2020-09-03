@@ -7,16 +7,20 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-/** give damage to player **/
-class PoisonItem(override val x: Int, override val y: Int): ItemBase(x, y, true) {
-    override val img: BufferedImage = ImageIO.read(File("src/main/resources/confusion.png"))
+class ArmorItem(override val x: Int, override val y: Int): ItemBase(x, y, false) {
+    override val img: BufferedImage = ImageIO.read(File("src/main/resources/bulletproof_vest.png"))
     private val sz = Settings.SQUARE_SIZE
+    var isWorn = false; private set
 
     override fun draw(g: Graphics2D) {
         g.drawImage(img, x * sz, y * sz, sz, sz, null)
     }
 
     override fun execute(p: Character) {
-        p.getDamage(20)
+        isWorn = if ( !isWorn) {
+            p.putOnArmor(this)
+        } else {
+            !p.takeOffArmor()
+        }
     }
 }

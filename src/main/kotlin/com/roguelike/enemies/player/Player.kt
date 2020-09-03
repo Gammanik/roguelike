@@ -52,7 +52,9 @@ class Player() : Character() {
         t.isRepeats = false
         t.start()
 
-        hp -= dmg
+        val damageCoefficient = if (armor == null) 2 else 1
+
+        hp -= dmg * damageCoefficient
 
         if (hp <= 0) {
             playerDeadCallback?.let { it() }

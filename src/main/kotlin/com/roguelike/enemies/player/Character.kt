@@ -2,6 +2,7 @@ package com.roguelike.enemies.player
 
 import com.roguelike.enemies.GameUnit
 import com.roguelike.enemies.Mob
+import com.roguelike.items.ArmorItem
 import com.roguelike.items.ItemBase
 import com.roguelike.utils.MapChecker
 import com.roguelike.utils.Settings
@@ -28,13 +29,33 @@ abstract class Character : Ellipse2D.Double(0.0, 0.0,
             }
         }
 
+
     private var currentItems = mutableListOf<ItemBase>()
+    var armor: ArmorItem? = null; private set
     /** returns current items (immutable list) **/
     fun getCurrentItems(): List<ItemBase> = currentItems
 
     /** delete used item **/
     fun deleteItem(item: ItemBase) {
         currentItems.remove(item)
+    }
+
+    /** put on armor **/
+    fun putOnArmor(item: ArmorItem): Boolean {
+        if (armor == null) {
+            armor = item
+            return true
+        }
+        return false
+    }
+
+    /** take off armor **/
+    fun takeOffArmor(): Boolean {
+        if (armor != null) {
+            armor = null
+            return true
+        }
+        return false
     }
 
     var playerDeadCallback: (() -> Unit)? = null
