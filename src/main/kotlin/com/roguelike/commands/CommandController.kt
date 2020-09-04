@@ -6,6 +6,8 @@ import javax.swing.ActionMap
 import javax.swing.InputMap
 import javax.swing.KeyStroke
 
+/** register and executes commands when button with key is pressed
+ * use it if you want to add new logic **/
 class CommandController private constructor(){
 
     private val keyToCommand = mutableMapOf<String, Command>()
@@ -18,13 +20,15 @@ class CommandController private constructor(){
         }
     }
 
-    fun registerCommand(key: String, cmd: Command, im: InputMap? = null, am: ActionMap? = null) {
-        keyToCommand[key] = cmd
 
-        im?.put(KeyStroke.getKeyStroke(key), key)
-        am?.put(key, object : AbstractAction() {
+    fun registerCommand(key: String, command: Command,
+                        inputMap: InputMap? = null, actionMap: ActionMap? = null) {
+        keyToCommand[key] = command
+
+        inputMap?.put(KeyStroke.getKeyStroke(key), key)
+        actionMap?.put(key, object : AbstractAction() {
             override fun actionPerformed(p0: ActionEvent?) {
-                cmd.execute()
+                command.execute()
             }
         } )
     }

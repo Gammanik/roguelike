@@ -1,4 +1,5 @@
 package com.roguelike
+import com.roguelike.commands.*
 import com.roguelike.utils.Keys
 import com.roguelike.utils.Settings
 import java.awt.*
@@ -12,47 +13,24 @@ import javax.swing.*
 class InfoMenuPanel(private val gamePanel: GamePanel) : JPanel(), ActionListener {
 
     private val timer: Timer = Timer(100, this)
+    private val controller = CommandController.getInstance()
 
     init {
-        addBindings()
-        timer.start()
-    }
+        controller.registerCommand(Keys.KEY_EXECUTE, ExecuteItemCommand(gamePanel.player),
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW), this.actionMap)
 
-    private fun addBindings() {
+        controller.registerCommand(Keys.DROP, DropItemCommand(gamePanel.player),
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW), this.actionMap)
+
+        controller.registerCommand(Keys.SWITCH_ITEM, SwitchItemCommand(gamePanel.player),
+            this.getInputMap(WHEN_IN_FOCUSED_WINDOW), this.actionMap)
+
         for (i in 1..Settings.MAX_ITEMS) {
-            bindKey(i.toString()) { gamePanel.player.itemNumChosen = i - 1 }
+            controller.registerCommand(i.toString(), ChooseItemNumCommand(gamePanel.player, i - 1),
+                this.getInputMap(WHEN_IN_FOCUSED_WINDOW), this.actionMap)
         }
 
-        bindKey(Keys.KEY_EXECUTE) {
-            val itemNum = gamePanel.player.itemNumChosen
-            val itemsCount = gamePanel.player.getCurrentItems().size
-            if (itemNum != null && itemNum < itemsCount) {
-                val itemToExecute = gamePanel.player.getCurrentItems()[itemNum]
-                itemToExecute.execute(gamePanel.player)
-                if (itemToExecute.isUsable) {
-                    gamePanel.player.deleteItem(itemToExecute)
-                }
-            }
-        }
-
-        bindKey(Keys.DROP) {
-            val itemNum = gamePanel.player.itemNumChosen
-            if (itemNum != null) {
-                val itemToDelete = gamePanel.player.getCurrentItems()[itemNum]
-                gamePanel.player.deleteItem(itemToDelete)
-            }
-        }
-
-        bindKey(Keys.SWITCH_ITEM) {
-            if (gamePanel.player.itemNumChosen == null) {
-                gamePanel.player.itemNumChosen = 0
-                return@bindKey
-            }
-
-            gamePanel.player.itemNumChosen =
-                    (gamePanel.player.itemNumChosen!! + 1).rem(gamePanel.player.getCurrentItems().size)
-        }
-
+        timer.start()
     }
 
     private fun bindKey(key: String, fn: () -> Unit) {
