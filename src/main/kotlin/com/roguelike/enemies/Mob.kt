@@ -19,6 +19,12 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int, var
     : Rectangle2D.Double(xCoordinate.toDouble(), yCoordinate.toDouble(), Settings.MOB_SIZE, Settings.MOB_SIZE),
     GameUnit {
 
+    constructor(xCoordinate: Int, yCoordinate: Int, hp: Int, currentBehavior: BehaviourStrategy):
+        this(xCoordinate, yCoordinate, currentBehavior) {
+        this.hp = hp
+        color = getMobColor()
+    }
+
     private var color = getMobColor()
 
     var hp = Settings.MOB_HP; private set
@@ -40,7 +46,7 @@ data class Mob(override var xCoordinate: Int, override var yCoordinate: Int, var
     /** get damage from player */
     fun getDamage(dmg: Int) {
         color = Settings.MOB_GOT_DAMAGE_COLOR
-        val t = Timer(Settings.ATTACK_DELAY, ActionListener { color = Color.gray })
+        val t = Timer(Settings.ATTACK_DELAY) { color = Color.gray }
         t.isRepeats = false
         t.start()
 

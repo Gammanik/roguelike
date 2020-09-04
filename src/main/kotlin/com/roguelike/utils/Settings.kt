@@ -9,11 +9,12 @@ object Settings {
 
     // character settings
     const val DELAY = 50
-    const val ATTACK_DELAY = 520
+    const val ATTACK_DELAY = 500
     const val ATTACK_RADIUS = 2
+    const val MAX_ITEMS = 8
 
     val CHARACTER_COLOR: Color = Color.BLACK
-    const val CHARACTER_HP = 100
+    const val CHARACTER_MAX_HP = 100
 
     const val MOB_SIZE = 10.0
     const val MOB_HP = 100
@@ -40,8 +41,9 @@ object Settings {
 
     const val MAP_LOAD_FIRST_BUTTON_NAME = "Random map"
     const val MAP_LOAD_SECOND_BUTTON_NAME = "Load from file"
+    const val MAP_LOAD_BTN_CONTINUE_GAME = "Continue last save"
 
-    const val WALL_SUBSET_SIZE = 0.8
+    const val WALL_SUBSET_SIZE = 0.45
     val WALL_LIST = mutableListOf(
             MapRectangle(3, 6, 7, 11),
             MapRectangle(0, 2, 14, 16),

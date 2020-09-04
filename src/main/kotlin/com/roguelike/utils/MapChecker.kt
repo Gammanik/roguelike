@@ -5,12 +5,15 @@ import com.roguelike.graphics.GameMap
 import com.roguelike.enemies.player.Character
 import com.roguelike.enemies.GameUnit
 import com.roguelike.graphics.model.MapPoint
+import com.roguelike.items.ItemBase
 import java.util.stream.Collectors
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 /** a special class for map positions checks */
-class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private val player: Character) {
+class MapChecker(private val map: GameMap,
+                 private val mobs: List<Mob>,
+                 private val player: Character) {
 
     private val directionsDeltas = hashMapOf(
             Pair(Move.LEFT, Pair(-1, 0)),
@@ -22,9 +25,7 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
 
     /** get mobs closest to the player */
     fun getClosestMobs(): List<Mob> {
-        return mobs.stream()
-                .filter { x -> getDistanceToMob(x) <= Settings.ATTACK_RADIUS}
-                .collect(Collectors.toList())
+        return mobs.filter { x -> getDistanceToMob(x) <= Settings.ATTACK_RADIUS}
     }
 
     private fun getDistanceToMob(mob: Mob): Double {
@@ -43,12 +44,18 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
 
     /** check player points for points of confuse spell */
     fun checkForConfuse(character: GameUnit) : List<MapPoint> {
-        return character
-                .getPointsCoordinates()
-                .stream()
+        return character.getPointsCoordinates()
                 .map { pair -> map.getRectMap()[pair] ?: error("impossible coordinates") }
                 .filter { x -> x.col == Settings.CONFUSE_POINT_COLOR }
-                .collect(Collectors.toList())
+    }
+
+    /** returns items that intersects with player */
+    fun getClosestItems(lst: List<ItemBase>): List<ItemBase> {
+        return lst.filter {
+            player.getPointsCoordinates().any { pp ->
+                pp.first == it.x && pp.second == it.y
+            }
+        }
     }
 
     private fun gameUnitCheckHelper(old: List<Pair<Int, Int>>, new: List<Pair<Int, Int>>) : Boolean {
@@ -57,12 +64,11 @@ class MapChecker(private val map: GameMap, private val mobs: List<Mob>, private 
                 .collect(Collectors.toSet())
         gameUnitsPointsSet.addAll(player.getPointsCoordinates().toSet())
         gameUnitsPointsSet.removeAll(old)
-        return !new.stream()
-                .anyMatch { x-> gameUnitsPointsSet.contains(x) }
+        return !new.any { x-> gameUnitsPointsSet.contains(x) }
     }
 
-    private fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
-        return !list.stream()
-                .anyMatch{ (x, y) -> !map.isMapPoint(x, y) || map.isWall(x, y)}
+    /** check points in list not intersect the wall */
+    fun mapCheckHelper(list: List<Pair<Int, Int>>) : Boolean {
+        return !list.any{ (x, y) -> !map.isMapPoint(x, y) || map.isWall(x, y)}
     }
 }
