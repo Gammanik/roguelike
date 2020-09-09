@@ -43,8 +43,13 @@ Kласс `Map` отвечает за карту. Он состоит из то�
 нажмите клавишу `1..8`, соответствующую нужному предмету.
 
 #### Диаграмма классов
-![rogue classes](./src/main/kotlin/com/roguelike/docs/rogClasses.png)
+![rogue classes](./rogClasses.png)
 
 &nbsp;
 #### Игровой процесс:
-![rogue classes](./src/main/kotlin/com/roguelike/docs/game_screen.jpg)
+![rogue classes](./game_screen.jpg)
+
+
+
+#### Диаграммы состояний моба и игры
+![states](./diagrams/states.png)
